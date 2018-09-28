@@ -167,7 +167,7 @@
 					<p><%= reviews.get(i).getLikeCount() %></p>
 				</div>
 				<div class="reviewWriter">
-					@ <p><%= reviews.get(i).getNick()%></p>
+					@<p><%= reviews.get(i).getNick()%></p>
 				</div>
 			</div>
 		<% } %>
