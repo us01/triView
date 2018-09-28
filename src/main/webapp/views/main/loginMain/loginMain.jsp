@@ -67,18 +67,18 @@
 	}
 </style>
 <script>
-function uploadView(){
-	$(".uploadViewAear").css("margin-left", "-250px");
-	$.ajax({
-		url : "/triangleView/views/writeForm/checkWriteForm.jsp",
-		data : "html",
-		success : function(data) {
-			$(".uploadViewAear").html(data);
-			document.getElementById('uploadViewAear').style.display = 'block';
-			document.getElementById('uploadViewAearArea').style.display = 'block';
-		}
-	});
-}
+	function uploadView(){
+		$(".uploadViewAear").css("margin-left", "-250px");
+		$.ajax({
+			url : "/triangleView/views/writeForm/checkWriteForm.jsp",
+			data : "html",
+			success : function(data) {
+				$(".uploadViewAear").html(data);
+				document.getElementById('uploadViewAear').style.display = 'block';
+				document.getElementById('uploadViewAearArea').style.display = 'block';
+			}
+		});
+	}
 
 	function ploadViewAearAreaDisplayNone() {
 		document.getElementById('uploadViewAear').style.display = 'none';
@@ -86,7 +86,6 @@ function uploadView(){
 	}
 	
 	$(function(){
-		
 		$("#searchReviewInput").keypress(function(key) {
 			if(key.which == 13){
 				var searchHash = $("#searchReviewInput").val();

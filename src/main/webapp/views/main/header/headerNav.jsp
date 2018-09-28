@@ -461,8 +461,8 @@
 					<% } %>
 				</li>
 				<li>
-					<div>
 						<input type="text" id="searchReviewInput"><img onclick="searchReview()" src="/triangleView/img/main/btn_search.png">
+					<div>
 					</div>
 				</li>
 				<li><div><img class="openDetail"></div>

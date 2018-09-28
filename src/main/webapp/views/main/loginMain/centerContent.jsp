@@ -105,13 +105,14 @@
 	}
 </style>
 <script>
-	function loadReivewForm(rwNo, rwContentType){
+	function loadReivewForm(rwNo, rwContentType, userNo){
 		$.ajax({
 			url : "/triangleView/loadOneReviewForm.rf",
 			type : "GET",
 			data : {
-				'rwNo':rwNo,
-				'rwContentType':rwContentType
+				rwNo : rwNo,
+				rwContentType : rwContentType,
+				userNo : userNo
 			},
 			success : function(data) {
 				$(".formArea").html(data);
@@ -145,8 +146,12 @@
 	<div class="centerContent">
 		<% for(int i = 0; i <= interestReviewList.size()-1; i++){ %>
 			<div class="viewForm">
-				<div class="viewMainImage">
-					<img src="/triangleView/review_upload/<%= interestReviewList.get(i).getThumbnail() %>" onclick="loadReivewForm(<%= interestReviewList.get(i).getRwNo() %>, <%= interestReviewList.get(i).getRwContentType() %>)">
+				<% if(loginUser != null){ %>
+					<div class="viewMainImage" onclick="loadReivewForm(<%= interestReviewList.get(i).getRwNo() %>, <%= interestReviewList.get(i).getRwContentType() %>, <%= loginUser.getUserNo() %>)">
+				<% }else{ %>
+					<div class="viewMainImage" onclick="loadReivewForm(<%= interestReviewList.get(i).getRwNo() %>, <%= interestReviewList.get(i).getRwContentType() %>, -1)">
+				<% } %>
+					<img src="<%= request.getContextPath() %>/review_upload/<%= interestReviewList.get(i).getThumbnail() %>">
 				</div>
 				<div class="formType">
 					<% if(interestReviewList.get(i).getRwContentType() == 0){ %>

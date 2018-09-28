@@ -73,7 +73,7 @@
 					},
 					success : function(data){
 						$('.rwCommentArea').empty();
-						console.log(data);
+						
 						$('.rwCommentArea').html(data);
 					}
 				});
@@ -99,7 +99,7 @@
 					},
 					success : function(data) {
 						$('.rwCommentArea').empty();
-						console.log(data);
+						
 						$('.rwCommentArea').html(data);
 					}
 				});

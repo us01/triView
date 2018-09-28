@@ -154,18 +154,19 @@
 	}
 </style>
 <script>
-	function loadReivewForm(rwNo, rwContentType){
+	function loadReivewForm(rwNo, rwContentType, userNo){
 		$.ajax({
 			url : "/triangleView/loadOneReviewForm.rf",
 			type : "GET",
 			data : {
-				'rwNo':rwNo,
-				'rwContentType':rwContentType
+				rwNo : rwNo,
+				rwContentType : rwContentType,
+				userNo : userNo
 			},
 			success : function(data) {
 				$(".formArea").html(data);
-				document.getElementById('formAreaArea').style.display = 'block';
-				document.getElementById('formArea').style.display = 'block';
+				document.getElementById('formAreaArea').style.display = 'inline-flex';
+				document.getElementById('formArea').style.display = 'inline-flex';
 			}
 		});
 	}
@@ -390,8 +391,12 @@
 		</div>
 		<% for(int i = 0; i <= searchReviewList.size()-1; i++){ %>
 			<div class="viewForm">
-				<div class="viewMainImage">
-					<img src="/triangleView/review_upload/<%= searchReviewList.get(i).getThumbnail()%>" onclick="loadReivewForm(<%= searchReviewList.get(i).getRwNo() %>, <%= searchReviewList.get(i).getRwContentType() %>)">
+				<% if(loginUser != null){ %>
+					<div class="viewMainImage" onclick="loadReivewForm(<%= searchReviewList.get(i).getRwNo() %>, <%= searchReviewList.get(i).getRwContentType() %>, <%= loginUser.getUserNo() %>)">
+				<% }else{ %>
+					<div class="viewMainImage" onclick="loadReivewForm(<%= searchReviewList.get(i).getRwNo() %>, <%= searchReviewList.get(i).getRwContentType() %>, -1)">
+				<% } %>
+					<img src="<%= request.getContextPath() %>/review_upload/<%= searchReviewList.get(i).getThumbnail()%>">
 				</div>
 				<div class="formType">
 					<% if(searchReviewList.get(i).getRwContentType() == 0){ %>

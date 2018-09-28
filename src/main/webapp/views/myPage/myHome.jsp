@@ -28,6 +28,18 @@
 		}
 	}
 </style>
+<script>
+$(function(){
+	$("#searchReviewInput").keypress(function(key) {
+		if(key.which == 13){
+			var searchHash = $("#searchReviewInput").val();
+			var searchData = $("#searchReviewInput").val();
+			location.href="<%= request.getContextPath()%>/searchReview.sr?searchHash=" + searchHash +"&searchData=" + searchData;
+		}
+		
+	});
+})
+</script>
 </head>
 <body>
 	<%@ include file="../main/header/headerNav.jsp" %>
