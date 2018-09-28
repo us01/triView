@@ -194,6 +194,12 @@
    	<description></description>
    	<servlet-class>com.chain.triangleView.review.controller.LoginHotReveiwServlet</servlet-class>
    </servlet>
+   <servlet>
+   	<servlet-name>AddLikeReviewServlet</servlet-name>
+   	<display-name>AddLikeReviewServlet</display-name>
+   	<description></description>
+   	<servlet-class>com.chain.triangleView.review.controller.AddLikeReviewServlet</servlet-class>
+   </servlet>
    <servlet-mapping>
       <servlet-name>logoutMainReviewSelectService</servlet-name>
       <url-pattern>/logoutMain.rl</url-pattern>
@@ -297,5 +303,9 @@
    <servlet-mapping>
    	<servlet-name>LoginHotReveiwServlet</servlet-name>
    	<url-pattern>/loginHotReview</url-pattern>
+   </servlet-mapping>
+   <servlet-mapping>
+   	<servlet-name>AddLikeReviewServlet</servlet-name>
+   	<url-pattern>/likeReview</url-pattern>
    </servlet-mapping>
    </web-app>

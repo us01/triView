@@ -12,6 +12,7 @@ public class Form implements Serializable{
 	private String thumbnail;
 	private int likeMe;
 	private int rwGrade;
+	private int rwType;
 	private int rwCommentCount;
 	private String rwHash;
 	private String nick;
@@ -23,8 +24,8 @@ public class Form implements Serializable{
 	}
 
 	public Form(String rwContent, String writeDate, String rwComment, String rwTitle, int rwLikeCount, String coorLink,
-			String thumbnail, int likeMe, int rwGrade, int rwCommentCount, String rwHash, String nick, int rwNo,
-			int rwContentType) {
+			String thumbnail, int likeMe, int rwGrade, int rwType, int rwCommentCount, String rwHash, String nick,
+			int rwNo, int rwContentType) {
 		super();
 		this.rwContent = rwContent;
 		this.writeDate = writeDate;
@@ -35,6 +36,7 @@ public class Form implements Serializable{
 		this.thumbnail = thumbnail;
 		this.likeMe = likeMe;
 		this.rwGrade = rwGrade;
+		this.rwType = rwType;
 		this.rwCommentCount = rwCommentCount;
 		this.rwHash = rwHash;
 		this.nick = nick;
@@ -114,6 +116,14 @@ public class Form implements Serializable{
 		this.rwGrade = rwGrade;
 	}
 
+	public int getRwType() {
+		return rwType;
+	}
+
+	public void setRwType(int rwType) {
+		this.rwType = rwType;
+	}
+
 	public int getRwCommentCount() {
 		return rwCommentCount;
 	}
@@ -158,8 +168,9 @@ public class Form implements Serializable{
 	public String toString() {
 		return "Form [rwContent=" + rwContent + ", writeDate=" + writeDate + ", rwComment=" + rwComment + ", rwTitle="
 				+ rwTitle + ", rwLikeCount=" + rwLikeCount + ", coorLink=" + coorLink + ", thumbnail=" + thumbnail
-				+ ", likeMe=" + likeMe + ", rwGrade=" + rwGrade + ", rwCommentCount=" + rwCommentCount + ", rwHash="
-				+ rwHash + ", nick=" + nick + ", rwNo=" + rwNo + ", rwContentType=" + rwContentType + "]";
+				+ ", likeMe=" + likeMe + ", rwGrade=" + rwGrade + ", rwType=" + rwType + ", rwCommentCount="
+				+ rwCommentCount + ", rwHash=" + rwHash + ", nick=" + nick + ", rwNo=" + rwNo + ", rwContentType="
+				+ rwContentType + "]";
 	}
 	
 }

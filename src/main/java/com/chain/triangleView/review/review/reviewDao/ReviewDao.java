@@ -108,6 +108,7 @@ public class ReviewDao {
 				form.setRwComment(rset.getString("rwcomment"));
 				form.setLikeMe(rset.getInt("likeme"));
 				form.setRwGrade(rset.getInt("rwgrade"));
+				form.setRwType(rset.getInt("rwtype"));
 				form.setRwContentType(rset.getInt("rwcontenttype"));
 				form.setThumbnail(rset.getString("filename"));
 				form.setCoorLink(rset.getString("coorlink"));
@@ -600,6 +601,27 @@ public class ReviewDao {
 		}
 		
 		return cardImageList;
+	}
+
+	public int addLikeReview(Connection con, int userNo, int rwNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("addLikeReview");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, rwNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
 }
