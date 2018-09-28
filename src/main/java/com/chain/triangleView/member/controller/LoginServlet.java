@@ -48,7 +48,7 @@ public class LoginServlet extends HttpServlet {
 			
 			request.getRequestDispatcher("/views/main/loginMain/loginMain.jsp").forward(request, response);
 		}else{
-			request.setAttribute("msg", "로그인 정보가 조회되지 않았어요");
+			request.setAttribute("msg", "로그인 정보가 조회되지 않았어요"); 
 			request.getRequestDispatcher("index.jsp").forward(request, response);
 		}
 	}
