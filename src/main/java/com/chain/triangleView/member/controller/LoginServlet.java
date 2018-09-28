@@ -1,6 +1,7 @@
 package com.chain.triangleView.member.controller;
 
 import java.io.IOException;
+import java.rmi.server.SocketSecurityException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -31,6 +32,7 @@ public class LoginServlet extends HttpServlet {
 		String userPwd = request.getParameter("userPwd");
 	
 		Member loginUser = new MemberService().loginCheck(userId, userPwd);
+		
 		ArrayList<HashMap<String, Object>> noticeList = null;
 
 		if(loginUser != null){

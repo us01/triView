@@ -42,14 +42,35 @@
 	function subSiteMove(subSite){
 		$(location).attr('href', subSite);
 	}
+	
+	function modifyMove(){
+		
+	}
+	
+	function likeThis(rwNo){
+		$.ajax({
+			url : '<%= request.getContextPath() %>/likeReview',
+			type : 'get',
+			data : {
+				rwNo : rwNo
+			},
+			success : function(data){
+				if(data == 1){
+					$('.like-qty span').text(<%= form.getRwLikeCount() + 1 %>);
+					$('.like-qty img').attr('src', '/triangleView/img/reviewForm/love.png');
+					$('.like-qty img').removeAttr('onclick');
+				}
+			}
+		});
+	}
 </script>
 </head>
 <body>
-	<% if(form.getCoorLink() != null){ %>
-	<div class="subSideArea"> 
-		<button onclick="subSiteMove('<%= form.getCoorLink() %>')">관련 링크</button>
+	<div class="subTopArea"> 
+		<% if(form.getRwType() != 0){ %>
+			<p>기업 후원을 받은 리뷰입니다.</p>
+		<% } %>
 	</div>
-	<% } %>
 	<div class="review-Form">
 		<div class="contentArea">
 			<iframe class="iframeVideo" src="https://www.youtube.com/embed/NIDcZJTJ3N0?autoplay=1" frameborder="0" allow="encrypted-media" allowfullscreen></iframe>
@@ -92,8 +113,8 @@
 						<span><%= form.getRwCommentCount() %></span>
 					</div>
 					<div class="like-qty">
-						<% if(form.getLikeMe() == 0){ %>
-							<img src="/triangleView/img/reviewForm/nolove.png">
+						<% if(loginUser != null && (form.getLikeMe() == 0)){ %>
+							<img src="/triangleView/img/reviewForm/nolove.png" onclick="likeThis(<%= form.getRwNo() %>)">
 						<% }else{ %>
 							<img src="/triangleView/img/reviewForm/love.png">
 						<% } %>
@@ -109,6 +130,18 @@
 					<% } %>
 				</div>
 			</div>
+		</div>
+		<div class="subSideArea">
+			<% if(form.getRwType() != 0){ %>
+				<button onclick="subSiteMove('<%= form.getCoorLink() %>')">관련 링크</button>
+			<% }else{ %>
+				<% if(loginUser.getUserType() == 1){ %>
+					<button onclick="subSiteMove('<%= form.getRwNo() %>, <%= loginUser.getUserNo() %>')">제휴 걸기</button>
+				<% } %>
+			<% } %>
+			<% if(loginUser.getNick().equals(form.getNick())){ %>
+				<button onclick="modifyMove('<%= form.getRwNo() %>')">수정</button>
+			<% } %>
 		</div>
 	</div>
 </body>

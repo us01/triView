@@ -32,6 +32,7 @@ public class ReviewService {
 		
 		HashMap<String, Object> reviewForm = new HashMap<String, Object>();
 		ArrayList<CardFormImages> cardImageList = null;
+		
 		Form form = new ReviewDao().loadOneForm(con, rwNo, userNo);
 		
 		if(form != null){
@@ -219,5 +220,21 @@ public class ReviewService {
 		close(con);
 		
 		return rwComment;
+	}
+
+	public int addLikeReview(int userNo, int rwNo) {
+		Connection con = getConnection();
+		
+		int result = new ReviewDao().addLikeReview(con, userNo, rwNo);
+		
+		if(result > 0){
+			commit(con);
+		}else{
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
 	}	
 }	

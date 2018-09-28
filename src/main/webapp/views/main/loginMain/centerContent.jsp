@@ -94,8 +94,8 @@
 		z-index: 300;
    		position: fixed;
    		left: 50%;
-   		margin-left:-600px;
-    	top: 110px;
+   		margin-left:-500px;
+    	top: 90px;
 	}
 	@media all and (max-width:768px){
 		.centerContent { 
