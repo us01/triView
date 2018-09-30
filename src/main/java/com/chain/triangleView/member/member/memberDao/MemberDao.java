@@ -12,6 +12,7 @@ import java.util.Properties;
 
 import com.chain.triangleView.member.member.vo.Attachment;
 import com.chain.triangleView.member.member.vo.Member;
+import com.chain.triangleView.member.member.vo.MemberInterestCategory;
 import com.chain.triangleView.review.review.vo.Review;
 
 import static com.chain.triangleView.common.JDBCTemplate.*;
@@ -599,4 +600,76 @@ public class MemberDao {
 		return followCountMember;
 	}
 
+	public ArrayList<MemberInterestCategory> interestCategorySelect(Connection con, int userNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<MemberInterestCategory> loginUserInterestCategory = null;
+		String query = prop.getProperty("interestCategorySelect");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, userNo);
+			
+			rset = pstmt.executeQuery();
+			
+			loginUserInterestCategory = new ArrayList<MemberInterestCategory>();
+			while(rset.next()){
+				MemberInterestCategory mic = new MemberInterestCategory();
+				
+				mic.setCategoryCode(rset.getInt("categoryCode"));
+				
+				loginUserInterestCategory.add(mic);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return loginUserInterestCategory;
+	}
+
+	public int insertCategory(Connection con, int userNo, int categoryCode) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("insertCategory");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, categoryCode);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int deleteCategory(Connection con, int userNo, int categoryCode) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("deleteCategory");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, categoryCode);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {	
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 }

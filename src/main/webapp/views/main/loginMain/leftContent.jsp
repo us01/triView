@@ -1,8 +1,11 @@
+<%@page import="com.chain.triangleView.member.member.vo.MemberInterestCategory"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="com.chain.triangleView.member.member.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
 	Member loginUser = (Member)session.getAttribute("loginUser");
+	ArrayList<MemberInterestCategory> loginUserInterestCategory = (ArrayList<MemberInterestCategory>)session.getAttribute("loginUserInterestCategory");
 	Member followCountMember = (Member)request.getAttribute("followCountMember");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -26,12 +29,14 @@
 		border-radius:10px;
 		margin-top:9px;
 		background:white;
+		text-align:center;
 	}
 	
 	.leftProfile {
 		width: 96%;
 		list-style: none;
 		padding-left: 0px;
+		margin-bottom:5px;
 		display:inline-block;
 		vertical-align:top;
 		text-align:center;
@@ -58,17 +63,22 @@
 		border-radius: 50%;
 		margin-left:12px;
 	}
-	.leftProfile li .introduction {
-		text-align:center;
-		padding-left: 6px;
-		padding-right: 8px;
-		width: 95%;
-		color: black;
-		font-size:8px;
+	.introduction {
+		margin-top:10px;
+	    padding-left: 6px;
+	    padding-right: 8px;
+	    width: 95%;
+	    color: gray;
+	    font-weight: bold;
+	    font-size: 12px;
 	}
-	
-	.leftProfile .nickNameArea{
+	.leftProfile li:nth-of-type(2){
+		margin-top:10px;
+	}
+	.nickNameArea{
 		font-size:13px;
+		color:#F7323F;
+		font-weight: bold;
 	}
 	.leftProfile li:nth-of-type(3){
 		margin-bottom:30px;
@@ -86,23 +96,37 @@
 		margin-top:10px;
 		margin-bottom:40px;
 	}
-	.interest {
-		width: 130px;
-		display: inline-block;
+	.interestArea {
+		width: 137px;
 		text-align:center;
-		padding:4px;
-		margin-top:4px;
-	}
-	.interest .category {
-		display: inline-block;
-		text-align:center;
-		width: 31px;
-		height:31px;
+		border-color: #ffdbdd;
 		padding:0px;
-		background: #C5CCE9;
-		border-radius: 50%;
 		margin:3px;
-		font-size:9px;
+		margin-left:5px;
+	}
+	.interestAreaTitle {
+		background: #F7323F;
+	    border-radius: 3px;
+	    font-size: 13px;
+	    width: 75px;
+	    height: 22px;
+	    color: white;
+	    padding-top: 4px;
+	    margin-bottm:5px;
+	}
+	.category {
+		display: inline-block;
+		height:111px;
+		padding:0px;
+		padding-top:5px;
+		padding-bottom:5px;
+	}
+	.category img{
+		margin:2px;
+		width:33px;
+		height:33px;
+		cursor:pointer;
+		user-select:none;
 	}
 	.logoutleftArea {
 		margin-top:216px;
@@ -124,7 +148,6 @@
 	}
 	
 	.logoutInBtn{
-	
 		border-radius : 5px;
 		background: white;
     	color: #f7323f;
@@ -138,13 +161,10 @@
 	}
 	
 	.logoutInBtn:hover{
-		
 		cursor : pointer;
-		
 	}
 	
 	#writeReviewBtn:hover{
-	
 		cursor : pointer;		
 	}
 </style>
@@ -183,6 +203,61 @@
 		document.getElementById('followUserArea').style.display = 'none';
 		document.getElementById('followUserAreaArea').style.display = 'none';
 	}
+	
+	function categoryModify(changeCategory){
+		$.ajax({
+			url : '/triangleView/categoryModify',
+			type : 'get',
+			data : {
+				changeCategory : changeCategory
+			},
+			beforeSend : function(){
+				$('.category').empty();
+				
+				$img = $('<img>');
+				$img.attr('src', '/triangleView/img/category/categoryLoading.gif');
+				$img.width('50px').height('50px');
+				$img.css('margin-top', '30px');
+				
+				$('.category').html($img);
+			},
+			success : function(data){
+				$div = $('<div>');
+				
+				<% for(int i = 1; i < 10; i++){ %>
+					for(var key in data){
+						if(<%= i %> == Number(data[key].categoryCode)){
+							$img = $('<img>');
+							$img.attr('onclick', 'categoryModify(<%= i %>)');
+							$img.attr('src', '/triangleView/img/category/inCategory<%= i %>.png');
+							
+							$div.append($img);
+						}	
+					}	
+				<% } %>
+				
+				<%for (int i = 1; i < 10; i++) {%>
+					var checkTemp = 'Y';
+					for(var key in data){
+						if(<%= i %> == Number(data[key].categoryCode)){
+							checkTemp = 'N';
+						}
+					}
+					
+					if(checkTemp == 'Y'){
+						$img = $('<img>');
+						$img.attr('onclick', 'categoryModify(<%= i %>)');
+						$img.attr('src', '/triangleView/img/category/category<%= i %>.png');
+						
+						$div.append($img);
+					}
+				<%}%>
+				
+				$('.category').empty();
+				$('.category').html($div);
+			}
+		});
+	}
 </script>
 </head>
 <body>
@@ -196,12 +271,12 @@
 						</div>
 					</li>
 					<li>
-						<p class="introduction">
-							<%= loginUser.getIntro() %>
-						</p>
+						<h6 class="nickNameArea">@<%= loginUser.getNick()%></h6>
 					</li>
 					<li>
-						<h6 class="nickNameArea">@&nbsp;<%= loginUser.getNick()%></h6>
+						<div class="introduction">
+							<%= loginUser.getIntro() %>
+						</div>
 					</li>
 					<li>
 						<h6 onclick="followListBlock(<%= loginUser.getUserNo()%> )">팔로잉</h6>
@@ -212,18 +287,31 @@
 						<p class="follower" onclick="followingListBlock(<%= loginUser.getUserNo() %>)"><%= followCountMember.getFollowCount() %></p>
 					</li>
 					<li>
-						<h6>관심주제</h6>
-						<div class="interest">
-							<div class="category">게임</div>
-							<div class="category">취미</div>
-							<div class="category">IT</div>
-							<div class="category">인생</div>
-							<div class="category">금융</div>
-							<div class="category">스포츠</div>
-							<div class="category">뷰티</div>
-							<div class="category">동물</div>
-							<div class="category">기타</div>
-						</div>
+						<fieldset class="interestArea">
+							<legend class="interestAreaTitle">관심주제</legend>
+							<div class="category">
+								<% for(int i = 1; i < 10; i++){ %>
+									<% for(int y = 0; y < loginUserInterestCategory.size(); y++){ %>
+										<% if(i == loginUserInterestCategory.get(y).getCategoryCode()){ %>
+											<img onclick='categoryModify(<%= i %>)' src='/triangleView/img/category/inCategory<%= i %>.png'>
+										<% }
+									}
+								}
+								for(int i = 1; i < 10; i++){
+									char temp = 'y';
+						 
+									for(int y = 0; y < loginUserInterestCategory.size(); y++){
+										if(i == loginUserInterestCategory.get(y).getCategoryCode()){
+											temp = 'n';
+									 	}
+									}
+									
+									if(temp == 'y'){ %>
+										<img onclick='categoryModify(<%= i %>)' src='/triangleView/img/category/category<%= i %>.png'>
+									<% }
+								} %>
+							</div>
+						</fieldset>
 					</li>
 				</ul>
 			<% }else{ %>

@@ -73,7 +73,7 @@
 	</div>
 	<div class="review-Form">
 		<div class="contentArea">
-			<iframe class="iframeVideo" src="https://www.youtube.com/embed/NIDcZJTJ3N0?autoplay=1" frameborder="0" allow="encrypted-media" allowfullscreen></iframe>
+			<iframe class="iframeVideo" src="https://www.youtube.com/embed/NIDcZJTJ3N0?rel=0&autoplay=1&mute=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 		</div>
 		<div class="contentInfoArea">
 			<div>
@@ -110,7 +110,7 @@
 					</div>
 					<div class="comment-qty">
 						<img src="/triangleView/img/reviewForm/view.png">
-						<span><%= form.getRwCommentCount() %></span>
+						<span><%= form.getRwCount() %></span>
 					</div>
 					<div class="like-qty">
 						<% if(loginUser != null && (form.getLikeMe() == 0)){ %>
@@ -133,14 +133,20 @@
 		</div>
 		<div class="subSideArea">
 			<% if(form.getRwType() != 0){ %>
-				<button onclick="subSiteMove('<%= form.getCoorLink() %>')">관련 링크</button>
+				<% if(form.getCoorLink() != null){ %>
+					<button onclick="subSiteMove('<%= form.getCoorLink() %>')">관련 링크</button>
+				<% } %>
 			<% }else{ %>
-				<% if(loginUser.getUserType() == 1){ %>
-					<button onclick="subSiteMove('<%= form.getRwNo() %>, <%= loginUser.getUserNo() %>')">제휴 걸기</button>
+				<% if(loginUser != null){ %>
+					<% if(loginUser.getUserType() == 1){ %>
+						<button onclick="subSiteMove('<%= form.getRwNo() %>, <%= loginUser.getUserNo() %>')">제휴 걸기</button>
+					<% } %>
 				<% } %>
 			<% } %>
-			<% if(loginUser.getNick().equals(form.getNick())){ %>
-				<button onclick="modifyMove('<%= form.getRwNo() %>')">수정</button>
+			<% if(loginUser != null){ %>
+				<% if(loginUser.getNick().equals(form.getNick())){ %>
+					<button onclick="modifyMove('<%= form.getRwNo() %>')">수정</button>
+				<% } %>
 			<% } %>
 		</div>
 	</div>

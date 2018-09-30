@@ -9,14 +9,16 @@
 <title>세모뷰 로그인 전</title>
 <style>
 	body {
-		margin:0px;
 		background:#fafafa;
 		font-family:'맑은고딕';
+		margin-left:0px;
 	}
 </style>
 </head>
 <body>
-	<jsp:include page="../header/mainHeader.jsp" flush="true" />
+	<div>
+		<jsp:include page="../header/mainHeader.jsp" flush="true" />
+	</div>
 	<jsp:include page="./mainCenterContent.jsp" flush="true"/>
 	<jsp:include page="../footer/mainFooter.jsp" flush="true" />
 </body>

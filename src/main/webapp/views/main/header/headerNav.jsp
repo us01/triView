@@ -415,6 +415,17 @@
 		});
 	}
 
+	$(function(){
+		$("#searchReviewInput").onclick(function(){
+			if(key.which == 13){
+				var searchHash = $("#searchReviewInput").val();
+				var searchData = $("#searchReviewInput").val();
+				location.href="<%= request.getContextPath()%>/searchReview.sr?searchHash=" + searchHash +"&searchData=" + searchData;
+			}
+			
+		});
+	})
+	
 	function insertMemberTypeDisplayNone() {
 		document.getElementById('insertMemberTypeArea').style.display = 'none';
 		document.getElementById('insertMemberTypeAearArea').style.display = 'none';

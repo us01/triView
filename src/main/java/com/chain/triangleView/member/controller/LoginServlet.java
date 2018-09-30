@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import com.chain.triangleView.member.member.service.MemberService;
 import com.chain.triangleView.member.member.vo.Member;
+import com.chain.triangleView.member.member.vo.MemberInterestCategory;
 import com.chain.triangleView.notice.notice.service.NoticeService;
 import com.chain.triangleView.notice.notice.vo.notice.Notice;
 import com.chain.triangleView.review.review.service.ReviewService;
@@ -36,12 +37,14 @@ public class LoginServlet extends HttpServlet {
 		ArrayList<HashMap<String, Object>> noticeList = null;
 
 		if(loginUser != null){
+			ArrayList<MemberInterestCategory> loginUserInterestCategory = new MemberService().interestCategorySelect(loginUser.getUserNo());
 			ArrayList<Review> interestReviewList = new ReviewService().selectInterestReview(loginUser.getUserNo());
 			noticeList = new NoticeService().selectAllNotice();
 			Member followCountMember = new MemberService().followCountSelect(loginUser.getUserNo());
 			
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", loginUser);
+			session.setAttribute("loginUserInterestCategory", loginUserInterestCategory);
 			request.setAttribute("followCountMember", followCountMember);
 			request.setAttribute("interestReviewList", interestReviewList);
 			if(noticeList != null) {

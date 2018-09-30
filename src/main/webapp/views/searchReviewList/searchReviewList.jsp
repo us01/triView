@@ -120,6 +120,9 @@
 	}
 	
 	.reviewInfoArea {
+		width: 99%;
+	    margin-left: auto;
+	    margin-right: auto;
 		margin-top:9px;
 		display: flex;
 		border: 1px solid #E5E5E5;
@@ -189,7 +192,7 @@
 		$.ajax({
 			url : "<%=request.getContextPath()%>/cloudTag.sr",
 			type : "GET",
-			data : {searchHash: "<%= searchReviewData%>"},
+			data : {searchHash: "<%=searchReviewData%>"},
 			success : function(data) {
 				
 
@@ -198,7 +201,6 @@
 					isNoData2 = true;
 				}else{
 					
-				
 			 	 	var word_array = [
 	         						 {text: "", weight: 1}
 	      							  ];
