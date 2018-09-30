@@ -103,7 +103,7 @@ public class ReviewDao {
 				
 				form.setNick(rset.getString("nick"));
 				form.setRwHash(rset.getString("rwhash"));
-				form.setRwCommentCount(rset.getInt("rwcommentcount"));
+				form.setRwCount(rset.getInt("rwcount"));
 				form.setRwLikeCount(rset.getInt("rwlikecount"));
 				form.setRwComment(rset.getString("rwcomment"));
 				form.setLikeMe(rset.getInt("likeme"));

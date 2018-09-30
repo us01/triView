@@ -200,6 +200,12 @@
    	<description></description>
    	<servlet-class>com.chain.triangleView.review.controller.AddLikeReviewServlet</servlet-class>
    </servlet>
+   <servlet>
+   	<servlet-name>UpdateInterestCategoryServlet</servlet-name>
+   	<display-name>UpdateInterestCategoryServlet</display-name>
+   	<description></description>
+   	<servlet-class>com.chain.triangleView.member.controller.UpdateInterestCategoryServlet</servlet-class>
+   </servlet>
    <servlet-mapping>
       <servlet-name>logoutMainReviewSelectService</servlet-name>
       <url-pattern>/logoutMain.rl</url-pattern>
@@ -307,5 +313,9 @@
    <servlet-mapping>
    	<servlet-name>AddLikeReviewServlet</servlet-name>
    	<url-pattern>/likeReview</url-pattern>
+   </servlet-mapping>
+   <servlet-mapping>
+   	<servlet-name>UpdateInterestCategoryServlet</servlet-name>
+   	<url-pattern>/categoryModify</url-pattern>
    </servlet-mapping>
    </web-app>

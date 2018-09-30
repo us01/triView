@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import com.chain.triangleView.member.member.memberDao.MemberDao;
 import com.chain.triangleView.member.member.vo.Attachment;
 import com.chain.triangleView.member.member.vo.Member;
+import com.chain.triangleView.member.member.vo.MemberInterestCategory;
 
 
 public class MemberService {
@@ -231,5 +232,47 @@ public class MemberService {
 		close(con);
 		
 		return followCountMember;
+	}
+
+	public ArrayList<MemberInterestCategory> interestCategorySelect(int userNo) {
+		Connection con = getConnection();
+		
+		ArrayList<MemberInterestCategory>  loginUserInterestCategory = new MemberDao().interestCategorySelect(con, userNo);
+		
+		close(con);
+		
+		return loginUserInterestCategory;
+	}
+
+	public int insertCategory(int userNo, int categoryCode) {
+		Connection con = getConnection();
+		
+		int result = new MemberDao().insertCategory(con, userNo, categoryCode);
+		
+		if(result > 0){
+			commit(con);
+		}else{
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
+	}
+
+	public int deleteCategory(int userNo, int categoryCode) {
+		Connection con = getConnection();
+		
+		int result = new MemberDao().deleteCategory(con, userNo, categoryCode);
+		
+		if(result > 0){
+			commit(con);
+		}else{
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
 	}
 }

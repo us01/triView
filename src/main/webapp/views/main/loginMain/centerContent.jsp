@@ -16,9 +16,9 @@
 <title></title>
 <style>
 	.viewForm{
-		width:210px;
+		width:220px;
 		height:287px;
-		margin:7px;
+		margin:5px;
 		margin-top:8px;
 		position:relative;
 		display:inline-block;
@@ -27,7 +27,7 @@
 		background:white;
 	}
 	.viewMainImage img{
-		width:210px;
+		width:220px;
 		height:210px;
 		cursor:pointer;
 	}
@@ -38,13 +38,13 @@
 		z-index:2;
 	}
 	.viewTitle {
-		width:95%;
+		width:99%;
 		display:inline-block;
 		text-align: left;
-		margin-left : 3px;
+		margin-left : 5px;
 	}
 	.viewTitle p {
-		font-size:13px;
+		font-size:12px;
 		font-weight:bold;
 		overflow:hidden;
 		white-space:nowrap;
@@ -69,8 +69,7 @@
 	}
 	.viewSearchImage p, .viewLikeImage p{
 		display:table-cell;
-		font-size:14px;
-		font-weight: bold;
+		font-size:13px;
 		text-align:left;
 		margin:0px;
 		color:darkgray;
@@ -80,17 +79,18 @@
 		font-size:12px;
 		font-weight:bold;
 		cursor:pointer;
+		color:#4F4F4F;
 	}
 	.reviewWriter p{
 		display:inline;
-		padding-right:3px;
+		padding-right:5px;
 		font-size:12px;
 		font-weight:bold;
 		margin:0px;
 		margin-top: -5px;
 	}
 	.formArea {
-		display:inline-flex;
+		display:inline-block;
 		z-index: 300;
    		position: fixed;
    		left: 50%;
@@ -116,8 +116,8 @@
 			},
 			success : function(data) {
 				$(".formArea").html(data);
-				document.getElementById('formAreaArea').style.display = 'inline-flex';
-				document.getElementById('formArea').style.display = 'inline-flex';
+				document.getElementById('formAreaArea').style.display = 'inline-block';
+				document.getElementById('formArea').style.display = 'inline-block';
 			}
 		});
 	}
@@ -155,11 +155,11 @@
 				</div>
 				<div class="formType">
 					<% if(interestReviewList.get(i).getRwContentType() == 0){ %>
-							<img src="/triangleView/img/viewList/text.png" style="position:absolute; margin-left : 165px; margin-top : 10px; opacity:0.9;">
+							<img src="/triangleView/img/viewList/text.png" style="position:absolute; margin-left : 170px; margin-top : 10px; opacity:0.9;">
 					<% }else if(interestReviewList.get(i).getRwContentType() == 1){ %>
-						<img src="/triangleView/img/viewList/card.png" style="position:absolute; margin-left : 165px; margin-top : 10px; opacity:0.9;">
+						<img src="/triangleView/img/viewList/card.png" style="position:absolute; margin-left : 170px; margin-top : 10px; opacity:0.9;">
 					<% }else{ %>
-						<img src="/triangleView/img/viewList/video.png" style="position:absolute; margin-left : 165px; margin-top : 10px; opacity:0.9;">
+						<img src="/triangleView/img/viewList/video.png" style="position:absolute; margin-left : 170px; margin-top : 10px; opacity:0.9;">
 					<% } %>
 				</div>
 				<div class="viewTitle">

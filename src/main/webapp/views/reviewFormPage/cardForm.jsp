@@ -1,3 +1,4 @@
+<%@page import="com.chain.triangleView.review.review.vo.CardFormImages"%>
 <%@page import="com.chain.triangleView.member.member.vo.Member"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.chain.triangleView.review.review.vo.RwComment"%>
@@ -9,10 +10,11 @@
 <%
 	Member loginUser = (Member)session.getAttribute("loginUser");
 	HashMap<String, Object> reviewForm = (HashMap<String, Object>)request.getAttribute("reviewForm");
-
+	
 	Iterator<String> keys = reviewForm.keySet().iterator();
 	Form form = null;
 	ArrayList<RwComment> rwComment = null;
+	ArrayList<CardFormImages> cardImageList = null;
 	
 	int rwNo = -1;
 	
@@ -23,6 +25,8 @@
 			rwNo = form.getRwNo();
 		}else if(key.equals("rwComment")){
 			rwComment = (ArrayList<RwComment>)reviewForm.get(key);
+		}else if(key.equals("cardImageList")){
+			cardImageList = (ArrayList<CardFormImages>)reviewForm.get(key);
 		}
 	}
 %>
@@ -101,15 +105,15 @@
 	<div class="review-Form">
 		<div class="contentArea">
 			<div class="w3-content w3-display-container" style='max-width:800px'>
-			  <img class="mySlides" src="/triangleView/profileImg_upload/20180111_hazzys_acc-e1515632554131.jpg" style='width:100%; height:500px;'>
-			  <img class="mySlides" src="/triangleView/profileImg_upload/2018031618193283914_1521191973.jpg" style='width:100%; height:500px;'>
-			  <img class="mySlides" src="/triangleView/profileImg_upload/201829971530233826.jpg" style='width:100%; height:500px;'>
+				<% for(int i = 0; i < cardImageList.size(); i++){ %>
+					<img class="mySlides" src="/triangleView/review_upload/<%= cardImageList.get(i).getFileName() %>" style='width:100%; height:500px;'>
+				<% } %>
 			  <div class="w3-center w3-container w3-section w3-large w3-text-white w3-display-bottommiddle" style="width:100%">
 			    <div class="w3-left w3-hover-text-khaki" onclick="plusDivs(-1)">&#10094;</div>
 			    <div class="w3-right w3-hover-text-khaki" onclick="plusDivs(1)">&#10095;</div>
-			    <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(1)"></span>
-			    <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(2)"></span>
-			    <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(3)"></span>
+			    <% for(int i = 0; i < cardImageList.size(); i++){ %>
+			    	<span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(<%= i + 1 %>)"></span>
+			    <% } %>
 			  </div>
 			</div>
 		</div>
@@ -148,7 +152,7 @@
 					</div>
 					<div class="comment-qty">
 						<img src="/triangleView/img/reviewForm/view.png">
-						<span><%= form.getRwCommentCount() %></span>
+						<span><%= form.getRwCount() %></span>
 					</div>
 					<div class="like-qty">
 						<% if(loginUser != null && (form.getLikeMe() == 0)){ %>
@@ -171,14 +175,20 @@
 		</div>
 		<div class="subSideArea">
 			<% if(form.getRwType() != 0){ %>
-				<button onclick="subSiteMove('<%= form.getCoorLink() %>')">관련 링크</button>
+				<% if(form.getCoorLink() != null){ %>
+					<button onclick="subSiteMove('<%= form.getCoorLink() %>')">관련 링크</button>
+				<% } %>
 			<% }else{ %>
-				<% if(loginUser.getUserType() == 1){ %>
-					<button onclick="subSiteMove('<%= form.getRwNo() %>, <%= loginUser.getUserNo() %>')">제휴 걸기</button>
+				<% if(loginUser != null){ %>
+					<% if(loginUser.getUserType() == 1){ %>
+						<button onclick="subSiteMove('<%= form.getRwNo() %>, <%= loginUser.getUserNo() %>')">제휴 걸기</button>
+					<% } %>
 				<% } %>
 			<% } %>
-			<% if(loginUser.getNick().equals(form.getNick())){ %>
-				<button onclick="modifyMove('<%= form.getRwNo() %>')">수정</button>
+			<% if(loginUser != null){ %>
+				<% if(loginUser.getNick().equals(form.getNick())){ %>
+					<button onclick="modifyMove('<%= form.getRwNo() %>')">수정</button>
+				<% } %>
 			<% } %>
 		</div>
 	</div>

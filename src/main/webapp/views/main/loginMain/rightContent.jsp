@@ -22,6 +22,7 @@
 		border:1px solid #E5E5E5;
 		float:right;
 		width:15%;
+		text-align:center;
 		border-radius:10px;
 		margin-top:9px;
 		background:white;
