@@ -624,4 +624,81 @@ public class ReviewDao {
 		return result;
 	}
 
+	public int updateRwCount(Connection con, int rwNo) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("updateRwCount");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, rwNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int findTodayRwCount(Connection con, int rwNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("findTodayRwCount");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, rwNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int updateTodayRwCount(Connection con, int rwNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("updateTodayRwCount");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, rwNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int insertTodayRwCount(Connection con, int rwNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("insertTodayRwCount");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, rwNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 }

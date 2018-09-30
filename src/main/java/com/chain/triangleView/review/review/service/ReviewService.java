@@ -236,5 +236,74 @@ public class ReviewService {
 		close(con);
 		
 		return result;
-	}	
-}	
+	}
+
+	public int updateRwCount(int rwNo) {
+		Connection con = getConnection();
+		
+		int result = new ReviewDao().updateRwCount(con, rwNo);
+		
+		if(result > 0) {
+			
+			commit(con);
+		}else {
+			
+			rollback(con);
+		}
+		close(con);
+		
+		return result;
+	}
+
+	public int findTodayRwCount(int rwNo) {
+		Connection con = getConnection();
+		
+		int result = new ReviewDao().findTodayRwCount(con, rwNo);
+		
+		if(result > 0) {
+			
+			commit(con);
+		}else {
+			
+			rollback(con);
+		}
+		close(con);
+		
+		return result;
+	}		
+
+	public int updateTodayRwCount(int rwNo) {
+		Connection con = getConnection();
+		
+		int result = new ReviewDao().updateTodayRwCount(con, rwNo);
+		
+		if(result > 0) {
+			
+			commit(con);
+		}else {
+			
+			rollback(con);
+		}
+		close(con);
+		
+		return result;
+	}
+
+	public int insertTodayRwCount(int rwNo) {
+	
+		Connection con = getConnection();
+		
+		int result = new ReviewDao().insertTodayRwCount(con, rwNo);
+		
+		if(result > 0) {
+			
+			commit(con);
+		}else {
+			
+			rollback(con);
+		}
+		close(con);
+		
+		return result;
+	}
+}
