@@ -200,6 +200,48 @@
    	<description></description>
    	<servlet-class>com.chain.triangleView.review.controller.AddLikeReviewServlet</servlet-class>
    </servlet>
+   <servlet>
+   	<servlet-name>updateMemberServlet</servlet-name>
+   	<display-name>updateMemberServlet</display-name>
+   	<description></description>
+   	<servlet-class>com.chain.triangleView.member.controller.updateMemberServlet</servlet-class>
+   </servlet>
+   <servlet>
+   	<servlet-name>updatePasswordServlet</servlet-name>
+   	<display-name>updatePasswordServlet</display-name>
+   	<description></description>
+   	<servlet-class>com.chain.triangleView.member.controller.updatePasswordServlet</servlet-class>
+   </servlet>
+   <servlet>
+   	<servlet-name>updateWrite1Servlet</servlet-name>
+   	<display-name>updateWrite1Servlet</display-name>
+   	<description></description>
+   	<servlet-class>com.chain.triangleView.review.updateWrite1Servlet</servlet-class>
+   </servlet>
+   <servlet>
+   	<servlet-name>write1SelectServlet</servlet-name>
+   	<display-name>write1SelectServlet</display-name>
+   	<description></description>
+   	<servlet-class>com.chain.triangleView.review.controller.write1SelectServlet</servlet-class>
+   </servlet>
+   <servlet>
+   	<servlet-name>write2SelectServlet</servlet-name>
+   	<display-name>write2SelectServlet</display-name>
+   	<description></description>
+   	<servlet-class>com.chain.triangleView.review.controller.write2SelectServlet</servlet-class>
+   </servlet>
+   <servlet>
+   	<servlet-name>write3SelectServlet</servlet-name>
+   	<display-name>write3SelectServlet</display-name>
+   	<description></description>
+   	<servlet-class>com.chain.triangleView.review.controller.write3SelectServlet</servlet-class>
+   </servlet>
+   <servlet>
+   	<servlet-name>updateWrite3Servlet</servlet-name>
+   	<display-name>updateWrite3Servlet</display-name>
+   	<description></description>
+   	<servlet-class>com.chain.triangleView.review.controller.updateWrite3Servlet</servlet-class>
+   </servlet>
    <servlet-mapping>
       <servlet-name>logoutMainReviewSelectService</servlet-name>
       <url-pattern>/logoutMain.rl</url-pattern>
@@ -308,4 +350,29 @@
    	<servlet-name>AddLikeReviewServlet</servlet-name>
    	<url-pattern>/likeReview</url-pattern>
    </servlet-mapping>
+   <servlet-mapping>
+   	<servlet-name>updateMemberServlet</servlet-name>
+   	<url-pattern>/updateMember.me</url-pattern>
+   </servlet-mapping>
+   <servlet-mapping>
+   	<servlet-name>updatePasswordServlet</servlet-name>
+   	<url-pattern>/updatePassword.me</url-pattern>
+   </servlet-mapping>
+   <servlet-mapping>
+   	<servlet-name>write1SelectServlet</servlet-name>
+   	<url-pattern>/write1Select.bo</url-pattern>
+   </servlet-mapping>
+   <servlet-mapping>
+   	<servlet-name>write2SelectServlet</servlet-name>
+   	<url-pattern>/write2Select.bo</url-pattern>
+   </servlet-mapping>
+   <servlet-mapping>
+   	<servlet-name>write3SelectServlet</servlet-name>
+   	<url-pattern>/write3Select.bo</url-pattern>
+   </servlet-mapping>
+   <servlet-mapping>
+   	<servlet-name>updateWrite3Servlet</servlet-name>
+   	<url-pattern>/write3Update.bo</url-pattern>
+   </servlet-mapping>
+
    </web-app>

@@ -13,7 +13,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
@@ -25,15 +24,15 @@ import com.chain.triangleView.review.review.vo.Review;
 import com.oreilly.servlet.MultipartRequest;
 
 /**
- * Servlet implementation class insertWrite1Servlet
+ * Servlet implementation class updateWrite3Servlet
  */
-public class insertWrite1Servlet extends HttpServlet {
+public class updateWrite3Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public insertWrite1Servlet() {
+    public updateWrite3Servlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -41,8 +40,7 @@ public class insertWrite1Servlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		if (ServletFileUpload.isMultipartContent(request)) {
 			int maxSize = 1024 * 1024 * 20; // 20mb가 됨
@@ -54,17 +52,15 @@ public class insertWrite1Servlet extends HttpServlet {
 
 			// 루트체크
 			String root = request.getSession().getServletContext().getRealPath("/");
-			
-			//C:\Users\jihun\git\triangleView\target\m2e-wtp\web-resources\review_upload/
 			//String root = "C:/Users/jihun/git/triangleView/src/main/webapp/img/";
+
 			// 저장경로설정
-			String savePath = root + "review_upload";
+			String savePath = root + "review_upload/";
 
 			// 파일저장이름 설정
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8",
 					new MyFileRenamePolicy());
 
-			// 리뷰에 대한 기본적인 정보
 			String rwTitle = multiRequest.getParameter("title");
 			int categoryType = Integer.parseInt(multiRequest.getParameter("categoryCheck"));
 			//카테고리는 해시에 추가
@@ -103,8 +99,25 @@ public class insertWrite1Servlet extends HttpServlet {
 			}
 			//System.out.println("되냐 ? " + categoryHash);
 			
+			String data = multiRequest.getParameter("videoUpload");
+			String dataRoot = "";
+			if (!data.contains("embed")) {
+				if (!data.contains("youtu.be")) {
+					if(!data.contains("=")){
+						dataRoot="undefined";
+					}else{
+						String[] cut = data.split("=");
+						dataRoot = "https://www.youtube.com/embed/" + cut[1];	
+					}
+				} else {
+					String[] cut = data.split("be/");
+					dataRoot = "https://www.youtube.com/embed/" + cut[1];
+				}
+			} else {
+				dataRoot = data;
+			}
+
 			String rwHash = multiRequest.getParameter("hash");
-			//System.out.println("어떻게 나오니 : " + rwHash);
 			String rwComment = multiRequest.getParameter("introduce");
 			Member loginUser = (Member) (request.getSession().getAttribute("loginUser"));
 			int userNo = loginUser.getUserNo();
@@ -113,22 +126,20 @@ public class insertWrite1Servlet extends HttpServlet {
 				rwGrade = 0;
 			}else{
 				rwGrade = Integer.parseInt(multiRequest.getParameter("rwGrade"));
-				
-			}
-
-			String rwContent = "";
-			String companySponCheck = multiRequest.getParameter("companySpon");
-			int companySpon = 0;
-			if(companySponCheck == null){
-				companySpon = 0;
-			}else{
-				companySpon = 1;
 			}
 			
+			String companySponCheck = multiRequest.getParameter("companySpon");
+			int companySpon = 0;
+			if (companySponCheck == null) {
+				companySpon = 0;
+			} else {
+				companySpon = 1;
+			}
+
 			String[] hashSplit = rwHash.split("#");
 			String[] resultHashSplit = hashSplit;
 			
-			for (int i = 1; i < hashSplit.length; i++) {
+			for (int i = 0; i < hashSplit.length; i++) {
 				if (hashSplit[i] != null) {
 					String rmSpace = "";
 					rmSpace = hashSplit[i];
@@ -152,6 +163,7 @@ public class insertWrite1Servlet extends HttpServlet {
 				}
 			}
 			
+			
 			//카테고리처리
 			String categoryHashResult = "";
 			MessageDigest digest;
@@ -167,7 +179,8 @@ public class insertWrite1Servlet extends HttpServlet {
 			}			
 			
 			//System.out.println("넌 되지? : " + categoryHashResult);
-			
+			int rwNo = Integer.parseInt(multiRequest.getParameter("rwNo"));
+			System.out.println("나오니 번호 ? " + rwNo);
 			
 			Review rw = new Review();
 			rw.setRwTitle(rwTitle);
@@ -176,9 +189,16 @@ public class insertWrite1Servlet extends HttpServlet {
 			rw.setRwComment(rwComment);
 			rw.setRwGrade(rwGrade);
 			rw.setRwSupport(companySpon);
+			rw.setRwContent(dataRoot);
+			rw.setRwNo(rwNo);
 			
+			System.out.println("갑이 나오니1? : " + rwTitle);
+			System.out.println("나오니2? : "  +categoryType);
+			System.out.println("rwHash : " + rwHash);
+			System.out.println(rwComment);
+			System.out.println(rwGrade);
 			
-			
+
 			// 저장한 파일의 이름을 저장할 arrayList생성
 			ArrayList<String> saveFiles = new ArrayList<String>();
 			// 원본 파일의 이름을 저장할 arrayList생성
@@ -186,63 +206,57 @@ public class insertWrite1Servlet extends HttpServlet {
 
 			// 파일의 이름을 반환한다.
 			Enumeration<String> files = multiRequest.getFileNames();
-			
-			// Attachment 객체 생성하여 ArrayList객체 생성
-			ArrayList<Attachment> fileList = new ArrayList<Attachment>();
+
+			// 각 파일의 정보를 구해 DB에 저장할 목적의 데이터를 꺼낸다.
 			while (files.hasMoreElements()) {
 				String name = files.nextElement();
 
-				if (multiRequest.getFilesystemName(name) != null) {
+				saveFiles.add(multiRequest.getFilesystemName(name));
+				originFiles.add(multiRequest.getOriginalFileName(name));
 
-					saveFiles.add(multiRequest.getFilesystemName(name));
-					originFiles.add(multiRequest.getOriginalFileName(name));
+				// Attachment 객체 생성하여 ArrayList객체 생성
+				ArrayList<Attachment> fileList = new ArrayList<Attachment>();
 
+				for (int i = originFiles.size() - 1; i >= 0; i--) {
 					Attachment at = new Attachment();
 					at.setFilePath(savePath);
-					at.setOriginName(multiRequest.getOriginalFileName(name));
-					at.setChangeName(multiRequest.getFilesystemName(name));
-					rwContent += multiRequest.getOriginalFileName(name);
+					at.setOriginName(originFiles.get(i));
+					at.setChangeName(saveFiles.get(i));
+
 					fileObj = multiRequest.getFile(name);
 					if (fileObj != null) {
+
 						// 파일길이 구하기위한 오브젝트생성
 						at.setFileSize(String.valueOf(fileObj.length()));
-						fileExtend = multiRequest.getOriginalFileName(name);
+						fileExtend = originFiles.get(i);
 						// 파일 확장자 구하기위해 생성
-						at.setFileType(
-								fileExtend.substring(multiRequest.getOriginalFileName(name).lastIndexOf(".") + 1));
+						at.setFileType(fileExtend.substring(at.getOriginName().lastIndexOf(".") + 1));
+
 						fileList.add(at);
 					} else {
 						at.setFileSize("0");
 						at.setFileType(null);
 					}
-					rw.setRwContent(rwContent);
+
 				}
-			}
-			Member m = new Member();
-			m.setUserNo(userNo);
-			
-			int result = new ReviewService().write1Review(rw, m, fileList,resultHashSplit,categoryHashResult);
-			
-			if (result > 0) {
-				System.out.println("등록성ㅋ공ㅋ");
 
-				/*HttpSession session = request.getSession();
-				session.setAttribute("loginUser", loginUser);*/
-				response.sendRedirect(request.getContextPath() +  "/myHome");
-				/*request.getRequestDispatcher("views/myPage/myHome.jsp").forward(request, response);*/
-				
-			} else {
-				System.out.println("ㅠㅠ");
-				request.setAttribute("msg", "글쓰기 실패~!!!");
-				request.getRequestDispatcher("views/errorPage/errorPage.jsp").forward(request, response);
-			}
+				Member m = new Member();
+				m.setUserNo(userNo);
 
+				//int result = ReviewService().updateWrite3()
+
+				/*if (result > 0) {
+					System.out.println("굿");
+					response.sendRedirect(request.getContextPath() +  "/myHome");
+				} else {
+					System.out.println("다시");
+					request.setAttribute("msg", "글쓰기 실패~!!!");
+					request.getRequestDispatcher("views/errorPage/errorPage.jsp").forward(request, response);
+				}*/
+			}
 		}
 	}
-			
 	
-				 
-		
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
