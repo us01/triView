@@ -243,7 +243,7 @@ public class updateWrite3Servlet extends HttpServlet {
 				Member m = new Member();
 				m.setUserNo(userNo);
 
-				//int result = ReviewService().updateWrite3()
+				int result = new ReviewService().updateWrite3(rw,m,fileList);
 
 				/*if (result > 0) {
 					System.out.println("굿");

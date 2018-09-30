@@ -315,5 +315,19 @@ public class ReviewService {
 		close(con);
 		
 		return hmap;
+	}
+
+	public int updateWrite3(Review rw, Member m, ArrayList<Attachment> fileList) {
+		Connection con = getConnection();
+		
+		int result = new ReviewDao().updateWrite3(con,rw);
+		System.out.println("여기까진 되나 볼까 ? " + result);
+		
+		int result1 = 0;
+		if(fileList.size() != 0){
+			
+		}
+		
+		return 0;
 	}	
 }	

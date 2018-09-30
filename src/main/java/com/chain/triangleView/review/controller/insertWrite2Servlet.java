@@ -43,7 +43,7 @@ public class insertWrite2Servlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		if (ServletFileUpload.isMultipartContent(request)) {
-			int maxSize = 1024 * 1024 * 20; // 20mb가 됨
+			int maxSize = 1024 * 1024 * 5; // 20mb가 됨
 
 			// 파일 길이를 위한 object생성
 			File fileObj = null;
@@ -56,6 +56,7 @@ public class insertWrite2Servlet extends HttpServlet {
 
 			// 저장경로설정
 			String savePath = root + "review_upload/";
+			System.out.println(savePath);
 
 			// 파일저장이름 설정
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8",

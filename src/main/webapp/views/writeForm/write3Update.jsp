@@ -354,6 +354,8 @@ body {
 										<% } %>
 									<% } %>
 								</span>
+								<output for="star-input" style="display:none"><b id="reresult" style="display:none"></b>점</output>
+  				<input type="text" id="starPoint" name="rwGrade" style="width: 100px; height:20px;" value="<%=rw.getRwGrade() %>" >
 							</span>
 						</div>
 		

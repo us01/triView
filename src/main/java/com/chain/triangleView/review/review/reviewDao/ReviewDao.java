@@ -750,6 +750,36 @@ public class ReviewDao {
 		return hmap;
 	}
 
+	public int updateWrite3(Connection con, Review rw) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query = prop.getProperty("updateWrite3");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, rw.getCategoryType());
+			pstmt.setString(2, rw.getRwContent());
+			pstmt.setString(3, rw.getRwTitle());
+			pstmt.setInt(4, rw.getRwGrade());
+			pstmt.setString(5, rw.getRwComment());
+			pstmt.setInt(6, rw.getRwSupport());
+			pstmt.setInt(7, rw.getRwNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
 
 
 }
