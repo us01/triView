@@ -67,7 +67,7 @@
 	$(function(){
 		$("#searchHash").keypress(function(key) {
 			if(key.which == 13){
-				alert("메인 카테고리 엔터 서치 실행");
+				
 				naySearch();
 			}
 		});
@@ -92,7 +92,7 @@
 			$searchData.attr('name', 'searchData');
 			$searchData.attr('type', 'hidden');
 			$searchData.val($('#searchHash').val());
-			alert("메인 카테고리 서치 실행");
+			
 			$('#searchForm').append($searchData);
 			$('#searchForm').attr('action', '<%= request.getContextPath() %>/searchReview.sr').submit();
 		}else{

@@ -424,27 +424,18 @@ public class ReviewService {
 		}
 		
 		if(text != null){
-			if(query.charAt(query.length() - 1) == ' '){
-				query += "AND RWCONTENTTYPE = 0 ";
-			}else{
-				query += "AND  RWCONTENTTYPE = 0 " ;
-			}
+			
+			query += "AND RWCONTENTTYPE = 0 ";
 		}
 		
 		if(card != null){
-			if(query.charAt(query.length() - 1) == ' '){
-				query += "AND RWCONTENTTYPE = 1 ";
-			}else{
-				query += "AND  RWCONTENTTYPE = 1 " ;
-			}
+	
+			query += "AND  RWCONTENTTYPE = 1 " ;
 		}
 		
 		if(vedio != null){
-			if(query.charAt(query.length() - 1) == ' '){
-				query += "AND RWCONTENTTYPE = 2 ";
-			}else{
-				query += "AND  RWCONTENTTYPE = 2 " ;
-			}
+			
+			query += "AND  RWCONTENTTYPE = 2 " ;
 		}
 		
 		//마지막 order by 부분
