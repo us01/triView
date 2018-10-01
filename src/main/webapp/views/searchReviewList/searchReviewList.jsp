@@ -187,7 +187,7 @@
 		var searchReviewData = '<%=searchReviewData%>';
 		var isNoData = true;
 		var isNoData2 = false;
-		
+
 		// 태그 구름 AJAX
 		$.ajax({
 			url : "<%=request.getContextPath()%>/cloudTag.sr",
@@ -354,7 +354,7 @@
             	
             }
 		});
-	});
+	}); 
 	
 	function goHome(word){
 		var goUser = $(word).attr("id");

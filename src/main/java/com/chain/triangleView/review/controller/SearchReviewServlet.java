@@ -27,10 +27,10 @@ public class SearchReviewServlet extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/*if(((Member)request.getSession().getAttribute("loginUser")) != null){
+		if(((Member)request.getSession().getAttribute("loginUser")) != null){
 			Member followCountMember = new MemberService().followCountSelect(((Member)request.getSession().getAttribute("loginUser")).getUserNo());
 			request.setAttribute("followCountMember", followCountMember);
-		}*/
+		}
 		
 		int userNo = -1;
 		
@@ -53,39 +53,60 @@ public class SearchReviewServlet extends HttpServlet {
 		String company = request.getParameter("company");
 		String query = "";
 		
-		if(sinceTime != null || untilTime != null || term != null ||
+		if(sinceTime != "" || untilTime != "" || term != null ||
 			recent != null || like != null || hits != null ||
 			text != null || card != null ||  vedio != null ||
 			follower != null || company != null){
-			query = new ReviewService().orderQuery(userNo, sinceTime, untilTime, term, recent, like, hits, text, card, vedio, follower, company);
-		}
-		
-		System.out.println(query);
-		
-		
-		/*
-		ArrayList<Review> searchReviewList = new ReviewService().searchHashSelect(searchHash);
-		ArrayList<HashMap<String, Object>> noticeList = null;
+			
+			query = new ReviewService().orderQuery(userNo, sinceTime, untilTime, term, recent, like, hits, text, card, vedio);
+			
+			ArrayList<Review> searchReviewList = new ReviewService().searchSettingSelect(searchHash, query, follower, company, userNo);
+			ArrayList<HashMap<String, Object>> noticeList = null;
 
-		new HotTagService().countTag(searchData); 
-		 
-		if(searchReviewList != null){
-			noticeList = new NoticeService().selectAllNotice();
+			new HotTagService().countTag(searchData); 
+			 
+			if(searchReviewList != null){
+				noticeList = new NoticeService().selectAllNotice();
 
-			if(noticeList != null) {
-				request.setAttribute("selectAllNotice", noticeList);
-				request.setAttribute("searchReviewList", searchReviewList);
-				request.setAttribute("searchReviewData", searchData);
-			}else {
-				request.setAttribute("searchReviewList", searchReviewList);
-				request.setAttribute("searchReviewData", searchData);
+				if(noticeList != null) {
+					request.setAttribute("selectAllNotice", noticeList);
+					request.setAttribute("searchReviewList", searchReviewList);
+					request.setAttribute("searchReviewData", searchData);
+				}else {
+					request.setAttribute("searchReviewList", searchReviewList);
+					request.setAttribute("searchReviewData", searchData);
+				}
+
+				request.getRequestDispatcher("/views/main/loginMain/loginMain.jsp").forward(request, response);
+			}else{
+				request.setAttribute("msg", "검색한 리뷰 읽어오기 실패");
+				request.getRequestDispatcher("/views/errorPage/errorPage.jsp").forward(request, response);
 			}
-
-			request.getRequestDispatcher("/views/main/loginMain/loginMain.jsp").forward(request, response);
-		}else{
-			request.setAttribute("msg", "검색한 리뷰 읽어오기 실패");
-			request.getRequestDispatcher("/views/errorPage/errorPage.jsp").forward(request, response);
-		}*/
+		}else {
+			
+			ArrayList<Review> searchReviewList = new ReviewService().searchHashSelect(searchHash);
+			ArrayList<HashMap<String, Object>> noticeList = null;
+	
+			new HotTagService().countTag(searchData); 
+			 
+			if(searchReviewList != null){
+				noticeList = new NoticeService().selectAllNotice();
+	
+				if(noticeList != null) {
+					request.setAttribute("selectAllNotice", noticeList);
+					request.setAttribute("searchReviewList", searchReviewList);
+					request.setAttribute("searchReviewData", searchData);
+				}else {
+					request.setAttribute("searchReviewList", searchReviewList);
+					request.setAttribute("searchReviewData", searchData);
+				}
+	
+				request.getRequestDispatcher("/views/main/loginMain/loginMain.jsp").forward(request, response);
+			}else{
+				request.setAttribute("msg", "검색한 리뷰 읽어오기 실패");
+				request.getRequestDispatcher("/views/errorPage/errorPage.jsp").forward(request, response);
+			}
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

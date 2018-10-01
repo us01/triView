@@ -308,18 +308,19 @@ public class ReviewService {
 	}
 
 	public String orderQuery(int userNo, String sinceTime, String untilTime, String term, String recent, String like, String hits,
-			String text, String card, String vedio, String follower, String company) {
-		String query = "WHERE";
+			String text, String card, String vedio) {
+		
+		String query = "";
 		
 		if(!sinceTime.equals("") || !untilTime.equals("")){
-			query += " WRITEDATE BETWEEN " + sinceTime + " AND " + untilTime + " ";
+			query += " AND WRITEDATE BETWEEN TO_DATE('" + sinceTime + "') AND TO_DATE('" + untilTime + "') ";
 		}else if(term != null){
 			if(term.equals("oneDay")){
-				query += " WRITEDATE BETWEEN SYSDATE - 1 AND SYSDATE ";
+				query += " AND WRITEDATE BETWEEN SYSDATE - 1 AND SYSDATE ";
 			}else if(term.equals("oneWeek")){
-				query += " WRITEDATE BETWEEN SYSDATE - 7 AND SYSDATE ";
+				query += " AND WRITEDATE BETWEEN SYSDATE - 7 AND SYSDATE ";
 			}else if(term.equals("oneMonth")){
-				query += " WRITEDATE BETWEEN ADD_MONTHS(SYSDATE, -1) AND SYSDATE ";
+				query += "AND  WRITEDATE BETWEEN ADD_MONTHS(SYSDATE, -1) AND SYSDATE ";
 			}
 		}
 		
@@ -327,7 +328,7 @@ public class ReviewService {
 			if(query.charAt(query.length() - 1) == ' '){
 				query += "AND RWCONTENTTYPE = 0 ";
 			}else{
-				query += " RWCONTENTTYPE = 0 " ;
+				query += "AND  RWCONTENTTYPE = 0 " ;
 			}
 		}
 		
@@ -335,7 +336,7 @@ public class ReviewService {
 			if(query.charAt(query.length() - 1) == ' '){
 				query += "AND RWCONTENTTYPE = 1 ";
 			}else{
-				query += " RWCONTENTTYPE = 1 " ;
+				query += "AND  RWCONTENTTYPE = 1 " ;
 			}
 		}
 		
@@ -343,23 +344,7 @@ public class ReviewService {
 			if(query.charAt(query.length() - 1) == ' '){
 				query += "AND RWCONTENTTYPE = 2 ";
 			}else{
-				query += " RWCONTENTTYPE = 2 " ;
-			}
-		}
-		
-		if(follower != null){
-			if(query.charAt(query.length() - 1) == ' '){
-				query += "AND USERNO IN(SELECT USERNO MEMBER USERNO = " + userNo +") ";
-			}else{
-				query += " USERNO IN(SELECT USERNO MEMBER USERNO = " + userNo +") ";
-			}
-		}
-		
-		if(company != null){
-			if(query.charAt(query.length() - 1) == ' '){
-				query += "AND RWTYPE = 1 ";
-			}else{
-				query += " RWTYPE = 1 " ;
+				query += "AND  RWCONTENTTYPE = 2 " ;
 			}
 		}
 		
@@ -372,8 +357,23 @@ public class ReviewService {
 			query += " ORDER BY RWCOUNT DESC" ;
 		}
 		
-		query += ";";
-		
 		return query;
+	}
+
+	public ArrayList<Review> searchSettingSelect(String searchHash, String query, String follower, String company, int userNo) {
+		Connection con = getConnection();
+		ArrayList<Review> searchReviewList = null;
+		
+		if(follower != null) {
+			
+			searchReviewList = new ReviewDao().searchSettingFollowSelect(con, searchHash, query, follower, company, userNo);
+		}else {
+			
+			searchReviewList = new ReviewDao().searchSettingSelect(con, searchHash, query, company);
+		}
+		
+		close(con);
+		
+		return searchReviewList;
 	}
 }
