@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+import org.json.JSONObject;
 
 import com.chain.triangleView.common.MyFileRenamePolicy;
 import com.chain.triangleView.member.member.vo.Attachment;
@@ -43,7 +44,7 @@ public class insertWrite2Servlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		if (ServletFileUpload.isMultipartContent(request)) {
-			int maxSize = 1024 * 1024 * 5; // 20mb가 됨
+			int maxSize = 1024 * 1024 * 20; // 20mb가 됨
 
 			// 파일 길이를 위한 object생성
 			File fileObj = null;
@@ -56,7 +57,7 @@ public class insertWrite2Servlet extends HttpServlet {
 
 			// 저장경로설정
 			String savePath = root + "review_upload/";
-			System.out.println(savePath);
+			//System.out.println(savePath);
 
 			// 파일저장이름 설정
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8",
@@ -173,6 +174,7 @@ public class insertWrite2Servlet extends HttpServlet {
 			rw.setRwComment(rwComment);
 			rw.setRwGrade(rwGrade);
 			rw.setRwSupport(companySpon);
+			System.out.println(rwContent);
 			
 			// 저장한 파일의 이름을 저장할 arrayList생성
 	         ArrayList<String> saveFiles = new ArrayList<String>();
@@ -189,6 +191,8 @@ public class insertWrite2Servlet extends HttpServlet {
 	            saveFiles.add(multiRequest.getFilesystemName(name));
 	            originFiles.add(multiRequest.getOriginalFileName(name));
 	          
+	            System.out.println(multiRequest.getFilesystemName(name));
+	            System.out.println(multiRequest.getOriginalFileName(name));
 	            // Attachment 객체 생성하여 ArrayList객체 생성
 	            ArrayList<Attachment> fileList = new ArrayList<Attachment>();
 	      
@@ -217,6 +221,14 @@ public class insertWrite2Servlet extends HttpServlet {
 
 	            }
 			
+	            
+	            // 생성된 경로를 JSON 형식으로 보내주기 위한 설정
+	        	/*JSONObject jobj = new JSONObject();
+	        	jobj.put("url", savePath);
+	        	*/
+	        	/*response.setContentType("application/json"); // 데이터 타입을 json으로 설정하기 위한 세팅
+	        	out.print(jobj.toJSONString());*/
+	        	
 				Member m = new Member();
 				m.setUserNo(userNo);
 
@@ -225,6 +237,9 @@ public class insertWrite2Servlet extends HttpServlet {
 				if (result > 0) {
 					System.out.println("굿");
 					response.sendRedirect(request.getContextPath() +  "/myHome");
+/*					response.setContentType("application/json"); 
+					out.print(jobj.toJSONString());
+*/
 				} else {
 					System.out.println("다시");
 					request.setAttribute("msg", "글쓰기 실패~!!!");

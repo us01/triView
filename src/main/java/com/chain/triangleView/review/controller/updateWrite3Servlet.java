@@ -245,14 +245,14 @@ public class updateWrite3Servlet extends HttpServlet {
 
 				int result = new ReviewService().updateWrite3(rw,m,fileList);
 
-				/*if (result > 0) {
+				if (result > 0) {
 					System.out.println("굿");
 					response.sendRedirect(request.getContextPath() +  "/myHome");
 				} else {
 					System.out.println("다시");
 					request.setAttribute("msg", "글쓰기 실패~!!!");
 					request.getRequestDispatcher("views/errorPage/errorPage.jsp").forward(request, response);
-				}*/
+				}
 			}
 		}
 	}

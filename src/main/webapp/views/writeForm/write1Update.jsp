@@ -26,6 +26,9 @@
 	crossorigin="anonymous">
 	
 </script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <style>
 body {
@@ -246,21 +249,123 @@ input:hover+p.arrow_box {
 
 </style>
 <script>
-$(function(){
-<%	for(int j =0; j < fileList.size()-1; j++ ){%>            
 
- var imgPath = '<%=request.getContextPath()%>/review_upload/<%=fileList.get(j).getFileName()%>';
-	var $div =$("<label for = 'imgInput1"+i+"' id ='test"+i+"' style='width:250px; height:250px; margin-left:10px; background:url(" + imgPath +") no-repeat; background-size:250px;     display: inline-block;'></label>");
-    var $input = $("<input type = 'file' class = 'imgPlus' id = 'imgInput1"+i+"' name = 'file"+i+"/* ' onChange='c()' */ style='visibility: hidden;'>").change(function() {
-  		readURL(this);
+var i = <%=fileList.size()%>;
+$(function(){
+	console.log(i);
+
+<%	for(int j =1; j < fileList.size(); j++ ){%>            
+
+ 	var imgPath = '<%=request.getContextPath()%>/review_upload/<%=fileList.get(j).getFileName()%>';
+	var $div =$("<label for = 'imgInput1"+i+"' id ='test"+i+"' style='width:250px; height:250px; margin-left:10px; background:url(" + imgPath +") no-repeat; background-size:250px; display: inline-block;'></label>");
+    var $input = $("<input type = 'file' class = 'imgPlus' id = 'imgInput1"+i+"' name = 'file"+i+"' onclick='c()' style='visibility: hidden;'>").change(function() {
+  		readURL("#imgInput1"+i);
   		
 	});
 	i++;
     $($div).append($input);
     $("#write1Content").append($div);	
 <%}%>
-	
+
 });
+
+
+function c(){
+	if (value.files && value.files[0]) {
+		var reader = new FileReader();
+
+		reader.onload = function(e) {
+			$("#imgInput1"+i).css('background', 'transparent url('+e.target.result +') left top no-repeat').css('background-size','300px').css('background-size','contain');
+			
+		}
+
+		reader.readAsDataURL(value.files[0]);
+	}
+	
+	$("#imgInput1"+i).change(function() {
+		  readURL(this);
+		});
+}
+
+$(function(){
+		var check = <%=rw.getCategoryType()%>;
+	
+	var categoryCheck = document.getElementById("categoryCheck");
+
+	for (var i = 1; i < 10; i++) {
+		var checked11 = $('#categoryCheck option').eq(i).val();
+
+		if (check == checked11) {
+			/* categoryCheck.options.selectedIndex = i; */
+			categoryCheck.options[i].setAttribute("selected", "selected");
+		}
+	}
+});
+
+$(function(){
+	var coor = <%=rw.getRwSupport()%>;
+	console.log(coor);
+	if(coor == 1 ){
+		document.getElementById("checkbox").checked = true;
+	}
+
+});
+
+
+$(function(){
+	var star = <%=rw.getRwGrade() %>;
+	console.log(star);
+	for(var i =1; i <= star; i ++){
+		 document.getElementById("p"+i).checked = true;
+	}
+
+});
+
+//썸네일용 
+function LoadImg(value) {
+	if (value.files && value.files[0]) {
+		var reader = new FileReader();
+
+		reader.onload = function(e) {
+			$("#testGoGo").css('background', 'transparent url('+e.target.result +') left top no-repeat').css('background-size','300px').css('background-size','contain');
+			
+		}
+
+		reader.readAsDataURL(value.files[0]);
+	}
+}
+
+//게시글용
+function readURL(input) {
+  		var elem = $(input);
+  		if (input.files && input.files[0]) {
+   			var reader = new FileReader();
+    		reader.onload = function(e) {
+    			$("#test"+(i-1)).css('background', 'transparent url('+e.target.result +') left top no-repeat').css('background-size','300px').css('background-size','contain');
+    			
+    		}
+    		reader.readAsDataURL(elem.get(0).files[0]);
+  		}
+	}
+
+	$("input[type='file']").change(function() {
+  		readURL(this);
+  		
+	});
+
+//게시글에 사진들
+ function b() {
+    i=<%=fileList.size()%> + 1;
+		var $div =$("<label for = 'imgInput1"+i+"' id ='test"+i+"' style='width:250px; height:250px;background-image:url(/triangleView/img/writeForm/imgplus.png); background-size:250px; display:inline-block;'></label>");
+    var $input = $("<input type = 'file' class = 'imgPlus' id = 'imgInput1"+i+"' name = 'file"+i+"' onChange='b()' style='visibility: hidden;'>").change(function() {
+  		readURL(this);
+  		
+	});
+
+    $($div).append($input);
+    $("#write2Content").append($div);
+	
+ }
 </script>
 </head>
 <body>
@@ -284,23 +389,23 @@ $(function(){
 				style="display: -webkit-inline-box; text-align: left;">
 				<div id="companySup" style="width: 635px;">
 					<h5 style="display: inline-block;">기업후원 리뷰</h5>
-					<input type="checkbox" class="w3-check" name="companySpon"
+					<input type="checkbox" class="w3-check" name="companySpon" id="checkbox"
 						value="1" style="margin-left: 18px;">
 				</div>
-
+				
 				<div id="categorySup">
 					<h5 style="display: inline-block;">카테고리</h5>
 
-					<select name="categoryCheck" class="form-control">
-						<option value="1" name="category" selected="selected">자유</option>
-						<option value="2" name="category">IT/가전</option>
-						<option value="3" name="category">음악</option>
-						<option value="4" name="category">뷰티</option>
-						<option value="5" name="category">스포츠</option>
-						<option value="6" name="category">금융</option>
-						<option value="7" name="category">게임</option>
-						<option value="8" name="category">취미</option>
-						<option value="9" name="category">인생</option>
+					<select name="categoryCheck" id = "categoryCheck" class="form-control">
+						<option value="1" name="category" id ="category">자유</option>
+						<option value="2" name="category" id ="category">IT/가전</option>
+						<option value="3" name="category" id ="category">음악</option>
+						<option value="4" name="category" id ="category">뷰티</option>
+						<option value="5" name="category" id ="category">스포츠</option>
+						<option value="6" name="category" id ="category">금융</option>
+						<option value="7" name="category" id ="category">게임</option>
+						<option value="8" name="category" id ="category">취미</option>
+						<option value="9" name="category" id ="category">인생</option>
 					</select>
 				</div>
 			</div>
@@ -400,55 +505,10 @@ $(function(){
 	</div>
 
 	<script>
-	function LoadImg(value) {
-		if (value.files && value.files[0]) {
-			var reader = new FileReader();
-
-			reader.onload = function(e) {
-				$("#testGoGo").css('background', 'transparent url('+e.target.result +') left top no-repeat').css('background-size','300px').css('background-size','contain');
-				
-			}
-
-			reader.readAsDataURL(value.files[0]);
-		}
-	}
-	
 	function moveEditor() {
 		location.href = "/triangleView/views/writeForm/forWrite1/editorUpdate.jsp"
 
 	}
-	
-	var i = <%=fileList.size()%>;
-	function readURL(input) {
-  		var elem = $(input);
-  		if (input.files && input.files[0]) {
-   			var reader = new FileReader();
-    		reader.onload = function(e) {
-    			$("#test"+(i-1)).css('background', 'transparent url('+e.target.result +') left top no-repeat').css('background-size','300px').css('background-size','contain');
-    			
-    		}
-    		reader.readAsDataURL(elem.get(0).files[0]);
-  		}
-	}
-
-	$("input[type='file']").change(function() {
-  		readURL(this);
-  		
-	});
-	
-	
-	 function b() {
-        i=<%=fileList.size()%> + 1;
-  		var $div =$("<label for = 'imgInput1"+i+"' id ='test"+i+"' style='width:250px; height:250px;background-image:url(/triangleView/img/writeForm/imgplus.png); background-size:250px; display:inline-block;'></label>");
-        var $input = $("<input type = 'file' class = 'imgPlus' id = 'imgInput1"+i+"' name = 'file"+i+"' onChange='b()' style='visibility: hidden;'>").change(function() {
-      		readURL(this);
-      		
-    	});
-
-        $($div).before($input);
-        $("#write1Content").before($div);
-		
-	 }
 	
 	 $(document).ready(function() {
 			var left = 100

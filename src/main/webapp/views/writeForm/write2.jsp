@@ -19,20 +19,45 @@
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
   <script type="text/javascript" src="forWrite2/dist/summernote.js"></script>
   <script src="forWrite2/lang/summernote-ko-KR.js"></script>
-  <script type="text/javascript">
+<script type="text/javascript">
     $(document).ready(function() {
       $('.summernote').summernote({
         height: 300,
-       
         minHeight : null,
-
         maxHeight : null,
-
         focus : true,
-
-        lang : 'ko-KR'
-      });
+        lang : 'ko-KR',
+		onImageUpload: function(files, editor, welEditable) {
+		            		for (var i = files.length - 1; i >= 0; i--) {
+		            			sendFile(files[i], this);
+		          }
+			 }
+     	 	
+      	});
     });
+    
+    function sendFile(file, editor) {
+        // 파일 전송을 위한 폼생성
+ 		data = new FormData();
+ 	    data.append("uploadFile", file);
+ 	    $.ajax({ // ajax를 통해 파일 업로드 처리
+ 	        data : data,
+ 	        type : "POST",
+ 	       	enctype: 'multipart/form-data',
+ 	        url : "/insertWrite2.bo",
+ 	        cache : false,
+ 	        contentType : false,
+ 	        processData : false,
+ 	        success : function(data) { // 처리가 성공할 경우
+                // 에디터에 이미지 출력
+ 	        	//$(editor).summernote('editor.insertImage', data.url);
+ 	        	alert('이미지 업로드 성공!');
+ 	        }
+ 	    });
+ 	}
+
+
+
   </script>
 <style>
 body {
@@ -321,6 +346,27 @@ $(function(){
  
 </script>
 
+<script type="text/javascript">
+        /* summernote에서 이미지 업로드시 실행할 함수 */
+	 	function sendFile(file, editor) {
+            // 파일 전송을 위한 폼생성
+	 		data = new FormData();
+	 	    data.append("uploadFile", file);
+	 	    $.ajax({ 
+	 	        data : data,
+	 	        type : "POST",
+	 	        url : "./summernote_imageUpload.jsp",
+	 	        cache : false,
+	 	        contentType : false,
+	 	        processData : false,
+	 	        success : function(data) { // 처리가 성공할 경우
+                    // 에디터에 이미지 출력
+	 	        	$(editor).summernote('editor.insertImage', data.url);
+	 	        }
+	 	    });
+	 	}
+	</script>
+
 </head>
 <body>
 <%-- 
@@ -406,9 +452,9 @@ function LoadImg(value) {
 			<div id="contentWrite2">
 				<div class="container" name="myContent" id="myContent">
 					<h5>게시글내용</h5>
-					<div class="summernote" name="content">
+					<textarea class="summernote" name="edit" id='edit'>
 						
-					</div>
+					</textarea>
 				</div>
 			</div>
 

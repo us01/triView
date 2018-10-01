@@ -244,11 +244,22 @@ body {
 	$(function(){
 		var coor = <%=rw.getRwSupport()%>;
 		console.log(coor);
-		
-		
+		if(coor == 1 ){
+			document.getElementById("checkbox").checked = true;
+		}
+
 	});
-<%-- 	
-		} --%>
+	
+	
+	$(function(){
+		var star = <%=rw.getRwGrade() %>;
+		console.log(star);
+		for(var i =1; i <= star; i ++){
+			 document.getElementById("p"+i).checked = true;
+		}
+
+	});
+
 
 </script>
 </head>
@@ -276,7 +287,7 @@ body {
 				style="display: -webkit-inline-box; text-align: left;">
 				<div id="companySup" style="width: 635px;">
 					<h5 style="display: inline-block;">기업후원 리뷰</h5>
-					<input type="checkbox" class="w3-check" name="companySpon"
+					<input type="checkbox" class="w3-check" name="companySpon" id="checkbox"
 						value="1" style="margin-left: 18px;">
 				</div>
 
