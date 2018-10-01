@@ -79,6 +79,19 @@
 		document.getElementById('uploadViewAearArea').style.display = 'none';
 	}
 	
+	function uploadView(){
+	      $(".uploadViewAear").css("margin-left", "-250px");
+	      $.ajax({
+	         url : "/triangleView/views/writeForm/checkWriteForm.jsp",
+	         data : "html",
+	         success : function(data) {
+	            $(".uploadViewAear").html(data);
+	            document.getElementById('uploadViewAear').style.display = 'block';
+	            document.getElementById('uploadViewAearArea').style.display = 'block';
+	         }
+	      });
+	   }
+	
 	$(function(){
 		
 		$("#searchReviewInput").val('<%=searchData%>');
@@ -125,5 +138,7 @@
 			<jsp:param name="noticeAllList" value="<%= noticeList %>"/>
 		</jsp:include>
 	</div>
+	<div id="uploadViewAear" class="uploadViewAear"></div>
+	<div id="uploadViewAearArea" class="w3-modal" onclick="ploadViewAearAreaDisplayNone();"></div>
 </body>
 </html>

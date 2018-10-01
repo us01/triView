@@ -16,9 +16,7 @@
 </style>
 </head>
 <body>
-	<div>
-		<jsp:include page="../header/mainHeader.jsp" flush="true" />
-	</div>
+	<jsp:include page="../header/mainHeader.jsp" flush="true" />
 	<jsp:include page="./mainCenterContent.jsp" flush="true"/>
 	<jsp:include page="../footer/mainFooter.jsp" flush="true" />
 </body>

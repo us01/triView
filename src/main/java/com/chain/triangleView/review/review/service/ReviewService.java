@@ -306,4 +306,74 @@ public class ReviewService {
 		
 		return result;
 	}
+
+	public String orderQuery(int userNo, String sinceTime, String untilTime, String term, String recent, String like, String hits,
+			String text, String card, String vedio, String follower, String company) {
+		String query = "WHERE";
+		
+		if(!sinceTime.equals("") || !untilTime.equals("")){
+			query += " WRITEDATE BETWEEN " + sinceTime + " AND " + untilTime + " ";
+		}else if(term != null){
+			if(term.equals("oneDay")){
+				query += " WRITEDATE BETWEEN SYSDATE - 1 AND SYSDATE ";
+			}else if(term.equals("oneWeek")){
+				query += " WRITEDATE BETWEEN SYSDATE - 7 AND SYSDATE ";
+			}else if(term.equals("oneMonth")){
+				query += " WRITEDATE BETWEEN ADD_MONTHS(SYSDATE, -1) AND SYSDATE ";
+			}
+		}
+		
+		if(text != null){
+			if(query.charAt(query.length() - 1) == ' '){
+				query += "AND RWCONTENTTYPE = 0 ";
+			}else{
+				query += " RWCONTENTTYPE = 0 " ;
+			}
+		}
+		
+		if(card != null){
+			if(query.charAt(query.length() - 1) == ' '){
+				query += "AND RWCONTENTTYPE = 1 ";
+			}else{
+				query += " RWCONTENTTYPE = 1 " ;
+			}
+		}
+		
+		if(vedio != null){
+			if(query.charAt(query.length() - 1) == ' '){
+				query += "AND RWCONTENTTYPE = 2 ";
+			}else{
+				query += " RWCONTENTTYPE = 2 " ;
+			}
+		}
+		
+		if(follower != null){
+			if(query.charAt(query.length() - 1) == ' '){
+				query += "AND USERNO IN(SELECT USERNO MEMBER USERNO = " + userNo +") ";
+			}else{
+				query += " USERNO IN(SELECT USERNO MEMBER USERNO = " + userNo +") ";
+			}
+		}
+		
+		if(company != null){
+			if(query.charAt(query.length() - 1) == ' '){
+				query += "AND RWTYPE = 1 ";
+			}else{
+				query += " RWTYPE = 1 " ;
+			}
+		}
+		
+		//마지막 order by 부분
+		if(recent != null){
+			query += " ORDER BY WRITEDATE DESC";
+		}else if(like != null){
+			query += " ORDER BY LIKECOUNT DESC" ;
+		}else if(hits != null){
+			query += " ORDER BY RWCOUNT DESC" ;
+		}
+		
+		query += ";";
+		
+		return query;
+	}
 }

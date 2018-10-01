@@ -1,6 +1,9 @@
 package com.chain.triangleView.review.controller;
 
 import java.io.IOException;
+import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -24,16 +27,45 @@ public class SearchReviewServlet extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String searchHash = request.getParameter("searchHash");
-		String searchData = request.getParameter("searchData");
-		
-		ArrayList<Review> searchReviewList = new ReviewService().searchHashSelect(searchHash);
-		ArrayList<HashMap<String, Object>> noticeList = null;
-		
-		if(((Member)request.getSession().getAttribute("loginUser")) != null){
+		/*if(((Member)request.getSession().getAttribute("loginUser")) != null){
 			Member followCountMember = new MemberService().followCountSelect(((Member)request.getSession().getAttribute("loginUser")).getUserNo());
 			request.setAttribute("followCountMember", followCountMember);
+		}*/
+		
+		int userNo = -1;
+		
+		if((Member)request.getSession().getAttribute("loginUser") != null){
+			userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 		}
+		
+		String searchHash = request.getParameter("searchHash");
+		String searchData = request.getParameter("searchData");
+		String sinceTime = request.getParameter("sinceTime");
+		String untilTime = request.getParameter("untilTime");
+		String term = request.getParameter("Term");
+		String recent = request.getParameter("recent");
+		String like = request.getParameter("like");
+		String hits = request.getParameter("hits");
+		String text = request.getParameter("text");
+		String card = request.getParameter("card");
+		String vedio = request.getParameter("vedio");
+		String follower = request.getParameter("follower");
+		String company = request.getParameter("company");
+		String query = "";
+		
+		if(sinceTime != null || untilTime != null || term != null ||
+			recent != null || like != null || hits != null ||
+			text != null || card != null ||  vedio != null ||
+			follower != null || company != null){
+			query = new ReviewService().orderQuery(userNo, sinceTime, untilTime, term, recent, like, hits, text, card, vedio, follower, company);
+		}
+		
+		System.out.println(query);
+		
+		
+		/*
+		ArrayList<Review> searchReviewList = new ReviewService().searchHashSelect(searchHash);
+		ArrayList<HashMap<String, Object>> noticeList = null;
 
 		new HotTagService().countTag(searchData); 
 		 
@@ -53,7 +85,7 @@ public class SearchReviewServlet extends HttpServlet {
 		}else{
 			request.setAttribute("msg", "검색한 리뷰 읽어오기 실패");
 			request.getRequestDispatcher("/views/errorPage/errorPage.jsp").forward(request, response);
-		}
+		}*/
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

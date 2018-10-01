@@ -27,7 +27,6 @@
 		top:0px;
 		user-select:none;
 	}
-	
 	.deskNav {
 		width: 1000px;
 		height: 70px;
@@ -415,17 +414,6 @@
 		});
 	}
 
-	$(function(){
-		$("#searchReviewInput").onclick(function(){
-			if(key.which == 13){
-				var searchHash = $("#searchReviewInput").val();
-				var searchData = $("#searchReviewInput").val();
-				location.href="<%= request.getContextPath()%>/searchReview.sr?searchHash=" + searchHash +"&searchData=" + searchData;
-			}
-			
-		});
-	})
-	
 	function insertMemberTypeDisplayNone() {
 		document.getElementById('insertMemberTypeArea').style.display = 'none';
 		document.getElementById('insertMemberTypeAearArea').style.display = 'none';
@@ -453,106 +441,109 @@
 	function openprovision(){
 		location.href="/triangleView/views/etc/provision.jsp";
 	}
-	
 </script>
 </head>
 <body>
 	<div class="navWrap">
-		<div class="deskNav">
-			<ul>
-				<li>
-					<% if(loginUser != null) { %>
-						<a href="<%= request.getContextPath() %>/loginMain">
-							<img id="main_Logo" src="/triangleView/img/main/main_logo_white.png">
-						</a>
-					<% }else { %>
-						<a href="/triangleView/index.jsp">
-							<img id="main_Logo" src="/triangleView/img/main/main_logo_white.png">
-						</a>
-					<% } %>
-				</li>
-				<li>
-					<div>
-						<input type="text" id="searchReviewInput"><img onclick="searchReview()" src="/triangleView/img/main/btn_search.png">
-					</div>
-				</li>
-				<li><div><img class="openDetail"></div>
-					<ul>
-						<li>
-							<div>
-								<form action="" method="POST">
+		<form id="searchForm" method="POST">	
+			<div class="deskNav">
+				<ul>
+					<li>
+						<% if(loginUser != null) { %>
+							<a href="<%= request.getContextPath() %>/loginMain">
+								<img id="main_Logo" src="/triangleView/img/main/main_logo_white.png">
+							</a>
+						<% }else { %>
+							<a href="/triangleView/index.jsp">
+								<img id="main_Logo" src="/triangleView/img/main/main_logo_white.png">
+							</a>
+						<% } %>
+					</li>
+					<li>
+						<div>
+							<input type="text" name="searchHash" id="searchHash"><img onclick="naySearch()" src="/triangleView/img/main/btn_search.png">
+						</div>
+					</li>
+					<li><div><img class="openDetail"></div>
+						<ul>
+							<li>
+								<div>
 									<table class="detailTable">
 										<tr>
 											<td>기간</td>
 											<td>
-												<label class="searchDate"><input type="radio" name="term">1일</label>&nbsp;&nbsp;&nbsp; 
-												<label class="searchDate"><input type="radio" name="term">1주</label>&nbsp;&nbsp;&nbsp; 
-												<label class="searchDate"><input type="radio" name="term">1개월</label><br>
+												<label class="searchDate"><input type="radio" name="term" value="oneDay">1일</label>&nbsp;&nbsp;&nbsp; 
+												<label class="searchDate"><input type="radio" name="term" value="oneWeek">1주</label>&nbsp;&nbsp;&nbsp; 
+												<label class="searchDate"><input type="radio" name="term" value="oneMonth">1개월</label><br>
 												<label>
-													<input id="sinceTime" type="date">~<input id="untilTime" type="date">
+													<input name="sinceTime" id="sinceTime" type="date">~<input name="untilTime" id="untilTime" type="date">
 												</label>
 											</td>
 										</tr>
 										<tr>
 											<td>조건</td>
 											<td>
-												<label><input type="checkbox" name="recent">최신순</label>&nbsp;&nbsp;&nbsp;
-												<label><input type="checkbox" name="like">좋아요순</label>&nbsp;&nbsp;&nbsp;
-												<label><input type="checkbox" name="hits">조회순</label>
+												<label><input type="checkbox" name="recent" value="recent">최신순</label>&nbsp;&nbsp;&nbsp;
+												<label><input type="checkbox" name="like" value="like">좋아요순</label>&nbsp;&nbsp;&nbsp;
+												<label><input type="checkbox" name="hits" value="hits">조회순</label>
 											</td>
 										</tr>
 										<tr>
 											<td>형태</td>
-											<td><label><input type="checkbox" name="text">텍스트</label>&nbsp;&nbsp;&nbsp; 
-												<label><input type="checkbox" name="card">카드</label>&nbsp;&nbsp;&nbsp; 
-												<label><input type="checkbox" name="video">동영상</label>
+											<td><label><input type="checkbox" name="text" value="text">텍스트</label>&nbsp;&nbsp;&nbsp; 
+												<label><input type="checkbox" name="card" value="card">카드</label>&nbsp;&nbsp;&nbsp; 
+												<label><input type="checkbox" name="video" value="video">동영상</label>
 											</td>
 										</tr>
 										<tr>
 											<td>Who</td>
-											<td><label><input type="checkbox" name="follower">팔로우회원</label>&nbsp;&nbsp;&nbsp; 
-												<label><input type="checkbox" name="company">기업회원제외</label>
+											<td>
+												<% if(loginUser != null){ %>
+													<label><input type="checkbox" name="follower" value="follower">팔로우회원</label>&nbsp;&nbsp;&nbsp;
+												<% } %>
+												<label><input type="checkbox" name="company" value="company">기업회원제외</label>
 											</td>
 										</tr>
 										<tr>
 											<td colspan="2">
 												<div class="applyDetail">
-													<button>적용</button>
+													<button type='button'>검색</button>
 													<button type="reset" onclick="detailReset();">초기화</button>
 												</div>
 											</td>
 										</tr>
 									</table>
-								</form>
-							</div>
-						</li>
-					</ul></li>
-				<li class="mainNavLi"><span>더보기</span>
-					<ul>
-						<li>
-							<div>
-								<a onclick="openboard();">공지사항</a><br>
-								<a onclick="openqna();">자주 묻는 질문</a><br>
-								<a href="https://open.kakao.com/o/sGuoSQZ" target="_blank">1:1문의</a><br>
-								<a onclick="openprovision();">약관 및 정책</a>
-							</div>
-						</li>
-					</ul></li>
-				<li class="mainNavLi">
-					<% if(loginUser != null){ %>
-						<%if(loginUser.getUserType() == 0) { %>
-							<span onclick="myHome()">마이뷰</span>	
-						<% } else if(loginUser.getUserType() == 1) {%>
-							<span onclick="myComp()">기업뷰</span>	
-						<% } else { %>
-							<span onclick="myAdmin()">관리자</span>	
+								</div>
+							</li>
+						</ul>
+					</li>
+					<li class="mainNavLi"><span>더보기</span>
+						<ul>
+							<li>
+								<div>
+									<a onclick="openboard();">공지사항</a><br>
+									<a onclick="openqna();">자주 묻는 질문</a><br>
+									<a href="https://open.kakao.com/o/sGuoSQZ" target="_blank">1:1문의</a><br>
+									<a onclick="openprovision();">약관 및 정책</a>
+								</div>
+							</li>
+						</ul></li>
+					<li class="mainNavLi">
+						<% if(loginUser != null){ %>
+							<%if(loginUser.getUserType() == 0) { %>
+								<span onclick="myHome()">마이뷰</span>	
+							<% } else if(loginUser.getUserType() == 1) {%>
+								<span onclick="myComp()">기업뷰</span>	
+							<% } else { %>
+								<span onclick="myAdmin()">관리자</span>	
+							<% } %>
+						<% }else{ %>
+							<span onclick="insertMemberTypeDisplayBlock()">로그인</span>
 						<% } %>
-					<% }else{ %>
-						<span onclick="insertMemberTypeDisplayBlock()">로그인</span>
-					<% } %>
-				</li>
-			</ul>
-		</div>
+					</li>
+				</ul>
+			</div>
+		</form>
 		<div class="mobileNav"></div>
 	</div>
 	<div id="insertMemberTypeArea" class="insertMemberTypeArea"></div>
