@@ -316,6 +316,7 @@
 			}else if($(this).find("input").attr("type") == "radio"){
 				$(".searchDate").css("font-weight", "unset").css("color", "black");
 				$(this).css("font-weight", "bold").css("color", "#f8585b");
+				$(this).prop("checked", true);
 			}else if($(this).find("input").attr("type") == "date"){
 				$(".searchDate").find("input[type='radio']").prop("checked", false);
 				$(".searchDate").css("font-weight", "unset").css("color", "black");
@@ -446,6 +447,7 @@
 <body>
 	<div class="navWrap">
 		<form id="searchForm" method="POST">	
+		  	<input type="text" style="display: none;" />
 			<div class="deskNav">
 				<ul>
 					<li>
