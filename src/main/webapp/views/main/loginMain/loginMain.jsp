@@ -10,7 +10,12 @@
 	ArrayList<Review> interestReviewList = (ArrayList<Review>)request.getAttribute("interestReviewList");
 	ArrayList<Review> searchReviewList = (ArrayList<Review>)request.getAttribute("searchReviewList");
 	Member followCountMember = (Member)request.getAttribute("followCountMember");
-	String searchData = "default";
+	String searchData = "";
+	
+	if((String)request.getAttribute("searchReviewData") != null){
+		
+		searchData = (String)request.getAttribute("searchReviewData");
+	}
 	
 	ArrayList<HashMap<String, Object>> noticeList = (ArrayList<HashMap<String, Object>>)request.getAttribute("selectAllNotice");
 %>
@@ -75,6 +80,9 @@
 	}
 	
 	$(function(){
+		
+		$("#searchReviewInput").val('<%=searchData%>');
+		
 		$("#searchReviewInput").keypress(function(key) {
 			if(key.which == 13){
 				var searchHash = $("#searchReviewInput").val();
