@@ -365,11 +365,11 @@ public class ReviewService {
 		
 		//마지막 order by 부분
 		if(recent != null){
-			query += " ORDER BY WRITEDATE DESC";
+			query += "ORDER BY WRITEDATE DESC";
 		}else if(like != null){
-			query += " ORDER BY LIKECOUNT DESC" ;
+			query += "ORDER BY LIKECOUNT DESC" ;
 		}else if(hits != null){
-			query += " ORDER BY RWCOUNT DESC" ;
+			query += "ORDER BY RWCOUNT DESC" ;
 		}
 		
 		query += ";";

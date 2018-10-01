@@ -69,11 +69,13 @@
 	<div class="subTopArea"> 
 		<% if(form.getRwType() != 0){ %>
 			<p>기업 후원을 받은 리뷰입니다.</p>
+		<% }else{ %>
+			<p>　</p>
 		<% } %>
 	</div>
 	<div class="review-Form">
 		<div class="contentArea">
-			<iframe class="iframeVideo" src="https://www.youtube.com/embed/NIDcZJTJ3N0?rel=0&autoplay=1&mute=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+			<iframe class="iframeVideo" src="<%= form.getRwContent() %>?rel=0&autoplay=1&mute=1" frameborder="0"></iframe>
 		</div>
 		<div class="contentInfoArea">
 			<div>

@@ -17,6 +17,9 @@
 </script>
 <title>Insert title here</title>
 <style>
+	body{
+		margin:0px;
+	}
 	.navWrap {
 		width: 100%;
 		position: fixed;
@@ -316,6 +319,7 @@
 			}else if($(this).find("input").attr("type") == "radio"){
 				$(".searchDate").css("font-weight", "unset").css("color", "black");
 				$(this).css("font-weight", "bold").css("color", "#f8585b");
+				$(this).prop("checked", true);
 			}else if($(this).find("input").attr("type") == "date"){
 				$(".searchDate").find("input[type='radio']").prop("checked", false);
 				$(".searchDate").css("font-weight", "unset").css("color", "black");
