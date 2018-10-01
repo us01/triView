@@ -234,6 +234,28 @@ public class MemberService {
 		return followCountMember;
 	}
 
+  public int updateMember(Member m, ArrayList<Attachment> fileList) {
+      Connection con = getConnection();
+      int result = 0;
+      
+
+      int result1 = new MemberDao().updateMember(con,m);
+      
+      int result2 = new MemberDao().updateAttachment(con, fileList, m);
+      
+      
+      if(result1 > 0){
+         commit(con);
+         result = 1;
+      }else{
+         rollback(con);
+      }
+      
+      
+      close(con);
+      return result;
+   }
+      
 	public ArrayList<MemberInterestCategory> interestCategorySelect(int userNo) {
 		Connection con = getConnection();
 		
@@ -255,6 +277,15 @@ public class MemberService {
 			rollback(con);
 		}
 		
+		close(con);
+		return result;
+	}
+
+	public int updatePassword(int userNo, String newPwd) {
+		Connection con = getConnection();
+    
+		int result = new MemberDao().updatePassword(con,userNo,newPwd);
+    
 		close(con);
 		
 		return result;

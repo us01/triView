@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Properties;
 
 import com.chain.triangleView.member.member.vo.Attachment;
@@ -259,66 +260,7 @@ public class ReviewDao {
 		
 		return searchReviewList;
 	}
-	
-	public int insertWrite2Attachment(Connection con, ArrayList<Attachment> fileList, Member m, Review rwNoCheck) {
-		PreparedStatement pstmt = null;
-		int result = 0;
 
-		String query = prop.getProperty("insertWrite2Attachment");
-
-		try {
-			for(int i = 0; i < fileList.size(); i++){
-				int j = i;
-				pstmt = con.prepareStatement(query);
-
-				pstmt.setInt(1, rwNoCheck.getRwNo());
-				pstmt.setString(2, fileList.get(i).getOriginName());
-				pstmt.setString(3,fileList.get(i).getChangeName());
-				pstmt.setString(4, fileList.get(i).getFileSize());
-				pstmt.setString(5, fileList.get(i).getFileType());
-				pstmt.setInt(6, m.getUserNo());
-				pstmt.setInt(7, j);
-
-				result += pstmt.executeUpdate();
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally{
-			close(pstmt);
-		}
-
-		return result;
-	}
-
-	public int write3Review(Connection con, Review rw, Member m) {
-		PreparedStatement pstmt = null;
-		int result = 0;
-		
-		String query = prop.getProperty("insertWrite3Review");
-		
-		try {
-			pstmt = con.prepareStatement(query);
-			
-			pstmt.setInt(1, m.getUserNo());
-			pstmt.setInt(2, rw.getCategoryType());
-			pstmt.setString(3, rw.getRwContent());
-			pstmt.setString(4, rw.getRwTitle());
-			pstmt.setDouble(5, rw.getRwGrade());
-			pstmt.setString(6, rw.getRwComment());
-			pstmt.setInt(7, rw.getRwSupport());
-			
-			result = pstmt.executeUpdate();
-			
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally{
-			close(pstmt);
-		}
-		
-		return result;
-	}
 
 	public ArrayList<Review> userHomeReviewSelect(Connection con, String userId) {
 		PreparedStatement pstmt = null;
@@ -397,6 +339,64 @@ public class ReviewDao {
 		return result;
 	}
 
+
+
+	public ArrayList<CardFormImages> loadOneFormCardImg(Connection con, int rwNo) {
+		PreparedStatement pstmt = null;
+		ArrayList<CardFormImages> cardImageList = null;
+		ResultSet rset = null;
+		String query  = prop.getProperty("loadOneFormCardImg");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, rwNo);
+			
+			rset = pstmt.executeQuery();
+			
+			cardImageList = new ArrayList<CardFormImages>();
+			while(rset.next()){
+				CardFormImages list = new CardFormImages();
+				
+				list.setFileCode(rset.getInt("filecode"));
+				list.setFileName(rset.getString("filename"));
+				list.setFileSeqNo(rset.getInt("fileseqno"));
+				list.setReviewNo(rset.getInt("reviewno"));
+				list.setTableType(rset.getInt("tabletype"));
+				
+				cardImageList.add(list);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return cardImageList;
+	}
+
+	public int addLikeReview(Connection con, int userNo, int rwNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("addLikeReview");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, rwNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 	public int write1Review(Connection con, Review rw, Member m) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -411,10 +411,44 @@ public class ReviewDao {
 			pstmt.setString(3, rw.getRwContent());
 			pstmt.setString(4, rw.getRwTitle());
 			pstmt.setDouble(5, rw.getRwGrade());
-			pstmt.setString(6, rw.getRwComment());
-			pstmt.setInt(7, rw.getRwSupport());
+			pstmt.setString(6, rw.getRwHash());
+			pstmt.setString(7, rw.getRwComment());
+			pstmt.setInt(8, rw.getRwSupport());
+			
 			
 			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public int write2Review(Connection con, Review rw, Member m) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertWrite2Review");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, m.getUserNo());
+			pstmt.setInt(2, rw.getCategoryType());
+			/*pstmt.setString(3, rw.getRwContent());*/
+			pstmt.setString(3, rw.getRwTitle());
+			pstmt.setDouble(4, rw.getRwGrade());
+			pstmt.setString(5, rw.getRwHash());
+			pstmt.setString(6, rw.getRwComment());
+			pstmt.setInt(7, rw.getRwSupport());
+			pstmt.setString(8, rw.getRwContent());
+			
+			result = pstmt.executeUpdate();
+			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -425,7 +459,37 @@ public class ReviewDao {
 		return result;
 	}
 
-	public int insertWrite1Attachment(Connection con, ArrayList<Attachment> fileList, Member m) {
+	public int write3Review(Connection con, Review rw, Member m) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertWrite3Review");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, m.getUserNo());
+			pstmt.setInt(2, rw.getCategoryType());
+			pstmt.setString(3, rw.getRwContent());
+			pstmt.setString(4, rw.getRwTitle());
+			pstmt.setDouble(5, rw.getRwGrade());
+			pstmt.setString(6, rw.getRwHash());
+			pstmt.setString(7, rw.getRwComment());
+			pstmt.setInt(8, rw.getRwSupport());
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int insertWrite1Attachment(Connection con, ArrayList<Attachment> fileList, Member m, Review rwNoCheck) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 
@@ -436,12 +500,13 @@ public class ReviewDao {
 				int j = i;
 				pstmt = con.prepareStatement(query);
 
-				pstmt.setString(1, fileList.get(i).getOriginName());
-				pstmt.setString(2,fileList.get(i).getChangeName());
-				pstmt.setString(3, fileList.get(i).getFileSize());
-				pstmt.setString(4, fileList.get(i).getFileType());
-				pstmt.setInt(5, m.getUserNo());
-				pstmt.setInt(6, j);
+				pstmt.setInt(1, rwNoCheck.getRwNo());
+				pstmt.setString(2, fileList.get(i).getOriginName());
+				pstmt.setString(3,fileList.get(i).getChangeName());
+				pstmt.setString(4, fileList.get(i).getFileSize());
+				pstmt.setString(5, fileList.get(i).getFileType());
+				pstmt.setInt(6, m.getUserNo());
+				pstmt.setInt(7, j);
 
 				result += pstmt.executeUpdate();
 			}
@@ -456,25 +521,30 @@ public class ReviewDao {
 		return result;
 	}
 
-	public int write2Review(Connection con, Review rw, Member m) {
+	public int insertWrite2Attachment(Connection con, ArrayList<Attachment> fileList, Member m, Review rwNoCheck) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 
-		String query = prop.getProperty("insertWrite2Review");
+		String query = prop.getProperty("insertWrite2Attachment");
+
 		try {
-			pstmt = con.prepareStatement(query);
+			for(int i = 0; i < fileList.size(); i++){
+				int j = i;
+				pstmt = con.prepareStatement(query);
 
-			pstmt.setInt(1, m.getUserNo());
-			pstmt.setInt(2, rw.getCategoryType());
-			pstmt.setString(3, rw.getRwContent());
-			pstmt.setString(4, rw.getRwTitle());
-			pstmt.setDouble(5, rw.getRwGrade());
-			pstmt.setString(6, rw.getRwComment());
-			pstmt.setInt(7, rw.getRwSupport());
+				pstmt.setInt(1, rwNoCheck.getRwNo());
+				pstmt.setString(2, fileList.get(i).getOriginName());
+				pstmt.setString(3,fileList.get(i).getChangeName());
+				pstmt.setString(4, fileList.get(i).getFileSize());
+				pstmt.setString(5, fileList.get(i).getFileType());
+				pstmt.setInt(6, m.getUserNo());
+				pstmt.setInt(7, j);
 
-			result = pstmt.executeUpdate();
+				result += pstmt.executeUpdate();
+			}
 
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally{
 			close(pstmt);
@@ -482,8 +552,7 @@ public class ReviewDao {
 
 		return result;
 	}
-
-	public int insertWrite3Attachment(Connection con, ArrayList<Attachment> fileList, Member m) {
+	public int insertWrite3Attachment(Connection con, ArrayList<Attachment> fileList, Member m, Review rwNoCheck) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 
@@ -494,12 +563,13 @@ public class ReviewDao {
 				int j = i;
 				pstmt = con.prepareStatement(query);
 
-				pstmt.setString(1, fileList.get(i).getOriginName());
-				pstmt.setString(2, fileList.get(i).getChangeName());
-				pstmt.setString(3, fileList.get(i).getFileSize());
-				pstmt.setString(4, fileList.get(i).getFileType());
-				pstmt.setInt(5, m.getUserNo());
-				pstmt.setInt(6, j);
+				pstmt.setInt(1, rwNoCheck.getRwNo());
+				pstmt.setString(2, fileList.get(i).getOriginName());
+				pstmt.setString(3,fileList.get(i).getChangeName());
+				pstmt.setString(4, fileList.get(i).getFileSize());
+				pstmt.setString(5, fileList.get(i).getFileType());
+				pstmt.setInt(6, m.getUserNo());
+				pstmt.setInt(7, j);
 
 				result += pstmt.executeUpdate();
 			}
@@ -568,11 +638,69 @@ public class ReviewDao {
 		return rwResult;
 	}
 
-	public ArrayList<CardFormImages> loadOneFormCardImg(Connection con, int rwNo) {
+
+
+	public int writeSelect(Connection con, int rwNo) {
+		int result = 0;
+		
 		PreparedStatement pstmt = null;
-		ArrayList<CardFormImages> cardImageList = null;
+		
+		String query = prop.getProperty("selectReview");
+		
+		try {
+			
+			
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, rwNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int updateCount(Connection con, int rwNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query = prop.getProperty("updateCount");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, rwNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			
+			close(con);
+		}
+		
+		
+		
+		return result;
+	}
+
+	public HashMap<String, Object> selectContent(Connection con, int rwNo) {
+		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query  = prop.getProperty("loadOneFormCardImg");
+		HashMap<String, Object> hmap = null;
+		Review rw = null;
+		CardFormImages cfi = null;
+		ArrayList<CardFormImages> list = null;
+		
+		String query = prop.getProperty("selectContent");
 		
 		try {
 			pstmt = con.prepareStatement(query);
@@ -581,43 +709,93 @@ public class ReviewDao {
 			
 			rset = pstmt.executeQuery();
 			
-			cardImageList = new ArrayList<CardFormImages>();
+			list = new ArrayList<CardFormImages>();
+			
 			while(rset.next()){
-				CardFormImages list = new CardFormImages();
+				rw = new Review();
+				rw.setRwNo(rset.getInt("rwno"));
+
+				rw.setCategoryType(rset.getInt("categorytype"));
+				rw.setRwContent(rset.getString("rwcontent"));
+				rw.setRwTitle(rset.getString("rwtitle"));
+				//rw.setRwContentType(rset.getInt("rwcontenttype"));
+				rw.setRwGrade(rset.getInt("rwgrade"));
+				rw.setRwHash(rset.getString("rwhash"));
+				rw.setRwComment(rset.getString("rwcomment"));
+				rw.setRwType(rset.getInt("rwtype"));
+				rw.setRwSupport(rset.getInt("rwsupport"));
 				
-				list.setFileCode(rset.getInt("filecode"));
-				list.setFileName(rset.getString("filename"));
-				list.setFileSeqNo(rset.getInt("fileseqno"));
-				list.setReviewNo(rset.getInt("reviewno"));
-				list.setTableType(rset.getInt("tabletype"));
+				cfi = new CardFormImages();
 				
-				cardImageList.add(list);
+				cfi.setFileName(rset.getString("filename"));
+				cfi.setTableType(rset.getInt("tabletype"));
+				cfi.setFileSeqNo(rset.getInt("fileseqno"));
+				
+				list.add(cfi);
+				
 			}
+
+			hmap = new HashMap<String, Object>();
+			hmap.put("review",rw);
+			hmap.put("CardFormImages", list);
+			
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally {
-			close(rset);
+		}finally{
 			close(pstmt);
+			close(rset);
 		}
 		
-		return cardImageList;
+		return hmap;
 	}
 
-	public int addLikeReview(Connection con, int userNo, int rwNo) {
-		PreparedStatement pstmt = null;
+	public int updateWrite3(Connection con, Review rw) {
 		int result = 0;
-		String query = prop.getProperty("addLikeReview");
+		PreparedStatement pstmt = null;
+		
+		String query = prop.getProperty("updateWrite3");
 		
 		try {
 			pstmt = con.prepareStatement(query);
 			
-			pstmt.setInt(1, userNo);
-			pstmt.setInt(2, rwNo);
+			pstmt.setInt(1, rw.getCategoryType());
+			pstmt.setString(2, rw.getRwContent());
+			pstmt.setString(3, rw.getRwTitle());
+			pstmt.setInt(4, rw.getRwGrade());
+			pstmt.setString(5, rw.getRwComment());
+			pstmt.setInt(6, rw.getRwSupport());
+			pstmt.setInt(7, rw.getRwNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+	public int deleteWrite3(Connection con, Review rw) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query = prop.getProperty("deleteWrite3");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, rw.getRwNo());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally {
+		} finally{
 			close(pstmt);
 		}
 		

@@ -43,8 +43,10 @@
 		$(location).attr('href', subSite);
 	}
 	
-	function modifyMove(){
-		
+	function modifyMove(rwNo){
+		var URL = "<%=request.getContextPath()%>/write3Select.bo?rwNo=<%= form.getRwNo() %>"
+			alert(rwNo);
+			location.href=URL;
 	}
 	
 	function likeThis(rwNo){
@@ -73,7 +75,7 @@
 	</div>
 	<div class="review-Form">
 		<div class="contentArea">
-			<iframe class="iframeVideo" src="https://www.youtube.com/embed/NIDcZJTJ3N0?rel=0&autoplay=1&mute=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+			<iframe class="iframeVideo" src="<%= form.getRwContent() %>?rel=0&autoplay=1&mute=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 		</div>
 		<div class="contentInfoArea">
 			<div>

@@ -78,28 +78,28 @@ public class ReviewService {
 	
 	public int write2Review(Review rw, Member m, ArrayList<Attachment> fileList, String[] resultHashSplit, String categoryHashResult) {
 		Connection con = getConnection();
-
 		int result = 0;
 		int result1 = new ReviewDao().write2Review(con,rw,m);
 		int result2 = 0;
 		int result3 = 0;
 		int result4 = 0;
-
+		
 		if(result1 > 0){
-			Review rwNoCheck = new ReviewDao().reviewNoCheck(con, m);   
-
+			Review rwNoCheck = new ReviewDao().reviewNoCheck(con, m);	
+			
 			for(int i =1; i < resultHashSplit.length; i++){
 				String resultHash = resultHashSplit[i];
 				result3 = new ReviewDao().insertHashtag(con,rwNoCheck,resultHash);
 			}
-			
 			result4 = new ReviewDao().insertHashtag(con,rwNoCheck,categoryHashResult);
-
+			
 			if(fileList != null){
+				
 				result2 = new ReviewDao().insertWrite2Attachment(con,fileList,m,rwNoCheck);
 			}
 		}
-
+		
+		
 		if(result1 > 0 && result2 > 0 && result3 > 0 && result4 > 0){
 			commit(con);
 			result = 1;
@@ -108,9 +108,9 @@ public class ReviewService {
 		}
 		
 		close(con);
-
+		
 		return result;
-	}   
+	}
 
 	public int write3Review(Review rw, Member m, ArrayList<Attachment> fileList, String[] resultHashSplit, String categoryHashResult) {
 		Connection con = getConnection();
@@ -123,17 +123,19 @@ public class ReviewService {
 		
 		if(result1 > 0){
 			Review rwNoCheck = new ReviewDao().reviewNoCheck(con, m);	
-			for(int i =0; i < resultHashSplit.length; i++){
+			
+			for(int i =1; i < resultHashSplit.length; i++){
 				String resultHash = resultHashSplit[i];
 				result3 = new ReviewDao().insertHashtag(con,rwNoCheck,resultHash);
 			}
 			result4 = new ReviewDao().insertHashtag(con,rwNoCheck,categoryHashResult);
+			
+			if(fileList != null){
+				
+				result2 = new ReviewDao().insertWrite3Attachment(con,fileList,m,rwNoCheck);
+			}
 		}
 		
-		if(fileList != null){
-			
-			result2 = new ReviewDao().insertWrite3Attachment(con,fileList,m);
-		}
 		
 		if(result1 > 0 && result2 > 0 && result3 > 0 && result4 > 0){
 			commit(con);
@@ -174,7 +176,7 @@ public class ReviewService {
 	}
 
 	public int write1Review(Review rw, Member m, ArrayList<Attachment> fileList, String[] resultHashSplit, String categoryHashResult) {
-		Connection con = getConnection();
+	Connection con = getConnection();
 		
 		int result = 0;
 		int result1 = new ReviewDao().write1Review(con,rw,m);
@@ -184,17 +186,19 @@ public class ReviewService {
 		
 		if(result1 > 0){
 			Review rwNoCheck = new ReviewDao().reviewNoCheck(con, m);	
+			
 			for(int i =1; i < resultHashSplit.length; i++){
 				String resultHash = resultHashSplit[i];
 				result3 = new ReviewDao().insertHashtag(con,rwNoCheck,resultHash);
 			}
 			result4 = new ReviewDao().insertHashtag(con,rwNoCheck,categoryHashResult);
+			
+			if(fileList != null){
+				
+				result2 = new ReviewDao().insertWrite1Attachment(con,fileList,m,rwNoCheck);
+			}
 		}
 		
-		if(fileList != null){
-			
-			result2 = new ReviewDao().insertWrite1Attachment(con,fileList,m);
-		}
 		
 			
 		if(result1 > 0 && result2 > 0 && result3 > 0 && result4 > 0){
@@ -238,6 +242,101 @@ public class ReviewService {
 		return result;
 	}
 
+	public HashMap<String, Object> write1Detail(int rwNo) {
+		Connection con = getConnection();
+		
+		HashMap<String, Object> hmap = null;
+		
+		int result = new ReviewDao().updateCount(con, rwNo);
+		
+		if(result > 0 ){
+			commit(con);
+			//hmap = new ReviewDao().selectThumbnailListMap(con,rwNo);
+		}else{
+			rollback(con);
+		}
+		
+		close(con);
+		
+		
+		return hmap;
+
+	}
+
+	public HashMap<String, Object> write1Select(int rwNo) {
+		Connection con = getConnection();
+		
+		HashMap<String, Object> hmap = null;
+
+		int result = new ReviewDao().writeSelect(con,rwNo);
+		if(result > 0){
+			commit(con);
+			hmap = new ReviewDao().selectContent(con,rwNo);
+		}else{
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return hmap;
+	}
+
+	public HashMap<String, Object> write2Select(int rwNo) {
+		Connection con = getConnection();
+		
+		HashMap<String, Object> hmap = null;
+
+		int result = new ReviewDao().writeSelect(con,rwNo);
+		if(result > 0){
+			commit(con);
+			hmap = new ReviewDao().selectContent(con,rwNo);
+		}else{
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return hmap;
+	}
+
+	public HashMap<String, Object> write3Select(int rwNo) {
+		Connection con = getConnection();
+		
+		HashMap<String, Object> hmap = null;
+
+		int result = new ReviewDao().writeSelect(con,rwNo);
+		if(result > 0){
+			commit(con);
+			hmap = new ReviewDao().selectContent(con,rwNo);
+		}else{
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return hmap;
+	}
+
+	public int updateWrite3(Review rw, Member m, ArrayList<Attachment> fileList) {
+		Connection con = getConnection();
+		
+		int result = new ReviewDao().updateWrite3(con,rw);
+		//System.out.println("여기까진 되나 볼까 ? " + result);
+		if(result > 0 ){
+			if(fileList.size() != 0){
+				int result1 = new ReviewDao().deleteWrite3(con,rw);
+				commit(con);
+				/*int rwNoCheck = rw.getRwNo();*/
+				int result2 = new ReviewDao().insertWrite3Attachment(con, fileList, m, rw);
+				commit(con);
+			}
+		}
+		
+		close(con);
+
+		return result;
+	}	
+  
 	public int updateRwCount(int rwNo) {
 		Connection con = getConnection();
 		

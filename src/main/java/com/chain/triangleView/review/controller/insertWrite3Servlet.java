@@ -54,6 +54,7 @@ public class insertWrite3Servlet extends HttpServlet {
 
 			// 루트체크
 			String root = request.getSession().getServletContext().getRealPath("/");
+			//String root = "C:/Users/jihun/git/triangleView/src/main/webapp/img/";
 
 			// 저장경로설정
 			String savePath = root + "review_upload/";
@@ -122,14 +123,13 @@ public class insertWrite3Servlet extends HttpServlet {
 			String rwComment = multiRequest.getParameter("introduce");
 			Member loginUser = (Member) (request.getSession().getAttribute("loginUser"));
 			int userNo = loginUser.getUserNo();
-			double rwGrade = 0.0;
-			if (multiRequest.getParameter("rwGrade") == null) {
+			int rwGrade = 0;
+			if(multiRequest.getParameter("rwGrade") == null){
 				rwGrade = 0;
-			} else {
-				double rwGrade2 = Double.parseDouble(multiRequest.getParameter("rwGrade"));
-				rwGrade = rwGrade2 / 2;
+			}else{
+				rwGrade = Integer.parseInt(multiRequest.getParameter("rwGrade"));
 			}
-
+			
 			String companySponCheck = multiRequest.getParameter("companySpon");
 			int companySpon = 0;
 			if (companySponCheck == null) {
@@ -239,8 +239,11 @@ public class insertWrite3Servlet extends HttpServlet {
 
 				if (result > 0) {
 					System.out.println("굿");
+					response.sendRedirect(request.getContextPath() +  "/myHome");
 				} else {
 					System.out.println("다시");
+					request.setAttribute("msg", "글쓰기 실패~!!!");
+					request.getRequestDispatcher("views/errorPage/errorPage.jsp").forward(request, response);
 				}
 			}
 		}
