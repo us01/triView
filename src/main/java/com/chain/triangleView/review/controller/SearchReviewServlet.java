@@ -53,6 +53,7 @@ public class SearchReviewServlet extends HttpServlet {
       String company = request.getParameter("company");
       String query = "";
       
+      System.out.println(like + ", " + hits + ", " + card);
       if(sinceTime != "" || untilTime != "" || term != null ||
          recent != null || like != null || hits != null ||
          text != null || card != null ||  video != null ||

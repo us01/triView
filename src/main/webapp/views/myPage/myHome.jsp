@@ -32,7 +32,7 @@
 	$(function(){
 		$("#searchHash").keypress(function(key) {
 			if(key.which == 13){
-				alert("유저페이지 엔터 설치 실행");
+			
 				naySearch();
 			}
 		});
@@ -58,7 +58,6 @@
 			$searchData.attr('type', 'hidden');
 			$searchData.val($('#searchHash').val());
 			
-			alert("유저홈페이지 서치 실행");
 			$('#searchForm').append($searchData);
 			$('#searchForm').attr('action', '<%= request.getContextPath() %>/searchReview.sr').submit();
 		}else{
