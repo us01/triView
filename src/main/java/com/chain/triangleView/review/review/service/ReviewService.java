@@ -78,28 +78,28 @@ public class ReviewService {
 	
 	public int write2Review(Review rw, Member m, ArrayList<Attachment> fileList, String[] resultHashSplit, String categoryHashResult) {
 		Connection con = getConnection();
-
 		int result = 0;
 		int result1 = new ReviewDao().write2Review(con,rw,m);
 		int result2 = 0;
 		int result3 = 0;
 		int result4 = 0;
-
+		
 		if(result1 > 0){
-			Review rwNoCheck = new ReviewDao().reviewNoCheck(con, m);   
-
+			Review rwNoCheck = new ReviewDao().reviewNoCheck(con, m);	
+			
 			for(int i =1; i < resultHashSplit.length; i++){
 				String resultHash = resultHashSplit[i];
 				result3 = new ReviewDao().insertHashtag(con,rwNoCheck,resultHash);
 			}
-			
 			result4 = new ReviewDao().insertHashtag(con,rwNoCheck,categoryHashResult);
-
+			
 			if(fileList != null){
+				
 				result2 = new ReviewDao().insertWrite2Attachment(con,fileList,m,rwNoCheck);
 			}
 		}
-
+		
+		
 		if(result1 > 0 && result2 > 0 && result3 > 0 && result4 > 0){
 			commit(con);
 			result = 1;
@@ -108,9 +108,9 @@ public class ReviewService {
 		}
 		
 		close(con);
-
+		
 		return result;
-	}   
+	}
 
 	public int write3Review(Review rw, Member m, ArrayList<Attachment> fileList, String[] resultHashSplit, String categoryHashResult) {
 		Connection con = getConnection();
@@ -123,17 +123,19 @@ public class ReviewService {
 		
 		if(result1 > 0){
 			Review rwNoCheck = new ReviewDao().reviewNoCheck(con, m);	
-			for(int i =0; i < resultHashSplit.length; i++){
+			
+			for(int i =1; i < resultHashSplit.length; i++){
 				String resultHash = resultHashSplit[i];
 				result3 = new ReviewDao().insertHashtag(con,rwNoCheck,resultHash);
 			}
 			result4 = new ReviewDao().insertHashtag(con,rwNoCheck,categoryHashResult);
+			
+			if(fileList != null){
+				
+				result2 = new ReviewDao().insertWrite3Attachment(con,fileList,m,rwNoCheck);
+			}
 		}
 		
-		if(fileList != null){
-			
-			result2 = new ReviewDao().insertWrite3Attachment(con,fileList,m);
-		}
 		
 		if(result1 > 0 && result2 > 0 && result3 > 0 && result4 > 0){
 			commit(con);
@@ -174,7 +176,7 @@ public class ReviewService {
 	}
 
 	public int write1Review(Review rw, Member m, ArrayList<Attachment> fileList, String[] resultHashSplit, String categoryHashResult) {
-		Connection con = getConnection();
+	Connection con = getConnection();
 		
 		int result = 0;
 		int result1 = new ReviewDao().write1Review(con,rw,m);
@@ -184,17 +186,19 @@ public class ReviewService {
 		
 		if(result1 > 0){
 			Review rwNoCheck = new ReviewDao().reviewNoCheck(con, m);	
+			
 			for(int i =1; i < resultHashSplit.length; i++){
 				String resultHash = resultHashSplit[i];
 				result3 = new ReviewDao().insertHashtag(con,rwNoCheck,resultHash);
 			}
 			result4 = new ReviewDao().insertHashtag(con,rwNoCheck,categoryHashResult);
+			
+			if(fileList != null){
+				
+				result2 = new ReviewDao().insertWrite1Attachment(con,fileList,m,rwNoCheck);
+			}
 		}
 		
-		if(fileList != null){
-			
-			result2 = new ReviewDao().insertWrite1Attachment(con,fileList,m);
-		}
 		
 			
 		if(result1 > 0 && result2 > 0 && result3 > 0 && result4 > 0){
@@ -238,6 +242,101 @@ public class ReviewService {
 		return result;
 	}
 
+	public HashMap<String, Object> write1Detail(int rwNo) {
+		Connection con = getConnection();
+		
+		HashMap<String, Object> hmap = null;
+		
+		int result = new ReviewDao().updateCount(con, rwNo);
+		
+		if(result > 0 ){
+			commit(con);
+			//hmap = new ReviewDao().selectThumbnailListMap(con,rwNo);
+		}else{
+			rollback(con);
+		}
+		
+		close(con);
+		
+		
+		return hmap;
+
+	}
+
+	public HashMap<String, Object> write1Select(int rwNo) {
+		Connection con = getConnection();
+		
+		HashMap<String, Object> hmap = null;
+
+		int result = new ReviewDao().writeSelect(con,rwNo);
+		if(result > 0){
+			commit(con);
+			hmap = new ReviewDao().selectContent(con,rwNo);
+		}else{
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return hmap;
+	}
+
+	public HashMap<String, Object> write2Select(int rwNo) {
+		Connection con = getConnection();
+		
+		HashMap<String, Object> hmap = null;
+
+		int result = new ReviewDao().writeSelect(con,rwNo);
+		if(result > 0){
+			commit(con);
+			hmap = new ReviewDao().selectContent(con,rwNo);
+		}else{
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return hmap;
+	}
+
+	public HashMap<String, Object> write3Select(int rwNo) {
+		Connection con = getConnection();
+		
+		HashMap<String, Object> hmap = null;
+
+		int result = new ReviewDao().writeSelect(con,rwNo);
+		if(result > 0){
+			commit(con);
+			hmap = new ReviewDao().selectContent(con,rwNo);
+		}else{
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return hmap;
+	}
+
+	public int updateWrite3(Review rw, Member m, ArrayList<Attachment> fileList) {
+		Connection con = getConnection();
+		
+		int result = new ReviewDao().updateWrite3(con,rw);
+		//System.out.println("여기까진 되나 볼까 ? " + result);
+		if(result > 0 ){
+			if(fileList.size() != 0){
+				int result1 = new ReviewDao().deleteWrite3(con,rw);
+				commit(con);
+				/*int rwNoCheck = rw.getRwNo();*/
+				int result2 = new ReviewDao().insertWrite3Attachment(con, fileList, m, rw);
+				commit(con);
+			}
+		}
+		
+		close(con);
+
+		return result;
+	}	
+  
 	public int updateRwCount(int rwNo) {
 		Connection con = getConnection();
 		
@@ -308,18 +407,19 @@ public class ReviewService {
 	}
 
 	public String orderQuery(int userNo, String sinceTime, String untilTime, String term, String recent, String like, String hits,
-			String text, String card, String vedio, String follower, String company) {
-		String query = "WHERE";
+			String text, String card, String vedio) {
+		
+		String query = "";
 		
 		if(!sinceTime.equals("") || !untilTime.equals("")){
-			query += " WRITEDATE BETWEEN " + sinceTime + " AND " + untilTime + " ";
+			query += " AND WRITEDATE BETWEEN TO_DATE('" + sinceTime + "') AND TO_DATE('" + untilTime + "') ";
 		}else if(term != null){
 			if(term.equals("oneDay")){
-				query += " WRITEDATE BETWEEN SYSDATE - 1 AND SYSDATE ";
+				query += " AND WRITEDATE BETWEEN SYSDATE - 1 AND SYSDATE ";
 			}else if(term.equals("oneWeek")){
-				query += " WRITEDATE BETWEEN SYSDATE - 7 AND SYSDATE ";
+				query += " AND WRITEDATE BETWEEN SYSDATE - 7 AND SYSDATE ";
 			}else if(term.equals("oneMonth")){
-				query += " WRITEDATE BETWEEN ADD_MONTHS(SYSDATE, -1) AND SYSDATE ";
+				query += "AND  WRITEDATE BETWEEN ADD_MONTHS(SYSDATE, -1) AND SYSDATE ";
 			}
 		}
 		
@@ -327,7 +427,7 @@ public class ReviewService {
 			if(query.charAt(query.length() - 1) == ' '){
 				query += "AND RWCONTENTTYPE = 0 ";
 			}else{
-				query += " RWCONTENTTYPE = 0 " ;
+				query += "AND  RWCONTENTTYPE = 0 " ;
 			}
 		}
 		
@@ -335,7 +435,7 @@ public class ReviewService {
 			if(query.charAt(query.length() - 1) == ' '){
 				query += "AND RWCONTENTTYPE = 1 ";
 			}else{
-				query += " RWCONTENTTYPE = 1 " ;
+				query += "AND  RWCONTENTTYPE = 1 " ;
 			}
 		}
 		
@@ -343,37 +443,36 @@ public class ReviewService {
 			if(query.charAt(query.length() - 1) == ' '){
 				query += "AND RWCONTENTTYPE = 2 ";
 			}else{
-				query += " RWCONTENTTYPE = 2 " ;
-			}
-		}
-		
-		if(follower != null){
-			if(query.charAt(query.length() - 1) == ' '){
-				query += "AND USERNO IN(SELECT USERNO MEMBER USERNO = " + userNo +") ";
-			}else{
-				query += " USERNO IN(SELECT USERNO MEMBER USERNO = " + userNo +") ";
-			}
-		}
-		
-		if(company != null){
-			if(query.charAt(query.length() - 1) == ' '){
-				query += "AND RWTYPE = 1 ";
-			}else{
-				query += " RWTYPE = 1 " ;
+				query += "AND  RWCONTENTTYPE = 2 " ;
 			}
 		}
 		
 		//마지막 order by 부분
 		if(recent != null){
-			query += "ORDER BY WRITEDATE DESC";
+			query += " ORDER BY WRITEDATE DESC";
 		}else if(like != null){
-			query += "ORDER BY LIKECOUNT DESC" ;
+			query += " ORDER BY LIKECOUNT DESC" ;
 		}else if(hits != null){
-			query += "ORDER BY RWCOUNT DESC" ;
+			query += " ORDER BY RWCOUNT DESC" ;
 		}
 		
-		query += ";";
-		
 		return query;
+	}
+
+	public ArrayList<Review> searchSettingSelect(String searchHash, String query, String follower, String company, int userNo) {
+		Connection con = getConnection();
+		ArrayList<Review> searchReviewList = null;
+		
+		if(follower != null) {
+			
+			searchReviewList = new ReviewDao().searchSettingFollowSelect(con, searchHash, query, follower, company, userNo);
+		}else {
+			
+			searchReviewList = new ReviewDao().searchSettingSelect(con, searchHash, query, company);
+		}
+		
+		close(con);
+		
+		return searchReviewList;
 	}
 }

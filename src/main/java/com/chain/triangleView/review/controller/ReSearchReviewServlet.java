@@ -30,6 +30,7 @@ public class ReSearchReviewServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String searchHash = request.getParameter("searchHash");
 		String searchData = request.getParameter("searchData");
+		System.out.println("오냐");
 		
 		ArrayList<Review> searchReviewList = new ReviewService().searchHashSelect(searchHash);
 

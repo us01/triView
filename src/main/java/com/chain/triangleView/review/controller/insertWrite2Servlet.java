@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+import org.json.JSONObject;
 
 import com.chain.triangleView.common.MyFileRenamePolicy;
 import com.chain.triangleView.member.member.vo.Attachment;
@@ -52,9 +53,11 @@ public class insertWrite2Servlet extends HttpServlet {
 
 			// 루트체크
 			String root = request.getSession().getServletContext().getRealPath("/");
+			//String root = "C:/Users/jihun/git/triangleView/src/main/webapp/img/";
 
 			// 저장경로설정
 			String savePath = root + "review_upload/";
+			//System.out.println(savePath);
 
 			// 파일저장이름 설정
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8",
@@ -103,12 +106,12 @@ public class insertWrite2Servlet extends HttpServlet {
 			String rwComment = multiRequest.getParameter("introduce");
 			Member loginUser = (Member)(request.getSession().getAttribute("loginUser"));
 			int userNo = loginUser.getUserNo();
-			double rwGrade = 0.0;
+			int rwGrade = 0;
 			if(multiRequest.getParameter("rwGrade") == null){
 				rwGrade = 0;
 			}else{
-				double rwGrade2 = Double.parseDouble(multiRequest.getParameter("rwGrade"));
-				rwGrade = rwGrade2 / 2;
+				rwGrade = Integer.parseInt(multiRequest.getParameter("rwGrade"));
+				
 			}
 			
 			String companySponCheck = multiRequest.getParameter("companySpon");
@@ -171,6 +174,7 @@ public class insertWrite2Servlet extends HttpServlet {
 			rw.setRwComment(rwComment);
 			rw.setRwGrade(rwGrade);
 			rw.setRwSupport(companySpon);
+			System.out.println(rwContent);
 			
 			// 저장한 파일의 이름을 저장할 arrayList생성
 	         ArrayList<String> saveFiles = new ArrayList<String>();
@@ -187,6 +191,8 @@ public class insertWrite2Servlet extends HttpServlet {
 	            saveFiles.add(multiRequest.getFilesystemName(name));
 	            originFiles.add(multiRequest.getOriginalFileName(name));
 	          
+	            System.out.println(multiRequest.getFilesystemName(name));
+	            System.out.println(multiRequest.getOriginalFileName(name));
 	            // Attachment 객체 생성하여 ArrayList객체 생성
 	            ArrayList<Attachment> fileList = new ArrayList<Attachment>();
 	      
@@ -215,21 +221,34 @@ public class insertWrite2Servlet extends HttpServlet {
 
 	            }
 			
-			
-			Member m = new Member();
-			m.setUserNo(userNo);
-			
-			int result = new ReviewService().write2Review(rw, m, fileList,resultHashSplit,categoryHashResult);
-			
-			if(result > 0){
-				System.out.println("굿");
-			}else{
-				System.out.println("다시");
+	            
+	            // 생성된 경로를 JSON 형식으로 보내주기 위한 설정
+	        	/*JSONObject jobj = new JSONObject();
+	        	jobj.put("url", savePath);
+	        	*/
+	        	/*response.setContentType("application/json"); // 데이터 타입을 json으로 설정하기 위한 세팅
+	        	out.print(jobj.toJSONString());*/
+	        	
+				Member m = new Member();
+				m.setUserNo(userNo);
+
+				int result = new ReviewService().write2Review(rw, m, fileList, resultHashSplit, categoryHashResult);
+
+				if (result > 0) {
+					System.out.println("굿");
+					response.sendRedirect(request.getContextPath() +  "/myHome");
+/*					response.setContentType("application/json"); 
+					out.print(jobj.toJSONString());
+*/
+				} else {
+					System.out.println("다시");
+					request.setAttribute("msg", "글쓰기 실패~!!!");
+					request.getRequestDispatcher("views/errorPage/errorPage.jsp").forward(request, response);
+				}
+
 			}
-			
 		}
-		}
-		
+
 	}
 
 	/**

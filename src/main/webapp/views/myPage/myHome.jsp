@@ -29,16 +29,42 @@
 	}
 </style>
 <script>
-$(function(){
-	$("#searchReviewInput").keypress(function(key) {
-		if(key.which == 13){
-			var searchHash = $("#searchReviewInput").val();
-			var searchData = $("#searchReviewInput").val();
-			location.href="<%= request.getContextPath()%>/searchReview.sr?searchHash=" + searchHash +"&searchData=" + searchData;
+	$(function(){
+		$("#searchHash").keypress(function(key) {
+			if(key.which == 13){
+				alert("유저페이지 엔터 설치 실행");
+				naySearch();
+			}
+		});
+	})
+	
+	function naySearch(){
+		var submitCheck;
+		
+		if($('#sinceTime').val() != '' || $('#sinceTime').val() != ''){
+			if($('#sinceTime').val() != '' && $('#sinceTime').val() != ''){
+				submitCheck = 'Y';
+				if($('#sinceTime').val() > $('#untilTime').val()){
+					submitCheck = 'N';
+				}
+			}else{
+				submitCheck = 'N';
+			}
 		}
 		
-	});
-})
+		if(submitCheck != 'N'){
+			$searchData = $('<input>')
+			$searchData.attr('name', 'searchData');
+			$searchData.attr('type', 'hidden');
+			$searchData.val($('#searchHash').val());
+			
+			alert("유저홈페이지 서치 실행");
+			$('#searchForm').append($searchData);
+			$('#searchForm').attr('action', '<%= request.getContextPath() %>/searchReview.sr').submit();
+		}else{
+			alert('                         기간 검색 조건이 잘 못 됐습니다.\n                                   다시 설정해주세요.');
+		} 
+	}
 </script>
 </head>
 <body>

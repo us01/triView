@@ -450,6 +450,7 @@
 <body>
 	<div class="navWrap">
 		<form id="searchForm" method="POST">	
+		  	<input type="text" style="display: none;" />
 			<div class="deskNav">
 				<ul>
 					<li>

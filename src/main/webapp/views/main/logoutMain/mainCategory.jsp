@@ -65,11 +65,10 @@
 </style>
 <script>
 	$(function(){
-		$("#searchReviewInput").keypress(function(key) {
+		$("#searchHash").keypress(function(key) {
 			if(key.which == 13){
-				var searchHash = $("#searchReviewInput").val();
-				var searchData = $("#searchReviewInput").val();
-				location.href="<%= request.getContextPath()%>/searchReview.sr?searchHash=" + searchHash +"&searchData=" + searchData;
+				alert("메인 카테고리 엔터 서치 실행");
+				naySearch();
 			}
 		});
 	})
@@ -91,9 +90,9 @@
 		if(submitCheck != 'N'){
 			$searchData = $('<input>')
 			$searchData.attr('name', 'searchData');
-			$searchData.teyp = 'hidden';
+			$searchData.attr('type', 'hidden');
 			$searchData.val($('#searchHash').val());
-			
+			alert("메인 카테고리 서치 실행");
 			$('#searchForm').append($searchData);
 			$('#searchForm').attr('action', '<%= request.getContextPath() %>/searchReview.sr').submit();
 		}else{

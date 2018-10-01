@@ -23,7 +23,7 @@ public class Review {
 	private int coorCode;
 	private int rwSupport;
 	private int rwNo;
-	private double rwGrade;
+	private int rwGrade;
 	
 	public Review() {
 		super();
@@ -32,7 +32,7 @@ public class Review {
 	public Review(String nick, String userId, int todayRwCount, int likeCount, int categoryType, String rwContent,
 			String rwTitle, String modifyYn, String thumbnail, Date modifyDate, Date writerDate, String coorLink,
 			int rwContentType, int rwCount, String rwHash, String rwComment, int rwType, int coorCode, int rwSupport,
-			int rwNo, double rwGrade) {
+			int rwNo, int rwGrade) {
 		super();
 		this.nick = nick;
 		this.userId = userId;
@@ -217,11 +217,11 @@ public class Review {
 		this.rwNo = rwNo;
 	}
 
-	public double getRwGrade() {
+	public int getRwGrade() {
 		return rwGrade;
 	}
 
-	public void setRwGrade(double rwGrade) {
+	public void setRwGrade(int rwGrade) {
 		this.rwGrade = rwGrade;
 	}
 

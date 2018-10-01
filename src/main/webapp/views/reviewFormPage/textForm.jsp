@@ -43,8 +43,15 @@
 		$(location).attr('href', subSite);
 	}
 	
-	function modifyMove(){
+	function modifyMove(rwNo){
+		var URL = "<%=request.getContextPath()%>/write2Select.bo?rwNo=<%= form.getRwNo() %>"
+		alert(rwNo);
+		location.href=URL; 
 		
+	<%-- 	theForm = document.write1Test;
+		var write1Test= document.getElementById("write1Test");
+        write1Test.action = "<%=request.getContextPath()%>/write2Select.bo";
+        write1Test.submit(); --%>
 	}
 	
 	function likeThis(rwNo){
@@ -152,5 +159,9 @@
 			<% } %>
 		</div>
 	</div>
+<%-- 	
+	<form class="writeForm" id="write1Test" name="write1Test" action="" method="post">
+	<input type="text" value="<%=form.getRwNo() %>" style="display:none;">
+	</form> --%>
 </body>
 </html>
