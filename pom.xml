@@ -42,59 +42,12 @@
 			<version>05Nov2002</version>
 		</dependency>
 		<dependency>
-			<groupId>javax.mail</groupId>
-			<artifactId>mail</artifactId>
-			<version>1.4.7</version>
-		</dependency>
-		<dependency>
-			<groupId>javax.mail</groupId>
-			<artifactId>javax.mail-api</artifactId>
-			<version>1.5.5</version>
-		</dependency>
-		<dependency>
-   			<groupId>org.apache.tomcat</groupId>
-    		<artifactId>tomcat-catalina</artifactId>
-    		<version>8.5.20</version>
-		</dependency>
-		<!-- 에디터떄매 추가 -->
-		<dependency>
-    		<groupId>commons-codec</groupId>
-    		<artifactId>commons-codec</artifactId>
-   			<version>1.10</version>
-    </dependency>
-    <dependency>
-        <groupId>commons-io</groupId>
-        <artifactId>commons-io</artifactId>
-        <version>2.5</version>
-    </dependency>
-    <dependency>
-        <groupId>commons-lang</groupId>
-        <artifactId>commons-lang</artifactId>
-        <version>2.6</version>
-    </dependency>
-    <dependency>
-        <groupId>com.google.code.gson</groupId>
-        <artifactId>gson</artifactId>
-        <version>2.7</version>
-    </dependency>
-    <dependency>
-        <groupId>net.coobird</groupId>
-        <artifactId>thumbnailator</artifactId>
-        <version>0.4.8</version>
-    </dependency>
-		<dependency>
-       <groupId>org.webjars.npm</groupId>
-       <artifactId>react-froala-editor</artifactId>
-       <version>1.0.2</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.tomcat</groupId>
-          <artifactId>tomcat-catalina</artifactId>
-          <version>8.5.20</version>
-      </dependency>
-    </dependencies>
+			<groupId>org.apache.tomcat</groupId>
+	        <artifactId>tomcat-catalina</artifactId>
+	        <version>8.5.20</version>
+	    </dependency>
+	</dependencies>
 	<build>
 		<finalName>triangleView</finalName>
 	</build>
 </project>
-
