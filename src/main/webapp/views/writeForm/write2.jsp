@@ -7,30 +7,33 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
- <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="/triangleView/views/writeForm/forWrite2/css/froala_editor.css">
-  <link rel="stylesheet" href="/triangleView/views/writeForm/forWrite2/css/froala_style.css">
-  <link rel="stylesheet" href="/triangleView/views/writeForm/forWrite2/css/plugins/code_view.css">
-  <link rel="stylesheet" href="/triangleView/views/writeForm/forWrite2/css/plugins/colors.css">
-  <link rel="stylesheet" href="/triangleView/views/writeForm/forWrite2/css/plugins/emoticons.css">
-  <link rel="stylesheet" href="/triangleView/views/writeForm/forWrite2/css/plugins/image_manager.css">
-  <link rel="stylesheet" href="/triangleView/views/writeForm/forWrite2/css/plugins/image.css">
-  <link rel="stylesheet" href="/triangleView/views/writeForm/forWrite2/css/plugins/line_breaker.css">
-  <link rel="stylesheet" href="/triangleView/views/writeForm/forWrite2/css/plugins/table.css">
-  <link rel="stylesheet" href="/triangleView/views/writeForm/forWrite2/css/plugins/char_counter.css">
-  <link rel="stylesheet" href="/triangleView/views/writeForm/forWrite2/css/plugins/video.css">
-  <link rel="stylesheet" href="/triangleView/views/writeForm/forWrite2/css/plugins/fullscreen.css">
-  <link rel="stylesheet" href="/triangleView/views/writeForm/forWrite2/css/plugins/file.css">
+ <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css" />
+  <link rel="stylesheet" href="forWrite2/dist/summernote.css">
+  
+  <title>summernote</title>
+	
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+  <script type="text/javascript" src="forWrite2/dist/summernote.js"></script>
+  <script src="forWrite2/lang/summernote-ko-KR.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('.summernote').summernote({
+        height: 300,
+       
+        minHeight : null,
 
-  <link rel="stylesheet" href="/triangleView/views/writeForm/forWrite2/css/themes/red.css">
+        maxHeight : null,
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.css">
+        focus : true,
 
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+        lang : 'ko-KR'
+      });
+    });
+  </script>
 <style>
 body {
 	margin: 0px;
@@ -43,6 +46,9 @@ body {
 	margin: 0 auto;
 }
 
+.container{
+	width:800px;
+} 
 .container2 {
 	justify-content: space-between;
 	flex-direction: column;
@@ -311,18 +317,20 @@ $(function(){
         }
     });
  });
+ 
+ 
 </script>
 
 </head>
 <body>
-
+<%-- 
 <jsp:include page="../main/header/headerNav.jsp" flush="true" />
 <br>
 <br>
-<br>
+<br> --%>
 <div class="everyThing2">
 	<form class="writeForm" id="write2Test" name="write2Test" action="" method="post" encType="multipart/form-data" style="margin: 15px; background:#fff;  border:1px solid black;">
-		<div class="container">
+		<div class="container3">
 			<h3 style="text-align: center; color: #f8585b;">텍스트 리뷰</h3>
 		</div>
 		<hr>
@@ -386,7 +394,7 @@ function LoadImg(value) {
 }
 </script>
 
-		<div id="contentWrite2" style="text-align:center; margin-left: 160px;">
+		<!-- <div id="contentWrite2" style="text-align:center; margin-left: 160px;">
 			<h5 style="margin-left: -835px;">게시글 작성</h5>
 				<section id="editor" style="text-align:left; width: 810px; margin-left: -60px; ">
 					<textarea id='edit' name="edit" style="margin-top: 30px; height:500px;">
@@ -394,9 +402,17 @@ function LoadImg(value) {
 			</section>
 		</div>
 		<br>
+ -->
+			<div id="contentWrite2">
+				<div class="container" name="myContent" id="myContent">
+					<h5>게시글내용</h5>
+					<div class="summernote" name="content">
+						
+					</div>
+				</div>
+			</div>
 
-		
-		<div class="hash" style="display:-webkit-inline-box; margin-left:100px;">
+			<div class="hash" style="display:-webkit-inline-box; margin-left:100px;">
 		<h5>해시태그</h5>
 			<input type="text" class="w3-input2 w3-change" id="hash" name="hash"
 				style="width:650px; height:30px; margin-left: 88px;" placeholder="hashtag를 입력해주세요">
@@ -538,55 +554,6 @@ function LoadImg(value) {
 		}
 		</script>
 	
-
-
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/mode/xml/xml.min.js"></script>
-  <script type="text/javascript" src="/triangleView/views/writeForm/forWrite2/js/froala_editor.min.js"></script>
-  <script type="text/javascript" src="/triangleView/views/writeForm/forWrite2/js/plugins/align.min.js"></script>
-  <script type="text/javascript" src="/triangleView/views/writeForm/forWrite2/js/plugins/code_beautifier.min.js"></script>
-  <script type="text/javascript" src="/triangleView/views/writeForm/forWrite2/js/plugins/code_view.min.js"></script>
-  <script type="text/javascript" src="/triangleView/views/writeForm/forWrite2/js/plugins/colors.min.js"></script>
-  <script type="text/javascript" src="/triangleView/views/writeForm/forWrite2/js/plugins/draggable.min.js"></script>
-  <script type="text/javascript" src="/triangleView/views/writeForm/forWrite2/js/plugins/emoticons.min.js"></script>
-  <script type="text/javascript" src="/triangleView/views/writeForm/forWrite2/js/plugins/font_size.min.js"></script>
-  <script type="text/javascript" src="/triangleView/views/writeForm/forWrite2/js/plugins/font_family.min.js"></script>
-  <script type="text/javascript" src="/triangleView/views/writeForm/forWrite2/js/plugins/image.min.js"></script>
-  <script type="text/javascript" src="/triangleView/views/writeForm/forWrite2/js/plugins/file.min.js"></script>
-  <script type="text/javascript" src="/triangleView/views/writeForm/forWrite2/js/plugins/image_manager.min.js"></script>
-  <script type="text/javascript" src="/triangleView/views/writeForm/forWrite2/js/plugins/line_breaker.min.js"></script>
-  <script type="text/javascript" src="/triangleView/views/writeForm/forWrite2/js/plugins/link.min.js"></script>
-  <script type="text/javascript" src="/triangleView/views/writeForm/forWrite2/js/plugins/lists.min.js"></script>
-  <script type="text/javascript" src="/triangleView/views/writeForm/forWrite2/js/plugins/paragraph_format.min.js"></script>
-  <script type="text/javascript" src="/triangleView/views/writeForm/forWrite2/js/plugins/paragraph_style.min.js"></script>
-  <script type="text/javascript" src="/triangleView/views/writeForm/forWrite2/js/plugins/video.min.js"></script>
-  <script type="text/javascript" src="/triangleView/views/writeForm/forWrite2/js/plugins/table.min.js"></script>
-  <script type="text/javascript" src="/triangleView/views/writeForm/forWrite2/js/plugins/url.min.js"></script>
-  <script type="text/javascript" src="/triangleView/views/writeForm/forWrite2/js/plugins/entities.min.js"></script>
-  <script type="text/javascript" src="/triangleView/views/writeForm/forWrite2/js/plugins/char_counter.min.js"></script>
-  <script type="text/javascript" src="/triangleView/views/writeForm/forWrite2/js/plugins/inline_style.min.js"></script>
-  <script type="text/javascript" src="/triangleView/views/writeForm/forWrite2/js/plugins/save.min.js"></script>
-  <script type="text/javascript" src="/triangleView/views/writeForm/forWrite2/js/plugins/fullscreen.min.js"></script>
-  <script type="text/javascript" src="/triangleView/views/writeForm/forWrite2/js/plugins/quote.min.js"></script>
-
-  <script>
-    $(function(){
-      $('#edit').froalaEditor({
-        theme: 'red'
-      })
-    });
-    
-    $(function() {
-        $('#edit').froalaEditor({
-          // Set the image upload URL.
-          imageUploadURL: 'triangleView\target\m2e-wtp\web-resources\review_upload/',
-          imageUploadParams: {
-            id: 'my_editor'
-          }
-        })
-      });
-  </script>
 	</form>
 	</div>
 </body>

@@ -222,8 +222,33 @@ body {
 	           input.val(newStr);
 	        }
 	        input.css('color','#f7323f').css("font-weight","Bold");
-	    });
 
+	    });
+	});
+	
+	$(function(){
+   		var check = <%=rw.getCategoryType()%>;
+		
+		var categoryCheck = document.getElementById("categoryCheck");
+
+		for (var i = 1; i < 10; i++) {
+			var checked11 = $('#categoryCheck option').eq(i).val();
+
+			if (check == checked11) {
+				/* categoryCheck.options.selectedIndex = i; */
+				categoryCheck.options[i].setAttribute("selected", "selected");
+			}
+		}
+	});
+	
+	$(function(){
+		var coor = <%=rw.getRwSupport()%>;
+		console.log(coor);
+		
+		
+	});
+<%-- 	
+		} --%>
 
 </script>
 </head>
@@ -258,16 +283,16 @@ body {
 				<div id="categorySup">
 					<h5 style="display: inline-block;">카테고리</h5>
 
-					<select name="categoryCheck" class="form-control">
-						<option value="1" name="category" selected="selected">자유</option>
-						<option value="2" name="category">IT/가전</option>
-						<option value="3" name="category">음악</option>
-						<option value="4" name="category">뷰티</option>
-						<option value="5" name="category">스포츠</option>
-						<option value="6" name="category">금융</option>
-						<option value="7" name="category">게임</option>
-						<option value="8" name="category">취미</option>
-						<option value="9" name="category">인생</option>
+					<select name="categoryCheck" id = "categoryCheck" class="form-control">
+						<option value="1" name="category" id ="category" >자유</option>
+						<option value="2" name="category" id ="category" >IT/가전</option>
+						<option value="3" name="category" id ="category" >음악</option>
+						<option value="4" name="category" id ="category" >뷰티</option>
+						<option value="5" name="category" id ="category" >스포츠</option>
+						<option value="6" name="category" id ="category" >금융</option>
+						<option value="7" name="category" id ="category" >게임</option>
+						<option value="8" name="category" id ="category" >취미</option>
+						<option value="9" name="category" id ="category" >인생</option>
 					</select>
 				</div>
 			</div>
@@ -321,7 +346,7 @@ body {
 			</div>
 			<br>
 
-		<%-- <div style="display: -webkit-box;">
+		 <div style="display: -webkit-box;">
 			<h5>별점</h5>
 				<span class="star-input">
   					<span class="input" style="margin-top:12px; margin-left: 92px;">
@@ -339,8 +364,8 @@ body {
   					 <output for="star-input" style="display:none"><b id="reresult" style="display:none"></b>점</output>
   				<input type="text" id="starPoint" name="rwGrade" style="width: 100px; height:20px; display:none;" value="<%=rw.getRwGrade() %>" >
 			</span>
-		</div> --%>
-						<div class="starArea">
+		</div> 
+					<%-- 	<div class="starArea">
 							<span class="star-input">
 								<span class="input">
 									<% 
@@ -357,7 +382,7 @@ body {
 								<output for="star-input" style="display:none"><b id="reresult" style="display:none"></b>점</output>
   				<input type="text" id="starPoint" name="rwGrade" style="width: 100px; height:20px;" value="<%=rw.getRwGrade() %>" >
 							</span>
-						</div>
+						</div> --%>
 		
 		<br>
 	<hr>

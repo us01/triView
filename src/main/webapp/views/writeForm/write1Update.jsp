@@ -8,8 +8,11 @@
 	Review rw = (Review)request.getAttribute("rw");
 	ArrayList<CardFormImages> fileList = (ArrayList<CardFormImages>)request.getAttribute("fileList");
 	CardFormImages thumb = fileList.get(0);
-	CardFormImages[] CFI;
+	CardFormImages[] CFI; 
+
 	int i = fileList.size()-1;
+	
+
 
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -17,6 +20,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<script
+	src="https://code.jquery.com/color/jquery.color-2.1.2.js"
+	integrity="sha256-1Cn7TdfHiMcEbTuku97ZRSGt2b3SvZftEIn68UMgHC8="
+	crossorigin="anonymous">
+	
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <style>
 body {
 	margin: 0px;
@@ -235,6 +245,23 @@ input:hover+p.arrow_box {
 }
 
 </style>
+<script>
+$(function(){
+<%	for(int j =0; j < fileList.size()-1; j++ ){%>            
+
+ var imgPath = '<%=request.getContextPath()%>/review_upload/<%=fileList.get(j).getFileName()%>';
+	var $div =$("<label for = 'imgInput1"+i+"' id ='test"+i+"' style='width:250px; height:250px; margin-left:10px; background:url(" + imgPath +") no-repeat; background-size:250px;     display: inline-block;'></label>");
+    var $input = $("<input type = 'file' class = 'imgPlus' id = 'imgInput1"+i+"' name = 'file"+i+"/* ' onChange='c()' */ style='visibility: hidden;'>").change(function() {
+  		readURL(this);
+  		
+	});
+	i++;
+    $($div).append($input);
+    $("#write1Content").append($div);	
+<%}%>
+	
+});
+</script>
 </head>
 <body>
 	<jsp:include page="../main/header/headerNav.jsp" flush="true" />
@@ -301,24 +328,29 @@ input:hover+p.arrow_box {
 				</div>
 			</div>
 
-			<div id="write1Content" style="text-align: left;">
+
+
+			<div id="write1Content" style="float: left;">
+			</div>
+			<!-- 수정을 위한 영역을하나 추가 -->
+			<div id="write2Content" style="float: left;">
 				<label for="imgInput1" id="test0"
 					style="background-image: url(/triangleView/img/writeForm/imgplus.png); background-size: 250px; width: 250px; height: 250px; display: inline-block;">
 					<input type="file" id="imgInput1" name="file0" id="imgInput"
 					accept="image/gif, image/jpeg, image/png" onChange="b()"
 					style="visibility: hidden;">
 				</label>
-			</div>
+			</div>		
 			
 			
-
+			
 			<div class="hash" style="display: -webkit-inline-box">
 				<h5>해시태그</h5>
 				<input type="text" class="w3-input2 w3-change" id="hash" name="hash" value="<%=rw.getRwHash() %>"
 					style="width: 650px; height: 30px; margin-left: 60px;"
 					placeholder="hashtag를 입력해주세요">
 			</div>
-			<br>
+			
 
 
 			<div style="display: -webkit-inline-box">
@@ -354,7 +386,7 @@ input:hover+p.arrow_box {
 	<hr>
 	
 		<div class="container2" style="height: 50px; display: -webkit-inline-box;">
-				<div class="btn-holder" style="    margin-left: 50px;">
+				<div class="btn-holder" style="";    margin-left: 50px;">
 					<button type="submit" class="subButton" id="end" onclick="submitAction();" style="width:350px; height: 35px;"> 
 						게시물 수정
 					</button>
@@ -386,7 +418,7 @@ input:hover+p.arrow_box {
 
 	}
 	
-	var i = 0;
+	var i = <%=fileList.size()%>;
 	function readURL(input) {
   		var elem = $(input);
   		if (input.files && input.files[0]) {
@@ -406,15 +438,15 @@ input:hover+p.arrow_box {
 	
 	
 	 function b() {
-        i=i+1;
+        i=<%=fileList.size()%> + 1;
   		var $div =$("<label for = 'imgInput1"+i+"' id ='test"+i+"' style='width:250px; height:250px;background-image:url(/triangleView/img/writeForm/imgplus.png); background-size:250px; display:inline-block;'></label>");
         var $input = $("<input type = 'file' class = 'imgPlus' id = 'imgInput1"+i+"' name = 'file"+i+"' onChange='b()' style='visibility: hidden;'>").change(function() {
       		readURL(this);
       		
     	});
 
-        $($div).append($input);
-        $("#write1Content").append($div);
+        $($div).before($input);
+        $("#write1Content").before($div);
 		
 	 }
 	

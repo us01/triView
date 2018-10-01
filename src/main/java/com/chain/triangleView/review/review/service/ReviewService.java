@@ -321,13 +321,19 @@ public class ReviewService {
 		Connection con = getConnection();
 		
 		int result = new ReviewDao().updateWrite3(con,rw);
-		System.out.println("여기까진 되나 볼까 ? " + result);
-		
-		int result1 = 0;
-		if(fileList.size() != 0){
-			
+		//System.out.println("여기까진 되나 볼까 ? " + result);
+		if(result > 0 ){
+			if(fileList.size() != 0){
+				int result1 = new ReviewDao().deleteWrite3(con,rw);
+				commit(con);
+				/*int rwNoCheck = rw.getRwNo();*/
+				int result2 = new ReviewDao().insertWrite3Attachment(con, fileList, m, rw);
+				commit(con);
+			}
 		}
 		
-		return 0;
+		close(con);
+
+		return result;
 	}	
 }	
