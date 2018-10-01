@@ -101,7 +101,6 @@ public class insertWrite1Servlet extends HttpServlet {
 				categoryHash = "오류";
 				break;
 			}
-			//System.out.println("되냐 ? " + categoryHash);
 			
 			String rwHash = multiRequest.getParameter("hash");
 			//System.out.println("어떻게 나오니 : " + rwHash);
@@ -133,7 +132,6 @@ public class insertWrite1Servlet extends HttpServlet {
 					String rmSpace = "";
 					rmSpace = hashSplit[i];
 					rmSpace = rmSpace.replaceAll("\\p{Z}", "");
-					//System.out.print("체크:" + rmSpace);
 					resultHashSplit[i] = rmSpace;
 					MessageDigest digest;
 					try {
@@ -142,7 +140,6 @@ public class insertWrite1Servlet extends HttpServlet {
 						digest.reset();
 						digest.update(bytes);
 						resultHashSplit[i] = Base64.getEncoder().encodeToString(digest.digest());
-						//System.out.println("바꾼거 : " + resultHashSplit[i]);
 					} catch (NoSuchAlgorithmException e) {
 
 						e.printStackTrace();
@@ -166,9 +163,6 @@ public class insertWrite1Servlet extends HttpServlet {
 				e.printStackTrace();
 			}			
 			
-			//System.out.println("넌 되지? : " + categoryHashResult);
-			
-			
 			Review rw = new Review();
 			rw.setRwTitle(rwTitle);
 			rw.setCategoryType(categoryType);
@@ -176,8 +170,6 @@ public class insertWrite1Servlet extends HttpServlet {
 			rw.setRwComment(rwComment);
 			rw.setRwGrade(rwGrade);
 			rw.setRwSupport(companySpon);
-			
-			
 			
 			// 저장한 파일의 이름을 저장할 arrayList생성
 			ArrayList<String> saveFiles = new ArrayList<String>();
@@ -220,9 +212,9 @@ public class insertWrite1Servlet extends HttpServlet {
 			}
 			Member m = new Member();
 			m.setUserNo(userNo);
-			
+
 			int result = new ReviewService().write1Review(rw, m, fileList,resultHashSplit,categoryHashResult);
-			
+
 			if (result > 0) {
 				System.out.println("등록성ㅋ공ㅋ");
 
@@ -239,16 +231,8 @@ public class insertWrite1Servlet extends HttpServlet {
 
 		}
 	}
-			
-	
-				 
-		
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

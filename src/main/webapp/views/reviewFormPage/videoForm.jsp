@@ -43,10 +43,8 @@
 		$(location).attr('href', subSite);
 	}
 	
-	function modifyMove(rwNo){
-		var URL = "<%=request.getContextPath()%>/write3Select.bo?rwNo=<%= form.getRwNo() %>"
-			alert(rwNo);
-			location.href=URL;
+	function modifyMove(){
+		
 	}
 	
 	function likeThis(rwNo){
@@ -71,11 +69,13 @@
 	<div class="subTopArea"> 
 		<% if(form.getRwType() != 0){ %>
 			<p>기업 후원을 받은 리뷰입니다.</p>
+		<% }else{ %>
+			<p>　</p>
 		<% } %>
 	</div>
 	<div class="review-Form">
 		<div class="contentArea">
-			<iframe class="iframeVideo" src="<%= form.getRwContent() %>?rel=0&autoplay=1&mute=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+			<iframe class="iframeVideo" src="<%= form.getRwContent() %>?rel=0&autoplay=1&mute=1" frameborder="0"></iframe>
 		</div>
 		<div class="contentInfoArea">
 			<div>

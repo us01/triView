@@ -334,10 +334,11 @@
 		display:inline;
 		font-size:11px;
 		color: #FFFFA2;
+		user-select:none;
 	}
 	.subSideArea {
 		display:inline;
-		width:80px;
+		width:80px; 
 	}
 	.subSideArea button {
 		width: 70px;

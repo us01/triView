@@ -8,6 +8,7 @@
 <style>
 	.header {
 		width: 100%;
+		margin: 0 auto;
 		background: #F7323F;
 		font-family: '맑은고딕';
 	}

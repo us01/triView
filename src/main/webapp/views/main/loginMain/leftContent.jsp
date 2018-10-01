@@ -268,7 +268,7 @@
 				<ul class="leftProfile">
 					<li>
 						<div class="leftProfileImage">
-							<img src="/triangleView/profileImg_upload/<%= loginUser.getThumbnail() %>" style="border-radius:50%; width:120px; height:120px;">
+							<img src="<%= request.getContextPath() %>/profileImg_upload/<%= loginUser.getThumbnail() %>" style="border-radius:50%; width:120px; height:120px;">
 						</div>
 					</li>
 					<li>

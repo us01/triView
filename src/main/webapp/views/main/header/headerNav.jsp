@@ -17,6 +17,9 @@
 </script>
 <title>Insert title here</title>
 <style>
+	body{
+		margin:0px;
+	}
 	.navWrap {
 		width: 100%;
 		position: fixed;
