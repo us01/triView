@@ -71,12 +71,37 @@
 				var searchData = $("#searchReviewInput").val();
 				location.href="<%= request.getContextPath()%>/searchReview.sr?searchHash=" + searchHash +"&searchData=" + searchData;
 			}
-			
 		});
 	})
 	
-	function searchCategory(category){
+	function naySearch(){
+		var submitCheck;
 		
+		if($('#sinceTime').val() != '' || $('#sinceTime').val() != ''){
+			if($('#sinceTime').val() != '' && $('#sinceTime').val() != ''){
+				submitCheck = 'Y';
+				if($('#sinceTime').val() > $('#untilTime').val()){
+					submitCheck = 'N';
+				}
+			}else{
+				submitCheck = 'N';
+			}
+		}
+		
+		if(submitCheck != 'N'){
+			$searchData = $('<input>')
+			$searchData.attr('name', 'searchData');
+			$searchData.teyp = 'hidden';
+			$searchData.val($('#searchHash').val());
+			
+			$('#searchForm').append($searchData);
+			$('#searchForm').attr('action', '<%= request.getContextPath() %>/searchReview.sr').submit();
+		}else{
+			alert('                         기간 검색 조건이 잘 못 됐습니다.\n                                   다시 설정해주세요.');
+		} 
+	}
+
+	function searchCategory(category){
 		var searchHash = "";
 		var searchData = "";
 		

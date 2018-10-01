@@ -238,6 +238,7 @@
 				
 				<%for (int i = 1; i < 10; i++) {%>
 					var checkTemp = 'Y';
+					
 					for(var key in data){
 						if(<%= i %> == Number(data[key].categoryCode)){
 							checkTemp = 'N';
