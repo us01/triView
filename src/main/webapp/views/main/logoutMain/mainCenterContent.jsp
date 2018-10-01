@@ -44,23 +44,21 @@
 		text-align:left;
 	}
 	.viewForm{
-		width:203px;
+		width:213px;
 		display:inline-block;
 		float:left;
-		margin:9px;
+		margin:4px;
+		margin-top:7px;
 		position:relative;
 		border:1px solid #dbdbdb;
 		height:300px;
 	}
 	
 	.viewForm:first-child{
-		margin-left:9px;
-	}
-	.viewForm:last-child{
-		margin-left:13px;
+		margin-left:7px;
 	}
 	.viewMainImage img{
-		width:203px;
+		width:213px;
 		height:221px;
 		cursor:pointer;
 	}
@@ -78,18 +76,18 @@
 		width:25px;
 	}
 	.viewTitle {
-		width:95%;
+		width:99%;
 		display:inline-block;
 		text-align: left;
 		margin-left : 3px;
 	}
 	.viewTitle p {
-		font-size:13px;
+		font-size:12px;
 		font-weight:bold;
 		overflow:hidden;
 		white-space:nowrap;
 		text-overflow:ellipsis;
-		padding-left:5px;
+		padding-left:10px;
 		margin-top:5px;
 		margin-bottom:5px;
 	}
@@ -103,8 +101,7 @@
 	}
 	.viewSearchImage p, .viewLikeImage p{
 		display:table-cell;
-		font-size:14px;
-		font-weight: bold;
+		font-size:13px;
 		text-align:left;
 		vertical-align:middle;
 		margin:0px;
@@ -120,29 +117,19 @@
 		display:inline;
 	}
 	
-	.viewSearchImage p, .viewLikeImage p{
-		display:table-cell;
-		font-size:14px;
-		font-weight: bold;
-		text-align:left;
-		margin:0px;
-		color:darkgray;
-	}
-	
 	.reviewWriter {
 		float:right;
 		font-size:12px;
-		font-weight:bold;
 		cursor:pointer;
+		color:#4F4F4F;
 	}
 	
 	.reviewWriter p{
 		display:inline;
-		padding-right:3px;
+		padding-right:5px;
 		font-size:12px;
 		font-weight:bold;
 		margin:0px;
-		margin-top: -5px;
 	}
 	.eyeImage{
 		width:29px;
@@ -159,19 +146,23 @@
 		border:1px solid #dbdbdb;
 	}
 	.recruitmentForm {
-		width:204px;
+		width:213px;
 		display:inline-block;
 		float:left;
-		margin:9px;
+		margin:4px;
+		margin-top:7px;
 		position:relative;
 		border:1px solid #dbdbdb;
 		height:301px;
+	}
+	.recruitmentForm:first-child{
+		margin-left:7px;
 	}
 	.recruitmentCategoryArea {
 	    display: inline-block;
 	    position: relative;
 	    width: 100%;
-		z-index:7;
+		z-index:1;
 		height:215px;
 		text-align:center;
 	}
@@ -183,7 +174,7 @@
 	    float: left;
 	    top: 5px;
 	    left: 5px;
-		z-index:7;
+		z-index:1;
 		height:20px;
 		text-align:center;
 	}
@@ -194,7 +185,7 @@
 		line-height:19px;
 	}
 	.recruitmentImageArea img{
-		width:204px;
+		width:213px;
 		height:215px;
 	}
 	.recruitmentImageArea{
@@ -222,7 +213,7 @@
 		margin:0px;
 	}
 	.recruitmentStrengthArea{
-		width:194px;
+		width:204px;
 		height:25px;
 		padding-left:5px;
 		padding-right:5px;
@@ -234,7 +225,7 @@
 		top:5px;
 		left:160px;
 		position:absolute;
-		z-index:7;
+		z-index:1;
 		background:green;
 		width:40px;
 		height:15px;
@@ -366,18 +357,19 @@
 		}
 	}
 	
-	function loadReivewForm(rwNo, rwContentType){
+	function loadReivewForm(rwNo, rwContentType, userNo){
 		$.ajax({
 			url : "/triangleView/loadOneReviewForm.rf",
 			type : "GET",
 			data : {
-				'rwNo':rwNo,
-				'rwContentType':rwContentType
+				rwNo : rwNo,
+				rwContentType : rwContentType,
+				userNo : userNo
 			},
 			success : function(data) {
 				$(".formArea").html(data);
-				document.getElementById('formAreaArea').style.display = 'block';
-				document.getElementById('formArea').style.display = 'block';
+				document.getElementById('formAreaArea').style.display = 'inline-block';
+				document.getElementById('formArea').style.display = 'inline-block';
 			}
 		});
 	}
@@ -395,18 +387,22 @@
 			<li>
 				<h2 class="title">인기리뷰</h2>
 				<div class="hotLivewList">
-					<%for(int i = 0; i <= reviewList.size()-1; i++){%>
+					<%for(int i = 0; i < reviewList.size(); i++){%>
 						<div class="viewForm">
-							<div class="viewMainImage">
-								<img src="/triangleView/review_upload/<%= reviewList.get(i).getThumbnail() %>" onclick="loadReivewForm(<%= reviewList.get(i).getRwNo() %>, <%= reviewList.get(i).getRwContentType() %>);">
+							<% if(loginUser != null){ %>
+								<div class="viewMainImage" onclick="loadReivewForm(<%= reviewList.get(i).getRwNo() %>, <%= reviewList.get(i).getRwContentType() %>, <%= loginUser.getUserNo() %>)">
+							<% }else{ %>
+								<div class="viewMainImage" onclick="loadReivewForm(<%= reviewList.get(i).getRwNo() %>, <%= reviewList.get(i).getRwContentType() %>, -1)">
+							<% } %>
+								<img src="/triangleView/review_upload/<%= reviewList.get(i).getThumbnail() %>">
 							</div>
 							<div class="formType">
 								<% if(reviewList.get(i).getRwContentType() == 0){ %>
-									<img src="/triangleView/img/viewList/text.png" style="position:absolute; margin-left : 165px; margin-top : 10px; opacity:0.9;">
+									<img src="/triangleView/img/viewList/text.png" style="position:absolute; margin-left : 180px; margin-top : 10px; opacity:0.9;">
 								<% }else if(reviewList.get(i).getRwContentType() == 1){ %>
-									<img src="/triangleView/img/viewList/card.png" style="position:absolute; margin-left : 165px; margin-top : 10px; opacity:0.9;">
+									<img src="/triangleView/img/viewList/card.png" style="position:absolute; margin-left : 180px; margin-top : 10px; opacity:0.9;">
 								<% }else{ %>
-									<img src="/triangleView/img/viewList/video.png" style="position:absolute; margin-left : 165px; margin-top : 10px; opacity:0.9;">
+									<img src="/triangleView/img/viewList/video.png" style="position:absolute; margin-left : 180px; margin-top : 10px; opacity:0.9;">
 								<% } %>
 							</div>
 							<div class="viewTitle">
@@ -422,7 +418,7 @@
 									<div><p><%= reviewList.get(i).getLikeCount() %></p></div>
 								</div>
 							</div>
-							<div class="reviewWriter" style="padding-right:3px;">
+							<div class="reviewWriter">
 								@<p onclick="goHome(this)" id="<%= reviewList.get(i).getUserId() %>"><%= reviewList.get(i).getNick() %></p>
 							</div>
 						</div>
@@ -432,7 +428,7 @@
 			<li>
 				<h2 class="title">리뷰체험단</h2>
 				<div class="reviewerRecruitmentListArea">
-				<%for(int i = 0; i < 4; i++){
+            	<%for(int i = 0; i < 4 && noticeList.size() != 0; i++){
 					
 					HashMap<String, Object> hmap = noticeList.get(i);
 				%>

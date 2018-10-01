@@ -8,27 +8,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-   Member loginUser = (Member)session.getAttribute("loginUser");
-   HashMap<String, Object> reviewForm = (HashMap<String, Object>)request.getAttribute("reviewForm");
-   
-   Iterator<String> keys = reviewForm.keySet().iterator();
-   Form form = null;
-   ArrayList<RwComment> rwComment = null;
-   ArrayList<CardFormImages> cardImageList = null;
-   
-   int rwNo = -1;
-   
-   while(keys.hasNext()){
-      String key = keys.next();
-      if(key.equals("form")){
-         form = (Form)reviewForm.get(key);
-         rwNo = form.getRwNo();
-      }else if(key.equals("rwComment")){
-         rwComment = (ArrayList<RwComment>)reviewForm.get(key);
-      }else if(key.equals("cardImageList")){
-         cardImageList = (ArrayList<CardFormImages>)reviewForm.get(key);
-      }
-   }
+	Member loginUser = (Member)session.getAttribute("loginUser");
+	HashMap<String, Object> reviewForm = (HashMap<String, Object>)request.getAttribute("reviewForm");
+	
+	Iterator<String> keys = reviewForm.keySet().iterator();
+	Form form = null;
+	ArrayList<RwComment> rwComment = null;
+	ArrayList<CardFormImages> cardImageList = null;
+	
+	int rwNo = -1;
+	
+	while(keys.hasNext()){
+		String key = keys.next();
+		if(key.equals("form")){
+			form = (Form)reviewForm.get(key);
+			rwNo = form.getRwNo();
+		}else if(key.equals("rwComment")){
+			rwComment = (ArrayList<RwComment>)reviewForm.get(key);
+		}else if(key.equals("cardImageList")){
+			cardImageList = (ArrayList<CardFormImages>)reviewForm.get(key);
+		}
+	}
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>

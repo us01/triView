@@ -104,7 +104,7 @@ public class ReviewDao {
 				
 				form.setNick(rset.getString("nick"));
 				form.setRwHash(rset.getString("rwhash"));
-				form.setRwCommentCount(rset.getInt("rwcommentcount"));
+				form.setRwCount(rset.getInt("rwcount"));
 				form.setRwLikeCount(rset.getInt("rwlikecount"));
 				form.setRwComment(rset.getString("rwcomment"));
 				form.setLikeMe(rset.getInt("likeme"));
@@ -802,6 +802,192 @@ public class ReviewDao {
 		return result;
 	}
 
+	public int updateRwCount(Connection con, int rwNo) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("updateRwCount");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, rwNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 
+	public int findTodayRwCount(Connection con, int rwNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("findTodayRwCount");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, rwNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int updateTodayRwCount(Connection con, int rwNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("updateTodayRwCount");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, rwNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int insertTodayRwCount(Connection con, int rwNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("insertTodayRwCount");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, rwNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public ArrayList<Review> searchSettingFollowSelect(Connection con, String searchHash, String query, String follower,
+			String company, int userNo) {
+		
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<Review> searchReviewList = null;
+	    String resultQuery = "SELECT RL.LIKECOUNT, P.FILENAME, R.RWNO, R.USERNO, R.CATEGORYTYPE, R.RWCONTENT, R.RWTITLE, R.MODIFYYN, R.MODIFYDATE, R.WRITEDATE, R.COORLINK, R.RWCONTENTTYPE, R.RWCOUNT, R.RWHASH, R.RWCOMMENT, R.RWTYPE, R.COORCODE, R.RWSUPPORT, M.NICK, M.USERID FROM REVIEW R JOIN PLUSFILE P ON(R.RWNO = P.REVIEWNO) JOIN MEMBER M ON(R.USERNO = M.USERNO) JOIN (SELECT COUNT(USERNO) AS LIKECOUNT, RWNO FROM RWLIKE GROUP BY RWNO) RL ON(R.RWNO = RL.RWNO) JOIN HASHTAG H ON(R.RWNO = H.RWNO) WHERE H.HASHCODE = '" 
+	    					 + searchHash +"' AND P.TABLETYPE = 2 AND P.FILESEQNO = 0 ";
+		
+	    if(company != null) {
+			
+			resultQuery += "AND USERNO = (SELECT FOLLOWUSERNO FROM FOLLOW WHERE FOLLOWINGUSERNO = " + userNo + ") "
+						+ " AND RWSUPPORT = 0 ";
+		}else {
+		
+			resultQuery += "AND USERNO = (SELECT FOLLOWUSERNO FROM FOLLOW WHERE FOLLOWINGUSERNO = " + userNo + ")";
+		}
+		resultQuery += query;
+		System.out.println(resultQuery);
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(resultQuery);
+			
+			searchReviewList = new ArrayList<Review>();
+			while(rset.next()){
+				Review review = new Review();
+				
+				review.setNick(rset.getString("nick"));
+				review.setLikeCount(rset.getInt("likecount"));
+				review.setCategoryType(rset.getInt("categorytype"));
+				review.setRwContent(rset.getString("rwContent"));
+				review.setThumbnail(rset.getString("filename"));
+				review.setRwTitle(rset.getString("rwtitle"));
+				review.setModifyYn(rset.getString("modifyyn"));
+				review.setCoorLink(rset.getString("coorlink"));
+				review.setRwContentType(rset.getInt("rwcontenttype"));
+				review.setRwCount(rset.getInt("rwcount"));
+				review.setRwHash(rset.getString("rwhash"));
+				review.setRwComment(rset.getString("rwcomment"));
+				review.setRwType(rset.getInt("rwtype"));
+				review.setUserId(rset.getString("userid"));
+				review.setRwSupport(rset.getInt("rwsupport"));
+				review.setRwNo(rset.getInt("rwno"));
+				
+				searchReviewList.add(review);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		return searchReviewList;
+	}
+
+	public ArrayList<Review> searchSettingSelect(Connection con, String searchHash, String query, String company) {
+		
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<Review> searchReviewList = null;
+	    String resultQuery = "SELECT RL.LIKECOUNT, P.FILENAME, R.RWNO, R.USERNO, R.CATEGORYTYPE, R.RWCONTENT, R.RWTITLE, R.MODIFYYN, R.MODIFYDATE, R.WRITEDATE, R.COORLINK, R.RWCONTENTTYPE, R.RWCOUNT, R.RWHASH, R.RWCOMMENT, R.RWTYPE, R.COORCODE, R.RWSUPPORT, M.NICK, M.USERID FROM REVIEW R JOIN PLUSFILE P ON(R.RWNO = P.REVIEWNO) JOIN MEMBER M ON(R.USERNO = M.USERNO) JOIN (SELECT COUNT(USERNO) AS LIKECOUNT, RWNO FROM RWLIKE GROUP BY RWNO) RL ON(R.RWNO = RL.RWNO) JOIN HASHTAG H ON(R.RWNO = H.RWNO) WHERE H.HASHCODE = '" 
+	    					 + searchHash +"' AND P.TABLETYPE = 2 AND P.FILESEQNO = 0";
+		
+	    if(company != null) {
+			
+			resultQuery += " AND RWSUPPORT = 0 ";
+		}
+	    
+	    resultQuery += query;
+	    System.out.println(resultQuery);
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(resultQuery);
+			
+			searchReviewList = new ArrayList<Review>();
+			while(rset.next()){
+				Review review = new Review();
+				
+				review.setNick(rset.getString("nick"));
+				review.setLikeCount(rset.getInt("likecount"));
+				review.setCategoryType(rset.getInt("categorytype"));
+				review.setRwContent(rset.getString("rwContent"));
+				review.setThumbnail(rset.getString("filename"));
+				review.setRwTitle(rset.getString("rwtitle"));
+				review.setModifyYn(rset.getString("modifyyn"));
+				review.setCoorLink(rset.getString("coorlink"));
+				review.setRwContentType(rset.getInt("rwcontenttype"));
+				review.setRwCount(rset.getInt("rwcount"));
+				review.setRwHash(rset.getString("rwhash"));
+				review.setRwComment(rset.getString("rwcomment"));
+				review.setRwType(rset.getInt("rwtype"));
+				review.setUserId(rset.getString("userid"));
+				review.setRwSupport(rset.getInt("rwsupport"));
+				review.setRwNo(rset.getInt("rwno"));
+				
+				searchReviewList.add(review);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		return searchReviewList;
+	}
 
 }

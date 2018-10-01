@@ -336,4 +336,143 @@ public class ReviewService {
 
 		return result;
 	}	
-}	
+  
+	public int updateRwCount(int rwNo) {
+		Connection con = getConnection();
+		
+		int result = new ReviewDao().updateRwCount(con, rwNo);
+		
+		if(result > 0) {
+			
+			commit(con);
+		}else {
+			
+			rollback(con);
+		}
+		close(con);
+		
+		return result;
+	}
+
+	public int findTodayRwCount(int rwNo) {
+		Connection con = getConnection();
+		
+		int result = new ReviewDao().findTodayRwCount(con, rwNo);
+		
+		if(result > 0) {
+			
+			commit(con);
+		}else {
+			
+			rollback(con);
+		}
+		close(con);
+		
+		return result;
+	}		
+
+	public int updateTodayRwCount(int rwNo) {
+		Connection con = getConnection();
+		
+		int result = new ReviewDao().updateTodayRwCount(con, rwNo);
+		
+		if(result > 0) {
+			
+			commit(con);
+		}else {
+			
+			rollback(con);
+		}
+		close(con);
+		
+		return result;
+	}
+
+	public int insertTodayRwCount(int rwNo) {
+	
+		Connection con = getConnection();
+		
+		int result = new ReviewDao().insertTodayRwCount(con, rwNo);
+		
+		if(result > 0) {
+			
+			commit(con);
+		}else {
+			
+			rollback(con);
+		}
+		close(con);
+		
+		return result;
+	}
+
+	public String orderQuery(int userNo, String sinceTime, String untilTime, String term, String recent, String like, String hits,
+			String text, String card, String vedio) {
+		
+		String query = "";
+		
+		if(!sinceTime.equals("") || !untilTime.equals("")){
+			query += " AND WRITEDATE BETWEEN TO_DATE('" + sinceTime + "') AND TO_DATE('" + untilTime + "') ";
+		}else if(term != null){
+			if(term.equals("oneDay")){
+				query += " AND WRITEDATE BETWEEN SYSDATE - 1 AND SYSDATE ";
+			}else if(term.equals("oneWeek")){
+				query += " AND WRITEDATE BETWEEN SYSDATE - 7 AND SYSDATE ";
+			}else if(term.equals("oneMonth")){
+				query += "AND  WRITEDATE BETWEEN ADD_MONTHS(SYSDATE, -1) AND SYSDATE ";
+			}
+		}
+		
+		if(text != null){
+			if(query.charAt(query.length() - 1) == ' '){
+				query += "AND RWCONTENTTYPE = 0 ";
+			}else{
+				query += "AND  RWCONTENTTYPE = 0 " ;
+			}
+		}
+		
+		if(card != null){
+			if(query.charAt(query.length() - 1) == ' '){
+				query += "AND RWCONTENTTYPE = 1 ";
+			}else{
+				query += "AND  RWCONTENTTYPE = 1 " ;
+			}
+		}
+		
+		if(vedio != null){
+			if(query.charAt(query.length() - 1) == ' '){
+				query += "AND RWCONTENTTYPE = 2 ";
+			}else{
+				query += "AND  RWCONTENTTYPE = 2 " ;
+			}
+		}
+		
+		//마지막 order by 부분
+		if(recent != null){
+			query += " ORDER BY WRITEDATE DESC";
+		}else if(like != null){
+			query += " ORDER BY LIKECOUNT DESC" ;
+		}else if(hits != null){
+			query += " ORDER BY RWCOUNT DESC" ;
+		}
+		
+		return query;
+	}
+
+	public ArrayList<Review> searchSettingSelect(String searchHash, String query, String follower, String company, int userNo) {
+		Connection con = getConnection();
+		ArrayList<Review> searchReviewList = null;
+		
+		if(follower != null) {
+			
+			searchReviewList = new ReviewDao().searchSettingFollowSelect(con, searchHash, query, follower, company, userNo);
+		}else {
+			
+			searchReviewList = new ReviewDao().searchSettingSelect(con, searchHash, query, company);
+		}
+		
+		close(con);
+		
+		return searchReviewList;
+	}
+}

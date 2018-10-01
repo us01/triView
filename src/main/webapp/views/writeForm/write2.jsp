@@ -345,7 +345,6 @@ $(function(){
  
  
 </script>
-
 <script type="text/javascript">
         /* summernote에서 이미지 업로드시 실행할 함수 */
 	 	function sendFile(file, editor) {
@@ -443,6 +442,17 @@ function LoadImg(value) {
 		<!-- <div id="contentWrite2" style="text-align:center; margin-left: 160px;">
 			<h5 style="margin-left: -835px;">게시글 작성</h5>
 				<section id="editor" style="text-align:left; width: 810px; margin-left: -60px; ">
+
+						    <!-- Include external JS libs. -->
+						    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+						    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.js"></script>
+						    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/mode/xml/xml.min.js"></script>
+						 
+						    <!-- Include Editor JS files. -->
+						    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.8.5/js/froala_editor.pkgd.min.js"></script>
+						 
+						    <!-- Initialize the editor. -->
+						    <script> $(function() { $('#edit').froalaEditor() }); </script>
 					<textarea id='edit' name="edit" style="margin-top: 30px; height:500px;">
 					</textarea> 
 			</section>
@@ -599,7 +609,6 @@ function LoadImg(value) {
 			
 		}
 		</script>
-	
 	</form>
 	</div>
 </body>

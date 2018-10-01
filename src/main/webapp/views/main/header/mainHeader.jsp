@@ -9,7 +9,6 @@
 	.header {
 		width: 100%;
 		background: #F7323F;
-		align-text: center;
 		font-family: '맑은고딕';
 	}
 </style>

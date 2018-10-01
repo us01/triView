@@ -9,9 +9,9 @@
 <title>세모뷰 로그인 전</title>
 <style>
 	body {
-		margin:0px;
 		background:#fafafa;
 		font-family:'맑은고딕';
+		margin-left:0px;
 	}
 </style>
 </head>

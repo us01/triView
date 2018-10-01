@@ -65,31 +65,55 @@
 </style>
 <script>
 	$(function(){
-		$("#searchReviewInput").keypress(function(key) {
+		$("#searchHash").keypress(function(key) {
 			if(key.which == 13){
-				var searchHash = $("#searchReviewInput").val();
-				var searchData = $("#searchReviewInput").val();
-				location.href="<%= request.getContextPath()%>/searchReview.sr?searchHash=" + searchHash +"&searchData=" + searchData;
+				alert("메인 카테고리 엔터 서치 실행");
+				naySearch();
 			}
-			
 		});
 	})
 	
-	function searchCategory(category){
+	function naySearch(){
+		var submitCheck;
 		
+		if($('#sinceTime').val() != '' || $('#sinceTime').val() != ''){
+			if($('#sinceTime').val() != '' && $('#sinceTime').val() != ''){
+				submitCheck = 'Y';
+				if($('#sinceTime').val() > $('#untilTime').val()){
+					submitCheck = 'N';
+				}
+			}else{
+				submitCheck = 'N';
+			}
+		}
+		
+		if(submitCheck != 'N'){
+			$searchData = $('<input>')
+			$searchData.attr('name', 'searchData');
+			$searchData.attr('type', 'hidden');
+			$searchData.val($('#searchHash').val());
+			alert("메인 카테고리 서치 실행");
+			$('#searchForm').append($searchData);
+			$('#searchForm').attr('action', '<%= request.getContextPath() %>/searchReview.sr').submit();
+		}else{
+			alert('                         기간 검색 조건이 잘 못 됐습니다.\n                                   다시 설정해주세요.');
+		} 
+	}
+
+	function searchCategory(category){
 		var searchHash = "";
 		var searchData = "";
 		
 		switch(category){
 		case 1 : searchHash = "자유"; searchData = searchHash; break;
-		case 2 : searchHash = "게임"; searchData = searchHash; break;
-		case 3 : searchHash = "취미"; searchData = searchHash; break;
-		case 4 : searchHash = "IT"; searchData = searchHash; break;
-		case 5 : searchHash = "인생"; searchData = searchHash; break;
+		case 2 : searchHash = "IT"; searchData = searchHash; break;
+		case 3 : searchHash = "음악"; searchData = searchHash; break;
+		case 4 : searchHash = "뷰티"; searchData = searchHash; break;
+		case 5 : searchHash = "스포츠"; searchData = searchHash; break;
 		case 6 : searchHash = "금융"; searchData = searchHash; break;
-		case 7 : searchHash = "스포츠"; searchData = searchHash; break;
-		case 8 : searchHash = "뷰티"; searchData = searchHash; break;
-		case 9 : searchHash = "뮤직"; searchData = searchHash; break;
+		case 7 : searchHash = "게임"; searchData = searchHash; break;
+		case 8 : searchHash = "취미"; searchData = searchHash; break;
+		case 9 : searchHash = "인생"; searchData = searchHash; break;
 		}
 		location.href="<%= request.getContextPath()%>/searchReview.sr?searchHash=" + searchHash +"&searchData=" + searchData;
 	}
@@ -100,22 +124,22 @@
 		<ul>
 			<li onclick="searchCategory(1)"><img src="/triangleView/img/main/freedom.png">
 				<p>자유</p></li>
-			<li onclick="searchCategory(2)"><img src="/triangleView/img/main/game.png">
-				<p>게임</p></li>
-			<li onclick="searchCategory(3)"><img src="/triangleView/img/main/hobby.png">
-				<p>취미</p></li>
-			<li onclick="searchCategory(4)"><img src="/triangleView/img/main/appliance.png">
+			<li onclick="searchCategory(2)"><img src="/triangleView/img/main/appliance.png">
 				<p>IT/가전</p></li>
-			<li onclick="searchCategory(5)"><img src="/triangleView/img/main/life.png">
-				<p>인생</p></li>
+			<li onclick="searchCategory(3)"><img src="/triangleView/img/main/music.png">
+				<p>음악</p></li>
+			<li onclick="searchCategory(4)"><img src="/triangleView/img/main/beauty.png">
+				<p>뷰티</p></li>
+			<li onclick="searchCategory(5)"><img src="/triangleView/img/main/sports.png">
+				<p>스포츠</p></li>
 			<li onclick="searchCategory(6)"><img src="/triangleView/img/main/banking.png">
 				<p>금융</p></li>
-			<li onclick="searchCategory(7)"><img src="/triangleView/img/main/sports.png">
-				<p>스포츠</p></li>
-			<li onclick="searchCategory(8)"><img src="/triangleView/img/main/beauty.png">
-				<p>뷰티</p></li>
-			<li onclick="searchCategory(9);"><img src="/triangleView/img/main/music.png">
-				<p>뮤직</p></li>
+			<li onclick="searchCategory(7)"><img src="/triangleView/img/main/game.png">
+				<p>게임</p></li>
+			<li onclick="searchCategory(8)"><img src="/triangleView/img/main/hobby.png">
+				<p>취미</p></li>
+			<li onclick="searchCategory(9)"><img src="/triangleView/img/main/life.png">
+				<p>인생</p></li>
 		</ul>
 	</div>
 </body>

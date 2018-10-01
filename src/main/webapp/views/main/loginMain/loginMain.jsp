@@ -1,3 +1,4 @@
+<%@page import="com.chain.triangleView.member.member.vo.MemberInterestCategory"%>
 <%@page import="com.chain.triangleView.review.review.vo.Review"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.chain.triangleView.member.member.vo.Member, com.chain.triangleView.notice.notice.vo.notice.Notice, java.util.*"%>
@@ -5,10 +6,17 @@
     pageEncoding="UTF-8"%>
 <%
 	Member loginUser = (Member)session.getAttribute("loginUser");
+	ArrayList<MemberInterestCategory> loginUserInterestCategory = (ArrayList<MemberInterestCategory>)session.getAttribute("loginUserInterestCategory");
 	ArrayList<Review> interestReviewList = (ArrayList<Review>)request.getAttribute("interestReviewList");
 	ArrayList<Review> searchReviewList = (ArrayList<Review>)request.getAttribute("searchReviewList");
 	Member followCountMember = (Member)request.getAttribute("followCountMember");
-	String searchData = "default";
+	String searchData = "";
+	
+	if((String)request.getAttribute("searchReviewData") != null){
+		
+		searchData = (String)request.getAttribute("searchReviewData");
+	}
+	
 	ArrayList<HashMap<String, Object>> noticeList = (ArrayList<HashMap<String, Object>>)request.getAttribute("selectAllNotice");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -31,7 +39,6 @@
 	.centents{
 		margin:0 auto;
 		width:1000px;
-		text-align:center;
 		margin-top:70px;
 		padding-left:50px;
 		padding-right:50px;
@@ -39,7 +46,7 @@
 	.reviewListArea {
 		margin:0 auto;
 		display:inline-block;
-		width:68%;
+		width:696px;
 	}
 	.write img{
 		display:inline-block;
@@ -67,50 +74,72 @@
 	}
 </style>
 <script>
-	function uploadView(){
-		$(".uploadViewAear").css("margin-left", "-250px");
-		$.ajax({
-			url : "/triangleView/views/writeForm/checkWriteForm.jsp",
-			data : "html",
-			success : function(data) {
-				$(".uploadViewAear").html(data);
-				document.getElementById('uploadViewAear').style.display = 'block';
-				document.getElementById('uploadViewAearArea').style.display = 'block';
-			}
-		});
-	}
-
 	function ploadViewAearAreaDisplayNone() {
 		document.getElementById('uploadViewAear').style.display = 'none';
 		document.getElementById('uploadViewAearArea').style.display = 'none';
 	}
 	
+	function uploadView(){
+	      $(".uploadViewAear").css("margin-left", "-250px");
+	      $.ajax({
+	         url : "/triangleView/views/writeForm/checkWriteForm.jsp",
+	         data : "html",
+	         success : function(data) {
+	            $(".uploadViewAear").html(data);
+	            document.getElementById('uploadViewAear').style.display = 'block';
+	            document.getElementById('uploadViewAearArea').style.display = 'block';
+	         }
+	      });
+	 }
+</script>
+<script>
 	$(function(){
-		$("#searchReviewInput").keypress(function(key) {
+		
+		$('#searchHash').val('<%= searchData %>');
+		
+		$("#searchHash").keypress(function(key) {
 			if(key.which == 13){
-				var searchHash = $("#searchReviewInput").val();
-				var searchData = $("#searchReviewInput").val();
-				$.ajax({
-					url : '<%= request.getContextPath()%>/reSearchReview.sr',
-					data : {
-						searchHash:searchHash,
-						searchData:searchData
-					},
-					type : 'post',
-					success : function(data) {
-						$(".reviewListArea").html(data);
-					}
-				});
+				alert("유저페이지 엔터 설치 실행");
+				naySearch();
 			}
 		});
 	})
+	
+	function naySearch(){
+		var submitCheck;
+		
+		if($('#sinceTime').val() != '' || $('#sinceTime').val() != ''){
+			if($('#sinceTime').val() != '' && $('#sinceTime').val() != ''){
+				submitCheck = 'Y';
+				if($('#sinceTime').val() > $('#untilTime').val()){
+					submitCheck = 'N';
+				}
+			}else{
+				submitCheck = 'N';
+			}
+		}
+		
+		if(submitCheck != 'N'){
+			$searchData = $('<input>')
+			$searchData.attr('name', 'searchData');
+			$searchData.attr('type', 'hidden');
+			$searchData.val($('#searchHash').val());
+			
+			alert("유저홈페이지 서치 실행");
+			$('#searchForm').append($searchData);
+			$('#searchForm').attr('action', '<%= request.getContextPath() %>/searchReview.sr').submit();
+		}else{
+			alert('                         기간 검색 조건이 잘 못 됐습니다.\n                                   다시 설정해주세요.');
+		} 
+	}
 </script>
 </head>
 <body>
-	<jsp:include page="../header/headerNav.jsp" flush="true" />
+	<jsp:include page="../header/headerNav.jsp" flush="false"/>
 	<div class="centents">
 		<jsp:include page="./leftContent.jsp" flush="true">
 			<jsp:param name="followCountMember" value="<%= followCountMember %>"/>
+			<jsp:param name="loginUserInterestCategory" value="<%= loginUserInterestCategory %>"/>
 		</jsp:include>
 		<div class="reviewListArea">
 			<% if(interestReviewList != null){ %>
@@ -126,9 +155,6 @@
 		<jsp:include page="./rightContent.jsp" flush="true">
 			<jsp:param name="noticeAllList" value="<%= noticeList %>"/>
 		</jsp:include>
-	</div>
-	<div class="write">
-		<img src="/triangleView/img/viewList/uploadVIew.png" onclick="uploadView()">
 	</div>
 	<div id="uploadViewAear" class="uploadViewAear"></div>
 	<div id="uploadViewAearArea" class="w3-modal" onclick="ploadViewAearAreaDisplayNone();"></div>

@@ -13,7 +13,7 @@ public class Form implements Serializable{
 	private int likeMe;
 	private int rwGrade;
 	private int rwType;
-	private int rwCommentCount;
+	private int rwCount;
 	private String rwHash;
 	private String nick;
 	private int rwNo;
@@ -24,8 +24,8 @@ public class Form implements Serializable{
 	}
 
 	public Form(String rwContent, String writeDate, String rwComment, String rwTitle, int rwLikeCount, String coorLink,
-			String thumbnail, int likeMe, int rwGrade, int rwType, int rwCommentCount, String rwHash, String nick,
-			int rwNo, int rwContentType) {
+			String thumbnail, int likeMe, int rwGrade, int rwType, int rwCount, String rwHash, String nick, int rwNo,
+			int rwContentType) {
 		super();
 		this.rwContent = rwContent;
 		this.writeDate = writeDate;
@@ -37,7 +37,7 @@ public class Form implements Serializable{
 		this.likeMe = likeMe;
 		this.rwGrade = rwGrade;
 		this.rwType = rwType;
-		this.rwCommentCount = rwCommentCount;
+		this.rwCount = rwCount;
 		this.rwHash = rwHash;
 		this.nick = nick;
 		this.rwNo = rwNo;
@@ -124,12 +124,12 @@ public class Form implements Serializable{
 		this.rwType = rwType;
 	}
 
-	public int getRwCommentCount() {
-		return rwCommentCount;
+	public int getRwCount() {
+		return rwCount;
 	}
 
-	public void setRwCommentCount(int rwCommentCount) {
-		this.rwCommentCount = rwCommentCount;
+	public void setRwCount(int rwCount) {
+		this.rwCount = rwCount;
 	}
 
 	public String getRwHash() {
@@ -168,9 +168,9 @@ public class Form implements Serializable{
 	public String toString() {
 		return "Form [rwContent=" + rwContent + ", writeDate=" + writeDate + ", rwComment=" + rwComment + ", rwTitle="
 				+ rwTitle + ", rwLikeCount=" + rwLikeCount + ", coorLink=" + coorLink + ", thumbnail=" + thumbnail
-				+ ", likeMe=" + likeMe + ", rwGrade=" + rwGrade + ", rwType=" + rwType + ", rwCommentCount="
-				+ rwCommentCount + ", rwHash=" + rwHash + ", nick=" + nick + ", rwNo=" + rwNo + ", rwContentType="
-				+ rwContentType + "]";
+				+ ", likeMe=" + likeMe + ", rwGrade=" + rwGrade + ", rwType=" + rwType + ", rwCount=" + rwCount
+				+ ", rwHash=" + rwHash + ", nick=" + nick + ", rwNo=" + rwNo + ", rwContentType=" + rwContentType + "]";
 	}
+
 	
 }

@@ -47,8 +47,9 @@
 		cursor:pointer;
 	}
 	.formType{
-		top:0px;
-		left:10px;
+		top:10px;
+		left:195px;
+    	opacity: 0.9;
 		position:absolute;
 		z-index:2;
 	}
@@ -58,45 +59,44 @@
 		text-align: left;
 	}
 	.viewTitle p {
-		font-size:13px;
+		font-size:12px;
 		font-weight:bold;
 		overflow:hidden;
 		white-space:nowrap;
 		text-overflow:ellipsis;
-		padding-left:5px;
+		padding-left:10px;
 		margin-top:5px;
 		margin-bottom:5px;
 	}
 	.viewSearchImage, .viewLikeImage{
-		width:50%;
+		width:45%;
 		float:left;
-		display:table;
-		text-align:center;
+		display:inline-block;
+		margin-left:5%;
+		text-align:left;
 	}
 	.viewSearchImage > img, .viewLikeImage > img{
 		width:30px;
 		height:25px;
 	}
 	.viewSearchImage p, .viewLikeImage p{
-		display:table-cell;
-		font-size:7px;
-		font-weight: bold;
-		text-align:left;
-		vertical-align:middle;
+		display:inline-block;
+		font-size:13px;
 		margin:0px;
+		margin-left:5px;
 		color:darkgray;
 	}
 	.reviewWriter {
 		text-align:right;
-		font-size:11px;
+		font-size:12px;
 		font-weight:bold;
 		padding-top:31px;
+		color:#4F4F4F;
 	}
 	.reviewWriter p{
 		display:inline;
-		padding-right:3px;
+		padding-right:8px;
 		font-size:12px;
-		font-weight:bold;
 		margin:0px;
 	}
 	.formArea {

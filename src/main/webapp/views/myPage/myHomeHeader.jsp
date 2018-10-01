@@ -123,6 +123,9 @@
 		margin-bottom:30px;
 		margin-right:15px;
 	}
+	.MyHomefollow, .MyHomefollower{
+		cursor:pointer;
+	}
 	.myHomeHeaderArea .MyHomeProfileinformation .MyHomeIntroduction{
 		width: 450px;
 		font-size:12px;
