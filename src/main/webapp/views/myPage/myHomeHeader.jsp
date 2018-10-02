@@ -300,15 +300,15 @@
 				<h6>게시뷰</h6>
 				<p class="MyHomeMyReview"><%= member.getReviewCount() %></p>
 				<% if(loginUser != null){ %>
-					<h6 onclick="followListBlock(<%= member.getUserNo()%> )">팔로잉</h6>
-					<p class="MyHomefollow" onclick="followListBlock(<%= member.getUserNo()%> ,<%= loginUser.getUserNo() %>)"><%= member.getFollowingCount() %></p>
 					<h6 onclick="followingListBlock(<%= member.getUserNo() %>)">팔로워</h6>
 					<p class="MyHomefollower" onclick="followingListBlock(<%= member.getUserNo() %>, <%= loginUser.getUserNo() %>)"><%= member.getFollowCount() %></p>
-				<% }else{ %>
 					<h6 onclick="followListBlock(<%= member.getUserNo()%> )">팔로잉</h6>
-					<p class="MyHomefollow" onclick="followListBlock(<%= member.getUserNo()%> ,-1)"><%= member.getFollowingCount() %></p>
+					<p class="MyHomefollow" onclick="followListBlock(<%= member.getUserNo()%> ,<%= loginUser.getUserNo() %>)"><%= member.getFollowingCount() %></p>
+				<% }else{ %>
 					<h6 onclick="followingListBlock(<%= member.getUserNo() %>)">팔로워</h6>
 					<p class="MyHomefollower" onclick="followingListBlock(<%= member.getUserNo() %>, -1)"><%= member.getFollowCount() %></p>
+					<h6 onclick="followListBlock(<%= member.getUserNo()%> )">팔로잉</h6>
+					<p class="MyHomefollow" onclick="followListBlock(<%= member.getUserNo()%> ,-1)"><%= member.getFollowingCount() %></p>
 				<% } %>
 			</li>
 			<li>

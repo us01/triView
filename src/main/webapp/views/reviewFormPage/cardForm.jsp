@@ -159,7 +159,7 @@
                </div>
                <div class="comment-qty">
                   <img src="/triangleView/img/reviewForm/view.png">
-                  <%-- <span><%= form.getRwCount() %></span> --%>
+                 <span><%= form.getRwCount() %></span>
                </div>
                <div class="like-qty">
                   <% if(loginUser != null && (form.getLikeMe() == 0)){ %>

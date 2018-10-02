@@ -31,15 +31,13 @@ public class MyHomeServlet extends HttpServlet {
 			
 			int currentPage = 1;
 			int limit = 8;
-			int maxPage;
-			int startPage;
-			int endPage;
+			int reviewCount = 0;
 			
 			if(request.getParameter("currentPage") != null){
 				currentPage = Integer.parseInt(request.getParameter("currentPage"));
 			}
 			
-			int reviewCount = new UserHomeService().getReviewCount(((Member)(request.getSession().getAttribute("loginUser"))).getUserId());
+			reviewCount = new UserHomeService().getReviewCount(((Member)(request.getSession().getAttribute("loginUser"))).getUserId());
 					
 			ArrayList<HomeReview> reviews = new UserHomeService().UserReviewSelect(((Member)(request.getSession().getAttribute("loginUser"))).getUserId(), currentPage, limit);
 			

@@ -20,6 +20,11 @@
 <script src="/triangleView/js/jqcloud-1.0.4.js"></script>
 <link rel="stylesheet" href="/triangleView/css/w3.css">
 <link rel="stylesheet" href="/triangleView/css/jqcloud.css" />
+<script
+	src="https://code.jquery.com/color/jquery.color-2.1.2.js"
+	integrity="sha256-1Cn7TdfHiMcEbTuku97ZRSGt2b3SvZftEIn68UMgHC8="
+	crossorigin="anonymous">
+</script>
 <title></title>
 <style>
 	.viewForm{
