@@ -8,6 +8,8 @@
 	Member loginUser = (Member)session.getAttribute("loginUser");
 	HashMap<String, Object> userHome = (HashMap<String, Object>)request.getAttribute("userHome");
 	ArrayList<HomeReview> reviews = (ArrayList<HomeReview>)userHome.get("reviews");
+	
+	int currentPage = 1;
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -136,7 +138,21 @@
 	
 	$(window).scroll(function(){
 		if ($(window).scrollTop() == $(document).height() - $(window).height()) {
-			
+			$.ajax({
+				url : '/triangleView/homePaging',
+				type : 'post',
+				data : {
+					
+				},
+				beforesend : function(){
+					
+				},
+				success : function(data){
+					$myHomeListArea = $('.myHomeListArea');
+					
+					//리뷰 폼 포문으로 돌려야함
+				}
+			});
 		}
 	})
 </script>

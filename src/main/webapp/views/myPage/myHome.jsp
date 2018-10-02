@@ -32,7 +32,6 @@
 	$(function(){
 		$("#searchHash").keypress(function(key) {
 			if(key.which == 13){
-			
 				naySearch();
 			}
 		});
