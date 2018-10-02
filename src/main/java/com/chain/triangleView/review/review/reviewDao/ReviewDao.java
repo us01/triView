@@ -489,74 +489,11 @@ public class ReviewDao {
 		return result;
 	}
 
-	public int insertWrite1Attachment(Connection con, ArrayList<Attachment> fileList, Member m, Review rwNoCheck) {
+	public int insertWriteAttachment(Connection con, ArrayList<Attachment> fileList, Member m, Review rwNoCheck) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 
-		String query = prop.getProperty("insertWrite1Attachment");
-
-		try {
-			for(int i = 0; i < fileList.size(); i++){
-				int j = i;
-				pstmt = con.prepareStatement(query);
-
-				pstmt.setInt(1, rwNoCheck.getRwNo());
-				pstmt.setString(2, fileList.get(i).getOriginName());
-				pstmt.setString(3,fileList.get(i).getChangeName());
-				pstmt.setString(4, fileList.get(i).getFileSize());
-				pstmt.setString(5, fileList.get(i).getFileType());
-				pstmt.setInt(6, m.getUserNo());
-				pstmt.setInt(7, j);
-
-				result += pstmt.executeUpdate();
-			}
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally{
-			close(pstmt);
-		}
-
-		return result;
-	}
-
-	public int insertWrite2Attachment(Connection con, ArrayList<Attachment> fileList, Member m, Review rwNoCheck) {
-		PreparedStatement pstmt = null;
-		int result = 0;
-
-		String query = prop.getProperty("insertWrite2Attachment");
-
-		try {
-			for(int i = 0; i < fileList.size(); i++){
-				int j = i;
-				pstmt = con.prepareStatement(query);
-
-				pstmt.setInt(1, rwNoCheck.getRwNo());
-				pstmt.setString(2, fileList.get(i).getOriginName());
-				pstmt.setString(3,fileList.get(i).getChangeName());
-				pstmt.setString(4, fileList.get(i).getFileSize());
-				pstmt.setString(5, fileList.get(i).getFileType());
-				pstmt.setInt(6, m.getUserNo());
-				pstmt.setInt(7, j);
-
-				result += pstmt.executeUpdate();
-			}
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally{
-			close(pstmt);
-		}
-
-		return result;
-	}
-	public int insertWrite3Attachment(Connection con, ArrayList<Attachment> fileList, Member m, Review rwNoCheck) {
-		PreparedStatement pstmt = null;
-		int result = 0;
-
-		String query = prop.getProperty("insertWrite3Attachment");
+		String query = prop.getProperty("insertWriteAttachment");
 
 		try {
 			for(int i = 0; i < fileList.size(); i++){
@@ -750,22 +687,17 @@ public class ReviewDao {
 		return hmap;
 	}
 
-	public int updateWrite3(Connection con, Review rw) {
+	public int updateWrite(Connection con, Review rw) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		
-		String query = prop.getProperty("updateWrite3");
+		String query = prop.getProperty("updateWrite");
 		
 		try {
 			pstmt = con.prepareStatement(query);
 			
-			pstmt.setInt(1, rw.getCategoryType());
-			pstmt.setString(2, rw.getRwContent());
-			pstmt.setString(3, rw.getRwTitle());
-			pstmt.setInt(4, rw.getRwGrade());
-			pstmt.setString(5, rw.getRwComment());
-			pstmt.setInt(6, rw.getRwSupport());
-			pstmt.setInt(7, rw.getRwNo());
+			pstmt.setString(1, rw.getRwComment());
+			pstmt.setInt(2, rw.getRwNo());
 			
 			result = pstmt.executeUpdate();
 			
@@ -780,11 +712,11 @@ public class ReviewDao {
 		return result;
 	}
 
-	public int deleteWrite3(Connection con, Review rw) {
+	public int deleteWrite(Connection con, Review rw) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		
-		String query = prop.getProperty("deleteWrite3");
+		String query = prop.getProperty("deleteWrite");
 		
 		try {
 			pstmt = con.prepareStatement(query);
@@ -989,5 +921,53 @@ public class ReviewDao {
 		
 		return searchReviewList;
 	}
+
+	public int deleteHashtag(Connection con, Review rw) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query = prop.getProperty("deleteHashtag");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, rw.getRwNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			close(con);
+		}
+		return result;
+	}
+
+	public int updateHashtag(Connection con, Review rw, String resultHash) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertHashtag");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, resultHash);
+			pstmt.setInt(2, rw.getRwNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+	
 
 }

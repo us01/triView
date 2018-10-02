@@ -95,7 +95,7 @@ public class ReviewService {
 			
 			if(fileList != null){
 				
-				result2 = new ReviewDao().insertWrite2Attachment(con,fileList,m,rwNoCheck);
+				result2 = new ReviewDao().insertWriteAttachment(con,fileList,m,rwNoCheck);
 			}
 		}
 		
@@ -132,7 +132,7 @@ public class ReviewService {
 			
 			if(fileList != null){
 				
-				result2 = new ReviewDao().insertWrite3Attachment(con,fileList,m,rwNoCheck);
+				result2 = new ReviewDao().insertWriteAttachment(con,fileList,m,rwNoCheck);
 			}
 		}
 		
@@ -195,7 +195,7 @@ public class ReviewService {
 			
 			if(fileList != null){
 				
-				result2 = new ReviewDao().insertWrite1Attachment(con,fileList,m,rwNoCheck);
+				result2 = new ReviewDao().insertWriteAttachment(con,fileList,m,rwNoCheck);
 			}
 		}
 		
@@ -317,19 +317,34 @@ public class ReviewService {
 		return hmap;
 	}
 
-	public int updateWrite3(Review rw, Member m, ArrayList<Attachment> fileList) {
+	public int updateWrite3(Review rw, Member m, ArrayList<Attachment> fileList, String[] resultHashSplit, String categoryHashResult) {
 		Connection con = getConnection();
 		
-		int result = new ReviewDao().updateWrite3(con,rw);
+		int result = new ReviewDao().updateWrite(con,rw);
 		//System.out.println("여기까진 되나 볼까 ? " + result);
-		if(result > 0 ){
+		/*if(result > 0 ){
 			if(fileList.size() != 0){
-				int result1 = new ReviewDao().deleteWrite3(con,rw);
+				int result1 = new ReviewDao().deleteWrite(con,rw);
 				commit(con);
-				/*int rwNoCheck = rw.getRwNo();*/
-				int result2 = new ReviewDao().insertWrite3Attachment(con, fileList, m, rw);
+				int rwNoCheck = rw.getRwNo();
+				int result2 = new ReviewDao().insertWriteAttachment(con, fileList, m, rw);
 				commit(con);
 			}
+			
+				int result3 = new ReviewDao().deleteHashtag(con,rw);
+			
+			commit(con);
+		}*/
+		
+		for(int i =1; i < resultHashSplit.length; i++){
+			String resultHash = resultHashSplit[i];
+			int result4 = new ReviewDao().updateHashtag(con,rw,resultHash);
+		}
+		int result5 = new ReviewDao().updateHashtag(con,rw,categoryHashResult);
+		if(result > 0 ){
+			commit(con);
+		}else{
+			rollback(con);
 		}
 		
 		close(con);
@@ -466,4 +481,35 @@ public class ReviewService {
 		
 		return searchReviewList;
 	}
+
+	public int updateWrite1(Review rw, Member m, ArrayList<Attachment> fileList, String[] resultHashSplit,
+			String categoryHashResult) {
+		
+		Connection con = getConnection();
+		
+		int result = new ReviewDao().updateWrite(con,rw);
+		
+		if(result > 0 ){
+			if(fileList.size() != 0){
+				int result1 = new ReviewDao().deleteWrite(con,rw);
+				commit(con);
+				
+				int result2 = new ReviewDao().insertWriteAttachment(con, fileList, m, rw);
+				commit(con);
+			}
+			
+				int result3 = new ReviewDao().deleteHashtag(con,rw);
+			for(int i =1; i < resultHashSplit.length; i++){
+				String resultHash = resultHashSplit[i];
+				int result4 = new ReviewDao().updateHashtag(con,rw,resultHash);
+			}
+			int result5 = new ReviewDao().updateHashtag(con,rw,categoryHashResult);
+			
+			commit(con);
+		}
+		
+		close(con);
+
+		return result;
+	}	
 }

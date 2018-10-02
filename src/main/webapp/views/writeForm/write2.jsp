@@ -7,58 +7,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
- <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css" />
-  <link rel="stylesheet" href="forWrite2/dist/summernote.css">
-  
-  <title>summernote</title>
-	
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
-  <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
-  <script type="text/javascript" src="forWrite2/dist/summernote.js"></script>
-  <script src="forWrite2/lang/summernote-ko-KR.js"></script>
-<script type="text/javascript">
-    $(document).ready(function() {
-      $('.summernote').summernote({
-        height: 300,
-        minHeight : null,
-        maxHeight : null,
-        focus : true,
-        lang : 'ko-KR',
-		onImageUpload: function(files, editor, welEditable) {
-		            		for (var i = files.length - 1; i >= 0; i--) {
-		            			sendFile(files[i], this);
-		          }
-			 }
-     	 	
-      	});
-    });
-    
-    function sendFile(file, editor) {
-        // 파일 전송을 위한 폼생성
- 		data = new FormData();
- 	    data.append("uploadFile", file);
- 	    $.ajax({ // ajax를 통해 파일 업로드 처리
- 	        data : data,
- 	        type : "POST",
- 	       	enctype: 'multipart/form-data',
- 	        url : "/insertWrite2.bo",
- 	        cache : false,
- 	        contentType : false,
- 	        processData : false,
- 	        success : function(data) { // 처리가 성공할 경우
-                // 에디터에 이미지 출력
- 	        	//$(editor).summernote('editor.insertImage', data.url);
- 	        	alert('이미지 업로드 성공!');
- 	        }
- 	    });
- 	}
-
-
-
-  </script>
+<script src="/triangleView/js/jquery-3.3.1.min.js"></script>
+<meta charset="UTF-8">
+<title></title>
 <style>
 body {
 	margin: 0px;
@@ -342,30 +293,114 @@ $(function(){
         }
     });
  });
- 
- 
 </script>
-<script type="text/javascript">
-        /* summernote에서 이미지 업로드시 실행할 함수 */
-	 	function sendFile(file, editor) {
-            // 파일 전송을 위한 폼생성
-	 		data = new FormData();
-	 	    data.append("uploadFile", file);
-	 	    $.ajax({ 
-	 	        data : data,
-	 	        type : "POST",
-	 	        url : "./summernote_imageUpload.jsp",
-	 	        cache : false,
-	 	        contentType : false,
-	 	        processData : false,
-	 	        success : function(data) { // 처리가 성공할 경우
-                    // 에디터에 이미지 출력
-	 	        	$(editor).summernote('editor.insertImage', data.url);
-	 	        }
-	 	    });
-	 	}
-	</script>
+<script>
 
+function LoadImg(value) {
+	if (value.files && value.files[0]) {
+		var reader = new FileReader();
+
+		reader.onload = function(e) {
+			$("#testGoGo").css('background', 'transparent url('+e.target.result +') left top no-repeat').css('background-size','300px').css('background-size','contain');
+		}
+
+		reader.readAsDataURL(value.files[0]);
+	}
+}
+</script>
+<script>
+	$(document).ready(function() {
+		var left = 100
+		$('#text_counter').text('작성할 수 있는 글자수: ' + left);
+
+		$('#introduce').keyup(function() {
+
+			left = 100 - $(this).val().length;
+
+			if (left < 0) {
+				$('#text_counter').addClass("overlimit");
+				$('#end').attr("disabled", true);
+			} else {
+				$('#text_counter').removeClass("overlimit");
+				$('#end').attr("disabled", false);
+			}
+
+			$('#text_counter').text('작성할 수 있는 글자수: ' + left);
+		});
+	});
+</script>
+<script>
+	// star rating
+	var starRating = function() {
+		var $star = $(".star-input"), $result = $star.find("output>b");
+		var num2 = "";
+
+		$(document).on("focusin", ".star-input>.input", function() {
+			$(this).addClass("focus");
+		}).on("focusout", ".star-input>.input", function() {
+			var $this = $(this);
+			setTimeout(function() {
+				if ($this.find(":focus").length === 0) {
+					$this.removeClass("focus");
+				}
+			}, 100);
+		}).on("change", ".star-input :radio", function() {
+			$result.text($(this).next().text());
+		}).on("mouseover", ".star-input label", function() {
+			$result.text($(this).text());
+		}).on("mouseleave", ".star-input>.input", function() {
+			var $checked = $star.find(":checked");
+			if ($checked.length === 0) {
+				$result.text("0");
+				num2 = 0;
+				$("#starPoint").val(num2);
+			} else {
+				$result.text($checked.next().text());
+				num2 = ($checked.val());
+				$("#starPoint").val(num2);
+			}
+		});
+
+	};
+	starRating();
+</script>
+<script>
+		
+	function goBack(){
+		location.href="/triangleView/loginMain";
+	}
+	
+	function submitAction() {
+		
+		theForm = document.write2Test;
+		if(theForm.title.value==""){
+	        alert("제목을 입력하지 않았습니다.")
+	        theForm.title.focus();
+	        return false;
+		}else if(theForm.imgInput2.value==""){
+	        alert("썸네일을 입력하지 않았습니다.")
+	        theForm.imgInput2.focus();
+	        return false;
+		} else if(theForm.edit.value==""){
+	        alert("글 내용을 입력하지 않았습니다.")
+	        theForm.edit.focus();
+	        return false;
+		} else if(theForm.hash.value==""){
+	        alert("해시태그를 입력하지 않았습니다.")
+	        theForm.hash.focus();
+	        return false;
+		} else if(theForm.introduce.value==""){
+	        alert("한마디를 입력하지 않았습니다.")
+	        theForm.introduce.focus();
+	        return false;
+		} else{
+			var write2Test= document.getElementById("write2Test");
+	        write2Test.action = "<%=request.getContextPath()%>/insertWrite2.bo";
+	        write2Test.submit();
+		}
+		
+	}
+</script>
 </head>
 <body>
 <%-- 
@@ -424,49 +459,9 @@ $(function(){
 			</label>
 		</div>
 
-<script>
-
-function LoadImg(value) {
-	if (value.files && value.files[0]) {
-		var reader = new FileReader();
-
-		reader.onload = function(e) {
-			$("#testGoGo").css('background', 'transparent url('+e.target.result +') left top no-repeat').css('background-size','300px').css('background-size','contain');
-		}
-
-		reader.readAsDataURL(value.files[0]);
-	}
-}
-</script>
-
-		<!-- <div id="contentWrite2" style="text-align:center; margin-left: 160px;">
-			<h5 style="margin-left: -835px;">게시글 작성</h5>
-				<section id="editor" style="text-align:left; width: 810px; margin-left: -60px; ">
-
-						    <!-- Include external JS libs. -->
-						    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-						    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.js"></script>
-						    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/mode/xml/xml.min.js"></script>
-						 
-						    <!-- Include Editor JS files. -->
-						    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.8.5/js/froala_editor.pkgd.min.js"></script>
-						 
-						    <!-- Initialize the editor. -->
-						    <script> $(function() { $('#edit').froalaEditor() }); </script>
-					<textarea id='edit' name="edit" style="margin-top: 30px; height:500px;">
-					</textarea> 
-			</section>
-		</div>
 		<br>
- -->
-			<div id="contentWrite2">
-				<div class="container" name="myContent" id="myContent">
-					<h5>게시글내용</h5>
-					<textarea class="summernote" name="edit" id='edit'>
-						
-					</textarea>
-				</div>
-			</div>
+
+			
 
 			<div class="hash" style="display:-webkit-inline-box; margin-left:100px;">
 		<h5>해시태그</h5>
@@ -482,27 +477,6 @@ function LoadImg(value) {
 			<!-- <span id="text_counter"></span> -->
 		</div>
 		<!-- 140자 이상의 소개는 가입불가능 -->
-		<script>
-			$(document).ready(function() {
-				var left = 100
-				$('#text_counter').text('작성할 수 있는 글자수: ' + left);
-
-				$('#introduce').keyup(function() {
-
-					left = 100 - $(this).val().length;
-
-					if (left < 0) {
-						$('#text_counter').addClass("overlimit");
-						$('#end').attr("disabled", true);
-					} else {
-						$('#text_counter').removeClass("overlimit");
-						$('#end').attr("disabled", false);
-					}
-
-					$('#text_counter').text('작성할 수 있는 글자수: ' + left);
-				});
-			});
-		</script>
 		<div style="display:-webkit-inline-box; width: 900px; margin-left:106px;">
 			<h5 style="margin-left: -5px;">별점</h5>
 				<span class="star-input">
@@ -525,41 +499,7 @@ function LoadImg(value) {
 		
 		<br>
 	<hr>
-		<script>
-			// star rating
-			var starRating = function() {
-				var $star = $(".star-input"), $result = $star.find("output>b");
-				var num2 = "";
-
-				$(document).on("focusin", ".star-input>.input", function() {
-					$(this).addClass("focus");
-				}).on("focusout", ".star-input>.input", function() {
-					var $this = $(this);
-					setTimeout(function() {
-						if ($this.find(":focus").length === 0) {
-							$this.removeClass("focus");
-						}
-					}, 100);
-				}).on("change", ".star-input :radio", function() {
-					$result.text($(this).next().text());
-				}).on("mouseover", ".star-input label", function() {
-					$result.text($(this).text());
-				}).on("mouseleave", ".star-input>.input", function() {
-					var $checked = $star.find(":checked");
-					if ($checked.length === 0) {
-						$result.text("0");
-						num2 = 0;
-						$("#starPoint").val(num2);
-					} else {
-						$result.text($checked.next().text());
-						num2 = ($checked.val());
-						$("#starPoint").val(num2);
-					}
-				});
-
-			};
-			starRating();
-		</script>
+		
 
 			<div class="container2" style="height: 50px; display: -webkit-inline-box;">
 				<div class="btn-holder" style="    margin-left: 120px;">
@@ -571,44 +511,6 @@ function LoadImg(value) {
 					</button>
 				</div>
 			</div>
-	
-		<script>
-		
-		function goBack(){
-			location.href="/triangleView/loginMain";
-		}
-		
-		function submitAction() {
-			
-			theForm = document.write2Test;
-			if(theForm.title.value==""){
-		        alert("제목을 입력하지 않았습니다.")
-		        theForm.title.focus();
-		        return false;
-			}else if(theForm.imgInput2.value==""){
-		        alert("썸네일을 입력하지 않았습니다.")
-		        theForm.imgInput2.focus();
-		        return false;
-			} else if(theForm.edit.value==""){
-		        alert("글 내용을 입력하지 않았습니다.")
-		        theForm.edit.focus();
-		        return false;
-			} else if(theForm.hash.value==""){
-		        alert("해시태그를 입력하지 않았습니다.")
-		        theForm.hash.focus();
-		        return false;
-			} else if(theForm.introduce.value==""){
-		        alert("한마디를 입력하지 않았습니다.")
-		        theForm.introduce.focus();
-		        return false;
-			} else{
-				var write2Test= document.getElementById("write2Test");
-		        write2Test.action = "<%=request.getContextPath()%>/insertWrite2.bo";
-		        write2Test.submit();
-			}
-			
-		}
-		</script>
 	</form>
 	</div>
 </body>
