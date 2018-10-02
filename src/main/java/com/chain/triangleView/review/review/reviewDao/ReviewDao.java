@@ -439,13 +439,12 @@ public class ReviewDao {
 			
 			pstmt.setInt(1, m.getUserNo());
 			pstmt.setInt(2, rw.getCategoryType());
-			/*pstmt.setString(3, rw.getRwContent());*/
-			pstmt.setString(3, rw.getRwTitle());
-			pstmt.setDouble(4, rw.getRwGrade());
-			pstmt.setString(5, rw.getRwHash());
-			pstmt.setString(6, rw.getRwComment());
-			pstmt.setInt(7, rw.getRwSupport());
-			pstmt.setString(8, rw.getRwContent());
+			pstmt.setString(3, rw.getRwContent());
+			pstmt.setString(4, rw.getRwTitle());
+			pstmt.setDouble(5, rw.getRwGrade());
+			pstmt.setString(6, rw.getRwHash());
+			pstmt.setString(7, rw.getRwComment());
+			pstmt.setInt(8, rw.getRwSupport());
 			
 			result = pstmt.executeUpdate();
 			

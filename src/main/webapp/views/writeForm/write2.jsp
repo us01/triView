@@ -460,7 +460,7 @@ function LoadImg(value) {
 		</div>
 
 		<br>
-
+		<textarea id="edit" name="edit" style="width : 100%; height : 300px;"></textarea>
 			
 
 			<div class="hash" style="display:-webkit-inline-box; margin-left:100px;">
