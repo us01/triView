@@ -8,6 +8,11 @@
 <html>
 <head>
 <script src="/triangleView/js/jquery-3.3.1.min.js"></script>
+<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.8.5/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.8.5/css/froala_style.min.css" rel="stylesheet" type="text/css" />
 <meta charset="UTF-8">
 <title></title>
 <style>
@@ -461,7 +466,20 @@ function LoadImg(value) {
 
 		<br>
 
-			
+
+		<!-- Include external JS libs. -->
+    	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.js"></script>
+    	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/mode/xml/xml.min.js"></script>
+		<textarea id="edit" name="edit" style="height : 600px;"></textarea>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.8.5/js/froala_editor.pkgd.min.js"></script>
+ 
+ 		<script> 
+ 			$('#edit').froalaEditor({	
+ 
+ 			  imageUploadURL:'http://i.froala.com/upload'
+ 			});
+ 		</script>
 
 			<div class="hash" style="display:-webkit-inline-box; margin-left:100px;">
 		<h5>해시태그</h5>

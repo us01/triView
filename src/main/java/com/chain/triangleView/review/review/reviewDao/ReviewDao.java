@@ -439,13 +439,12 @@ public class ReviewDao {
 			
 			pstmt.setInt(1, m.getUserNo());
 			pstmt.setInt(2, rw.getCategoryType());
-			/*pstmt.setString(3, rw.getRwContent());*/
-			pstmt.setString(3, rw.getRwTitle());
-			pstmt.setDouble(4, rw.getRwGrade());
-			pstmt.setString(5, rw.getRwHash());
-			pstmt.setString(6, rw.getRwComment());
-			pstmt.setInt(7, rw.getRwSupport());
-			pstmt.setString(8, rw.getRwContent());
+			pstmt.setString(3, rw.getRwContent());
+			pstmt.setString(4, rw.getRwTitle());
+			pstmt.setDouble(5, rw.getRwGrade());
+			pstmt.setString(6, rw.getRwHash());
+			pstmt.setString(7, rw.getRwComment());
+			pstmt.setInt(8, rw.getRwSupport());
 			
 			result = pstmt.executeUpdate();
 			
@@ -817,7 +816,7 @@ public class ReviewDao {
 		Statement stmt = null;
 		ResultSet rset = null;
 		ArrayList<Review> searchReviewList = null;
-	    String resultQuery = "SELECT RL.LIKECOUNT, P.FILENAME, R.RWNO, R.USERNO, R.CATEGORYTYPE, R.RWCONTENT, R.RWTITLE, R.MODIFYYN, R.MODIFYDATE, R.WRITEDATE, R.COORLINK, R.RWCONTENTTYPE, R.RWCOUNT, R.RWHASH, R.RWCOMMENT, R.RWTYPE, R.COORCODE, R.RWSUPPORT, M.NICK, M.USERID FROM REVIEW R JOIN PLUSFILE P ON(R.RWNO = P.REVIEWNO) JOIN MEMBER M ON(R.USERNO = M.USERNO) JOIN (SELECT COUNT(USERNO) AS LIKECOUNT, RWNO FROM RWLIKE GROUP BY RWNO) RL ON(R.RWNO = RL.RWNO) JOIN HASHTAG H ON(R.RWNO = H.RWNO) WHERE H.HASHCODE = '" 
+	    String resultQuery = "SELECT NVL(RL.LIKECOUNT, 0) AS LIKECOUNT, P.FILENAME, R.RWNO, R.USERNO, R.CATEGORYTYPE, R.RWCONTENT, R.RWTITLE, R.MODIFYYN, R.MODIFYDATE, R.WRITEDATE, R.COORLINK, R.RWCONTENTTYPE, R.RWCOUNT, R.RWHASH, R.RWCOMMENT, R.RWTYPE, R.COORCODE, R.RWSUPPORT, M.NICK, M.USERID FROM REVIEW R JOIN PLUSFILE P ON(R.RWNO = P.REVIEWNO) JOIN MEMBER M ON(R.USERNO = M.USERNO) LEFT JOIN (SELECT COUNT(USERNO) AS LIKECOUNT, RWNO FROM RWLIKE GROUP BY RWNO) RL ON(R.RWNO = RL.RWNO) JOIN HASHTAG H ON(R.RWNO = H.RWNO) WHERE H.HASHCODE = '"
 	    					 + searchHash +"' AND P.TABLETYPE = 2 AND P.FILESEQNO = 0 ";
 		
 	    if(company != null) {
@@ -873,8 +872,8 @@ public class ReviewDao {
 		Statement stmt = null;
 		ResultSet rset = null;
 		ArrayList<Review> searchReviewList = null;
-	    String resultQuery = "SELECT RL.LIKECOUNT, P.FILENAME, R.RWNO, R.USERNO, R.CATEGORYTYPE, R.RWCONTENT, R.RWTITLE, R.MODIFYYN, R.MODIFYDATE, R.WRITEDATE, R.COORLINK, R.RWCONTENTTYPE, R.RWCOUNT, R.RWHASH, R.RWCOMMENT, R.RWTYPE, R.COORCODE, R.RWSUPPORT, M.NICK, M.USERID FROM REVIEW R JOIN PLUSFILE P ON(R.RWNO = P.REVIEWNO) JOIN MEMBER M ON(R.USERNO = M.USERNO) JOIN (SELECT COUNT(USERNO) AS LIKECOUNT, RWNO FROM RWLIKE GROUP BY RWNO) RL ON(R.RWNO = RL.RWNO) JOIN HASHTAG H ON(R.RWNO = H.RWNO) WHERE H.HASHCODE = '" 
-	    					 + searchHash +"' AND P.TABLETYPE = 2 AND P.FILESEQNO = 0";
+	    String resultQuery = "SELECT NVL(RL.LIKECOUNT, 0) AS LIKECOUNT, P.FILENAME, R.RWNO, R.USERNO, R.CATEGORYTYPE, R.RWCONTENT, R.RWTITLE, R.MODIFYYN, R.MODIFYDATE, R.WRITEDATE, R.COORLINK, R.RWCONTENTTYPE, R.RWCOUNT, R.RWHASH, R.RWCOMMENT, R.RWTYPE, R.COORCODE, R.RWSUPPORT, M.NICK, M.USERID FROM REVIEW R JOIN PLUSFILE P ON(R.RWNO = P.REVIEWNO) JOIN MEMBER M ON(R.USERNO = M.USERNO) LEFT JOIN (SELECT COUNT(USERNO) AS LIKECOUNT, RWNO FROM RWLIKE GROUP BY RWNO) RL ON(R.RWNO = RL.RWNO) JOIN HASHTAG H ON(R.RWNO = H.RWNO) WHERE H.HASHCODE = '"
+				 + searchHash +"' AND P.TABLETYPE = 2 AND P.FILESEQNO = 0 ";
 		
 	    if(company != null) {
 			
@@ -939,7 +938,7 @@ public class ReviewDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally{
-			close(con);
+			close(pstmt);
 		}
 		return result;
 	}
@@ -951,6 +950,7 @@ public class ReviewDao {
 		String query = prop.getProperty("insertHashtag");
 		
 		try {
+			
 			pstmt = con.prepareStatement(query);
 			
 			pstmt.setString(1, resultHash);

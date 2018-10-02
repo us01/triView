@@ -39,7 +39,9 @@ public class SearchReviewServlet extends HttpServlet {
       }
       
       String searchHash = request.getParameter("searchHash");
+      System.out.println(searchHash);
       String searchData = request.getParameter("searchData");
+      System.out.println(searchData);
       String sinceTime = request.getParameter("sinceTime");
       String untilTime = request.getParameter("untilTime");
       String term = request.getParameter("Term");

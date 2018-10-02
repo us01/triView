@@ -115,7 +115,35 @@
 		case 8 : searchHash = "취미"; searchData = searchHash; break;
 		case 9 : searchHash = "인생"; searchData = searchHash; break;
 		}
-		location.href="<%= request.getContextPath()%>/searchReview.sr?searchHash=" + searchHash +"&searchData=" + searchData;
+		naySearch2(searchData);
+	}
+	
+	function naySearch2(searchData){
+		var submitCheck;
+		
+		if($('#sinceTime').val() != '' || $('#sinceTime').val() != ''){
+			if($('#sinceTime').val() != '' && $('#sinceTime').val() != ''){
+				submitCheck = 'Y';
+				if($('#sinceTime').val() > $('#untilTime').val()){
+					submitCheck = 'N';
+				}
+			}else{
+				submitCheck = 'N';
+			}
+		}
+		
+		if(submitCheck != 'N'){
+			$searchData = $('<input>')
+			$searchData.attr('name', 'searchData');
+			$searchData.attr('type', 'hidden');
+			$searchData.val(searchData);
+			
+			$('#searchHash').val(searchData);
+			$('#searchForm').append($searchData);
+			$('#searchForm').attr('action', '<%= request.getContextPath() %>/searchReview.sr').submit();
+		}else{
+			alert('                         기간 검색 조건이 잘 못 됐습니다.\n                                   다시 설정해주세요.');
+		} 
 	}
 </script>
 </head>

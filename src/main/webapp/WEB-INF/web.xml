@@ -248,6 +248,12 @@
    	<description></description>
    	<servlet-class>com.chain.triangleView.review.controller.updateWrite1Servlet</servlet-class>
    </servlet>
+   <servlet>
+   	<servlet-name>CkeditorImageUpload</servlet-name>
+   	<display-name>CkeditorImageUpload</display-name>
+   	<description></description>
+   	<servlet-class>com.chain.triangleView.review.controller.CkeditorImageUpload</servlet-class>
+   </servlet>
    <servlet-mapping>
       <servlet-name>logoutMainReviewSelectService</servlet-name>
       <url-pattern>/logoutMain.rl</url-pattern>
@@ -387,5 +393,9 @@
    <servlet-mapping>
    	<servlet-name>updateWrite1Servlet</servlet-name>
    	<url-pattern>/write1Update.bo</url-pattern>
+   </servlet-mapping>
+   <servlet-mapping>
+   	<servlet-name>CkeditorImageUpload</servlet-name>
+   	<url-pattern>/ckeditorImageUpload</url-pattern>
    </servlet-mapping>
    </web-app>
