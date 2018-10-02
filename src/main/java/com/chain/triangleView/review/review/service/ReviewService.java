@@ -317,31 +317,26 @@ public class ReviewService {
 		return hmap;
 	}
 
-	public int updateWrite3(Review rw, Member m, ArrayList<Attachment> fileList, String[] resultHashSplit, String categoryHashResult) {
+	public int updateWrite3(Review rw, Member m, String[] resultHashSplit, String categoryHashResult) {
 		Connection con = getConnection();
-		
+		int result2 =0;
+		int result3 =0;
 		int result = new ReviewDao().updateWrite(con,rw);
-		//System.out.println("여기까진 되나 볼까 ? " + result);
-		/*if(result > 0 ){
-			if(fileList.size() != 0){
-				int result1 = new ReviewDao().deleteWrite(con,rw);
-				commit(con);
-				int rwNoCheck = rw.getRwNo();
-				int result2 = new ReviewDao().insertWriteAttachment(con, fileList, m, rw);
-				commit(con);
-			}
-			
-				int result3 = new ReviewDao().deleteHashtag(con,rw);
-			
-			commit(con);
-		}*/
 		
-		for(int i =1; i < resultHashSplit.length; i++){
+		int result1 = new ReviewDao().deleteHashtag(con,rw);
+
+		for(int i =0; i < resultHashSplit.length; i++){
 			String resultHash = resultHashSplit[i];
-			int result4 = new ReviewDao().updateHashtag(con,rw,resultHash);
+			System.out.println("결과해쉬야 : " + resultHash);
+			result2 = new ReviewDao().updateHashtag(con,rw,resultHash);
 		}
-		int result5 = new ReviewDao().updateHashtag(con,rw,categoryHashResult);
-		if(result > 0 ){
+		
+			result3 = new ReviewDao().updateHashtag(con,rw,categoryHashResult);
+		System.out.println("너도 해쉬야: " + categoryHashResult);
+		System.out.println(result);
+		System.out.println(result2);
+		System.out.println(result3);
+		if(result > 0 && result2 >0 && result3 >0){
 			commit(con);
 		}else{
 			rollback(con);

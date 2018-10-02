@@ -939,7 +939,7 @@ public class ReviewDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally{
-			close(con);
+			close(pstmt);
 		}
 		return result;
 	}
@@ -951,6 +951,7 @@ public class ReviewDao {
 		String query = prop.getProperty("insertHashtag");
 		
 		try {
+			
 			pstmt = con.prepareStatement(query);
 			
 			pstmt.setString(1, resultHash);

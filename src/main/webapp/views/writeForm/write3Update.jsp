@@ -270,10 +270,11 @@ body {
 
 	<div class="outLine">
 		<form class="writeForm" id="write3Update" name="write3Update"
-			action="" method="post" encType="multipart/form-data">
+			action="" method="post">
 			<div class="container">
 				<h3 style="text-align: center; color: #f8585b;">동영상 리뷰 수정</h3>
 				<input type="text" name="rwNo" value="<%=rwNo%>" style="display:none;">
+				<input type="text" name="catecate" value="<%=rw.getCategoryType()%>" style="display:none;">
 			</div>
 			<hr>
 
@@ -325,7 +326,6 @@ body {
 					<label>URL주소를 입력해주세요</label> <input type="text"
 						class="" id="videoUpload" name="videoUpload" value="<%=rw.getRwContent() %>"
 						class="form-control" style="width: 490px;" onfocus="this.select()" readonly>
-					<input type="button" class="my_button" id="btn_test" value="등록하기">
 				</div>
 			</div>
 
@@ -375,26 +375,7 @@ body {
   					 <output for="star-input" style="display:none"><b id="reresult" style="display:none"></b>점</output>
   				<input type="text" id="starPoint" name="rwGrade" style="width: 100px; height:20px; display:none;" value="<%=rw.getRwGrade() %>" readonly >
 			</span>
-		</div> 
-					<%-- 	<div class="starArea">
-							<span class="star-input">
-								<span class="input">
-									<% 
-										int grade = rw.getRwGrade();
-								
-										for(int i = 0; i < 11; i++){ %>
-										<% if(i == grade ){ %>
-											<input type="radio" name="star-input" id="star<%= i %>" disabled checked><label for="star<%= i %>"></label>
-										<% }else{ %>
-											<input type="radio" name="star-input" id="star<%= i %>" disabled><label for="star<%= i %>"></label>
-										<% } %>
-									<% } %>
-								</span>
-								<output for="star-input" style="display:none"><b id="reresult" style="display:none"></b>점</output>
-  				<input type="text" id="starPoint" name="rwGrade" style="width: 100px; height:20px;" value="<%=rw.getRwGrade() %>" >
-							</span>
-						</div> --%>
-		
+		</div>
 		<br>
 	<hr>
 	
@@ -573,31 +554,11 @@ body {
 			function submitAction() {
 				
 				theForm = document.write3Update;
-				/* if(theForm.title.value==""){
-			        alert("제목을 입력하지 않았습니다.")
-			        theForm.title.focus();
-			        return false;
-				} else if(theForm.imgInput2.value==""){
-			        alert("썸네일을 입력하지 않았습니다.")
-			        theForm.imgInput2.focus();
-			        return false;
-				} else if(theForm.videoUpload.value==""){
-			        alert("영상을 입력하지 않았습니다.")
-			        theForm.videoUpload.focus();
-			        return false;
-				} else if(theForm.hash.value==""){
-			        alert("해시태그를 입력하지 않았습니다.")
-			        theForm.hash.focus();
-			        return false;
-				} else if(theForm.introduce.value==""){
-			        alert("한마디를 입력하지 않았습니다.")
-			        theForm.introduce.focus();
-			        return false;
-				} else{ */
-					var write3Update= document.getElementById("write3Update");
-					write3Update.action = "<%=request.getContextPath()%>/write3Update.bo";
-					write3Update.submit();
-				/*}  */
+				
+				var write3Update= document.getElementById("write3Update");
+				write3Update.action = "<%=request.getContextPath()%>/write3Update.bo";
+				write3Update.submit();
+				
 				
 			}
 			
