@@ -280,7 +280,7 @@ body {
 
 			<div class="title" style="display: inline-block">
 				<h5 style="display: inline-block">제목</h5>
-				<input type="text" class="titleIndex" id="title" name="title" value="<%=rw.getRwTitle()%>">
+				<input type="text" class="titleIndex" id="title" name="title" value="<%=rw.getRwTitle()%>" readonly>
 			</div>
 
 			<div class="donation"
@@ -288,22 +288,22 @@ body {
 				<div id="companySup" style="width: 635px;">
 					<h5 style="display: inline-block;">기업후원 리뷰</h5>
 					<input type="checkbox" class="w3-check" name="companySpon" id="checkbox"
-						value="1" style="margin-left: 18px;">
+						value="1" style="margin-left: 18px;" onclick="return false;">
 				</div>
 
 				<div id="categorySup">
 					<h5 style="display: inline-block;">카테고리</h5>
 
-					<select name="categoryCheck" id = "categoryCheck" class="form-control">
-						<option value="1" name="category" id ="category" >자유</option>
-						<option value="2" name="category" id ="category" >IT/가전</option>
-						<option value="3" name="category" id ="category" >음악</option>
-						<option value="4" name="category" id ="category" >뷰티</option>
-						<option value="5" name="category" id ="category" >스포츠</option>
-						<option value="6" name="category" id ="category" >금융</option>
-						<option value="7" name="category" id ="category" >게임</option>
-						<option value="8" name="category" id ="category" >취미</option>
-						<option value="9" name="category" id ="category" >인생</option>
+					<select name="categoryCheck" id = "categoryCheck" class="form-control" readonly>
+						<option value="1" name="category" id ="category"  disabled="disabled">자유</option>
+						<option value="2" name="category" id ="category"  disabled="disabled">IT/가전</option>
+						<option value="3" name="category" id ="category"  disabled="disabled">음악</option>
+						<option value="4" name="category" id ="category"  disabled="disabled">뷰티</option>
+						<option value="5" name="category" id ="category"  disabled="disabled">스포츠</option>
+						<option value="6" name="category" id ="category"  disabled="disabled">금융</option>
+						<option value="7" name="category" id ="category"  disabled="disabled">게임</option>
+						<option value="8" name="category" id ="category"  disabled="disabled">취미</option>
+						<option value="9" name="category" id ="category" disabled="disabled">인생</option>
 					</select>
 				</div>
 			</div>
@@ -313,8 +313,8 @@ body {
 				<h5 style="display: inline-block;">썸네일</h5>
 				<br> <label name="testGoGo" id="testGoGo"
 					style="background-image: url(<%=request.getContextPath()%>/review_upload/<%=thumb.getFileName()%>); background-repeat: no-repeat; background-size: 200px; width: 200px; height: 200px; display: inline-block;">
-					<input type="file" id="imgInput2" name="file200" accept="image/gif, image/jpeg, image/png" id="imgInput"
-					onchange="LoadImg(this);" style="visibility: hidden;">
+					<!-- <input type="file" id="imgInput2" name="file200" accept="image/gif, image/jpeg, image/png" id="imgInput"
+					onchange="LoadImg(this);" style="visibility: hidden;"> -->
 				</label>
 			</div>
 
@@ -324,7 +324,7 @@ body {
 				<div class="input-group" style="text-align:center;">
 					<label>URL주소를 입력해주세요</label> <input type="text"
 						class="" id="videoUpload" name="videoUpload" value="<%=rw.getRwContent() %>"
-						class="form-control" style="width: 490px;" onfocus="this.select()">
+						class="form-control" style="width: 490px;" onfocus="this.select()" readonly>
 					<input type="button" class="my_button" id="btn_test" value="등록하기">
 				</div>
 			</div>
@@ -336,7 +336,7 @@ body {
 				<h5>미리보기</h5>
 				<iframe id="video_test" name="video_test" width="424" height="238" 
 					src="<%=rw.getRwContent()%>?rel=0&autoplay=1&mute=1" frameborder="0" 
-					allow="autoplay; encrypted-media" allowfullscreen></iframe>
+					allow="autoplay; encrypted-media" allowfullscreen readonly></iframe>
 			</div>
 
 		<div class="hash" style="display: -webkit-inline-box">
@@ -373,7 +373,7 @@ body {
     					<input type="radio" name="star-input" id="p10" value="10"><label for="p10">5</label>
   					</span>
   					 <output for="star-input" style="display:none"><b id="reresult" style="display:none"></b>점</output>
-  				<input type="text" id="starPoint" name="rwGrade" style="width: 100px; height:20px; display:none;" value="<%=rw.getRwGrade() %>" >
+  				<input type="text" id="starPoint" name="rwGrade" style="width: 100px; height:20px; display:none;" value="<%=rw.getRwGrade() %>" readonly >
 			</span>
 		</div> 
 					<%-- 	<div class="starArea">
