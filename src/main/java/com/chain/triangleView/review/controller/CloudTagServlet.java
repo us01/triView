@@ -54,14 +54,15 @@ public class CloudTagServlet extends HttpServlet {
 
 			nlpText = new HashMap<String, Integer>();
 
-			for(int i=0; i < reviewList.size(); i++){
+			for(int i=0; i < 10  && reviewList.size() > i && reviewList.get(i) != null; i++){
 				
 				if((Integer) request.getSession().getAttribute("searchCount2") != searchCount) {
 					
 					nlpText = new HashMap<String, Integer>();
 					break;
 				}else {
-					tokenList = new NLPfiltering().get_syntax(reviewList.get(i).getRwContent().replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", ""));
+					
+					tokenList = new NLPfiltering().get_syntax(reviewList.get(i).getRwComment().replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", ""));
 
 					for (Token token : tokenList) {
 

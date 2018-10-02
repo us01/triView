@@ -46,8 +46,6 @@ public class ReSearchReviewServlet extends HttpServlet {
       String company = request.getParameter("company");
       String query = "";
       
-      System.out.println(searchHash + " , "  + searchData + ", "  + sinceTime  + ", " + untilTime  + ", " + term   + ", " + recent  + ", "+ like
-             + ", " + hits  + ", " + text  + ", " + card  + ", " + video  + ", " + follower  + ", " + company);
       int userNo = -1;
       
       if((Member)request.getSession().getAttribute("loginUser") != null){
@@ -62,7 +60,7 @@ public class ReSearchReviewServlet extends HttpServlet {
             query = new ReviewService().orderQuery(userNo, sinceTime, untilTime, term, recent, like, hits, text, card, video);
             
             ArrayList<Review> searchReviewList = new ReviewService().searchSettingSelect(searchHash, query, follower, company, userNo);
-
+            
             new HotTagService().countTag(searchData); 
              
             if(searchReviewList != null){

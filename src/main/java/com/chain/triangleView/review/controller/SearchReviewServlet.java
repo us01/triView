@@ -39,9 +39,7 @@ public class SearchReviewServlet extends HttpServlet {
       }
       
       String searchHash = request.getParameter("searchHash");
-      System.out.println(searchHash);
       String searchData = request.getParameter("searchData");
-      System.out.println(searchData);
       String sinceTime = request.getParameter("sinceTime");
       String untilTime = request.getParameter("untilTime");
       String term = request.getParameter("Term");
@@ -54,8 +52,7 @@ public class SearchReviewServlet extends HttpServlet {
       String follower = request.getParameter("follower");
       String company = request.getParameter("company");
       String query = "";
-      
-      System.out.println(like + ", " + hits + ", " + card);
+
       if(sinceTime != "" || untilTime != "" || term != null ||
          recent != null || like != null || hits != null ||
          text != null || card != null ||  video != null ||
