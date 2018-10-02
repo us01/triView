@@ -80,16 +80,17 @@
    }
    
    function uploadView(){
-         $(".uploadViewAear").css("margin-left", "-250px");
-         $.ajax({
-            url : "/triangleView/views/writeForm/checkWriteForm.jsp",
-            data : "html",
-            success : function(data) {
-               $(".uploadViewAear").html(data);
-               document.getElementById('uploadViewAear').style.display = 'block';
-               document.getElementById('uploadViewAearArea').style.display = 'block';
-            }
-         });
+	   
+        $(".uploadViewAear").css("margin-left", "-250px");
+        $.ajax({
+           url : "/triangleView/views/writeForm/checkWriteForm.jsp",
+           data : "html",
+           success : function(data) {
+              $(".uploadViewAear").html(data);
+              document.getElementById('uploadViewAear').style.display = 'block';
+              document.getElementById('uploadViewAearArea').style.display = 'block';
+           }
+        });
     }
 </script>
 <script>

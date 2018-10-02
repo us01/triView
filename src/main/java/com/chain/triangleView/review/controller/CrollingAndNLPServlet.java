@@ -1,7 +1,6 @@
 package com.chain.triangleView.review.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,10 +10,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
 import com.chain.triangleView.NLP.NLPfiltering;
 import com.chain.triangleView.crolling.Crolling;
+import com.chain.triangleView.review.review.service.ReviewService;
 import com.google.cloud.language.v1.Sentiment;
+import com.google.gson.Gson;
 
 import twitter4j.Status;
 
@@ -52,42 +52,48 @@ public class CrollingAndNLPServlet extends HttpServlet {
 			request.getSession().setAttribute("searchCount", searchCount);
 		}
 
-		if(!searchReviewData.equals("default")) {
+		if(searchReviewData != "") {
 
-			Crolling crolling = new Crolling();
+			int findSenti = new ReviewService().findSentiment(searchReviewData);
+			if(findSenti > 0) {
 
-			ArrayList<Status> list = crolling.crolling_twitter(searchReviewData);
+				feel = new ReviewService().selectSentiment(searchReviewData);
+			}else {
+				Crolling crolling = new Crolling();
 
-			if(list != null) {
-				for(Status status : list) {
+				ArrayList<Status> list = crolling.crolling_twitter(searchReviewData);
 
-					if((Integer) request.getSession().getAttribute("searchCount") != searchCount) {
+				if(list != null) {
+					for(Status status : list) {
 
-						searchStop = 1;
-					}else {
-						if(status.getText() != null) {
-							Sentiment sn = NLPfiltering.get_sentiment(status.getText());		
+						if((Integer) request.getSession().getAttribute("searchCount") != searchCount) {
 
-							if(sn.getScore() >= 0.6) {
+							searchStop = 1;
+						}else {
+							if(status.getText() != null) {
+								Sentiment sn = NLPfiltering.get_sentiment(status.getText());		
 
-								feel[0]++;
-							}else if(sn.getScore() < 0.6 && sn.getScore() > -0.2) {
+								if(sn.getScore() >= 0.6) {
 
-								feel[1]++;
-							}else {
+									feel[0]++;
+								}else if(sn.getScore() < 0.6 && sn.getScore() > -0.2) {
 
-								feel[2]++;
+									feel[1]++;
+								}else {
+
+									feel[2]++;
+								}
 							}
 						}
 					}
 				}
+				new ReviewService().insertSentiment(searchReviewData, feel);
 			}
-
-			feels.put("good", feel[0]);
-			feels.put("soso", feel[1]);
-			feels.put("bad", feel[2]);
-			feels.put("isStop", searchStop);
 		}
+		feels.put("good", feel[0]);
+		feels.put("soso", feel[1]);
+		feels.put("bad", feel[2]);
+		feels.put("isStop", searchStop);
 
 
 		response.setContentType("application/json");
