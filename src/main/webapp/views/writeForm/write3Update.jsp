@@ -257,7 +257,7 @@ body {
 		for(var i =1; i <= star; i ++){
 			 document.getElementById("p"+i).checked = true;
 		}
-
+		$(':radio:not(:checked)').attr('disabled', true);
 	});
 
 
@@ -553,8 +553,7 @@ body {
 			
 			function submitAction() {
 				
-				theForm = document.write3Update;
-				
+				theForm = document.write3Update;		
 				var write3Update= document.getElementById("write3Update");
 				write3Update.action = "<%=request.getContextPath()%>/write3Update.bo";
 				write3Update.submit();

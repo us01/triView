@@ -7,10 +7,10 @@
 	String rwNo = request.getParameter("rwNo").trim();
 	Review rw = (Review)request.getAttribute("rw");
 	ArrayList<CardFormImages> fileList = (ArrayList<CardFormImages>)request.getAttribute("fileList");
+	int i = fileList.size()-1;
 	CardFormImages thumb = fileList.get(0);
 	CardFormImages[] CFI; 
 
-	int i = fileList.size()-1;
 	
 
 
@@ -258,7 +258,7 @@ $(function(){
 
  	var imgPath = '<%=request.getContextPath()%>/review_upload/<%=fileList.get(j).getFileName()%>';
 	var $div =$("<label for = 'imgInput1"+i+"' id ='test"+i+"' style='width:250px; height:250px; margin-left:10px; background:url(" + imgPath +") no-repeat; background-size:250px; display: inline-block;'></label>");
-    var $input = $("<input type = 'file' class = 'imgPlus' id = 'imgInput1"+i+"' name = 'file"+i+"' style='visibility: hidden;'>").change(function() {
+    var $input = $("<input type = 'file' class = 'imgPlus' id = 'imgInput1"+i+"' name = 'file"+i+"' style='visibility: hidden;' disabled>").change(function() {
   		readURL("#imgInput1"+i);
   		
 	});
@@ -269,72 +269,6 @@ $(function(){
 
 });
 
-$(function(){
-    function readURL(input, type) {
-      if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        reader.onload = function(e) {
-        	<%	for(int j =1; j < fileList.size(); j++ ){%>  
-          if(type == 'imgInput1'+i){
-        	  $("#imgInput1"+i).css('background', 'transparent url('+e.target.result +') left top no-repeat').css('background-size','300px').css('background-size','contain');
-          }
-          <%}%>
-        }
-        reader.readAsDataURL(input.files[0]);
-      }
-    }
-    $("#write1Content input").change(function() {
-      var type = $(this).attr('id');
-      readURL(this, type);
-    });
-  });
-
-//썸네일용 
-function LoadImg(value) {
-	if (value.files && value.files[0]) {
-		var reader = new FileReader();
-
-		reader.onload = function(e) {
-			$("#testGoGo").css('background', 'transparent url('+e.target.result +') left top no-repeat').css('background-size','300px').css('background-size','contain');
-			
-		}
-
-		reader.readAsDataURL(value.files[0]);
-	}
-}
-
-//게시글용
-		var i = 100;
-	function readURL(input) {
-  		var elem = $(input);
-  		if (input.files && input.files[0]) {
-   			var reader = new FileReader();
-    		reader.onload = function(e) {
-    			$("#test"+(i-1)).css('background', 'transparent url('+e.target.result +') left top no-repeat').css('background-size','300px').css('background-size','contain');
-    			
-    		}
-    		reader.readAsDataURL(elem.get(0).files[0]);
-  		}
-	}
-
-	$("input[type='file']").change(function() {
-  		readURL(this);
-  		
-	});
-	
-	
-	 function b() {
-        i=i+1;
-  		var $div =$("<label for = 'imgInput1"+i+"' id ='test"+i+"' style='width:250px; height:250px;background-image:url(/triangleView/img/writeForm/imgplus.png); background-size:250px; display:inline-block;'></label>");
-        var $input = $("<input type = 'file' class = 'imgPlus' id = 'imgInput1"+i+"' name = 'file"+i+"' onChange='b()' style='visibility: hidden;'>").change(function() {
-      		readURL(this);
-      		
-    	});
-
-        $($div).append($input);
-        $("#write2Content").append($div);
-		
-	 }
 
 $(function(){
 		var check = <%=rw.getCategoryType()%>;
@@ -345,7 +279,6 @@ $(function(){
 		var checked11 = $('#categoryCheck option').eq(i).val();
 
 		if (check == checked11) {
-			/* categoryCheck.options.selectedIndex = i; */
 			categoryCheck.options[i].setAttribute("selected", "selected");
 		}
 	}
@@ -366,9 +299,10 @@ $(function(){
 	console.log(star);
 	for(var i =1; i <= star; i ++){
 		 document.getElementById("p"+i).checked = true;
-		 documetn.getElementById("#starPoint").value = star;
+		 $("star-input").value = star;
+		 
 	}
-
+	$(':radio:not(:checked)').attr('disabled', true);
 });
 
 
@@ -378,16 +312,17 @@ $(function(){
 	<jsp:include page="../main/header/headerNav.jsp" flush="true" />
 
 	<div class="outLine">
-		<form class="writeForm" id="write1Update" name="write1Update" action="" method="post" encType="multipart/form-data">
+		<form class="writeForm" id="write1Update" name="write1Update" action="" method="post">
 			<div class="container">
 				<h3 style="text-align: center; color: #f8585b;">카드형 리뷰 수정</h3>
 				<input type="text" name="rwNo" value="<%=rwNo%>" style="display:none;">
+				<input type="text" name="catecate" value="<%=rw.getCategoryType()%>" style="display:none;" >
 			</div>
 			<hr>
 
 			<div class="title" style="display: inline-block">
 				<h5 style="display: inline-block">제목</h5>
-				<input type="text" class="titleIndex" id="title" name="title" value="<%=rw.getRwTitle()%>">
+				<input type="text" class="titleIndex" id="title" name="title" value="<%=rw.getRwTitle()%>" readonly>
 			</div>
 
 			<div class="donation"
@@ -395,22 +330,22 @@ $(function(){
 				<div id="companySup" style="width: 635px;">
 					<h5 style="display: inline-block;">기업후원 리뷰</h5>
 					<input type="checkbox" class="w3-check" name="companySpon" id="checkbox"
-						value="1" style="margin-left: 18px;">
+						value="1" style="margin-left: 18px;" onclick="return false;">
 				</div>
 				
 				<div id="categorySup">
 					<h5 style="display: inline-block;">카테고리</h5>
 
 					<select name="categoryCheck" id = "categoryCheck" class="form-control">
-						<option value="1" name="category" id ="category">자유</option>
-						<option value="2" name="category" id ="category">IT/가전</option>
-						<option value="3" name="category" id ="category">음악</option>
-						<option value="4" name="category" id ="category">뷰티</option>
-						<option value="5" name="category" id ="category">스포츠</option>
-						<option value="6" name="category" id ="category">금융</option>
-						<option value="7" name="category" id ="category">게임</option>
-						<option value="8" name="category" id ="category">취미</option>
-						<option value="9" name="category" id ="category">인생</option>
+						<option value="1" name="category" id ="category" disabled="disabled">자유</option>
+						<option value="2" name="category" id ="category" disabled="disabled">IT/가전</option>
+						<option value="3" name="category" id ="category" disabled="disabled">음악</option>
+						<option value="4" name="category" id ="category" disabled="disabled">뷰티</option>
+						<option value="5" name="category" id ="category" disabled="disabled">스포츠</option>
+						<option value="6" name="category" id ="category" disabled="disabled">금융</option>
+						<option value="7" name="category" id ="category" disabled="disabled">게임</option>
+						<option value="8" name="category" id ="category" disabled="disabled">취미</option>
+						<option value="9" name="category" id ="category" disabled="disabled">인생</option>
 					</select>
 				</div>
 			</div>
@@ -420,8 +355,8 @@ $(function(){
 				<h5 style="display: inline-block;">썸네일</h5>
 				<br> <label name="testGoGo" id="testGoGo" 
 					style="background-image: url(<%=request.getContextPath()%>/review_upload/<%=thumb.getFileName()%>); background-repeat: no-repeat; background-size: 200px; width: 200px; height: 200px; display: inline-block;">
-					<input type="file" id="imgInput2" name="file200" accept="image/gif, image/jpeg, image/png" id="imgInput"
-					onchange="LoadImg(this);" style="visibility: hidden;">
+<!-- 					<input type="file" id="imgInput2" name="file200" accept="image/gif, image/jpeg, image/png" id="imgInput"
+					onchange="LoadImg(this);" style="visibility: hidden;"> -->
 				</label>
 			</div>
 			<br>
@@ -431,8 +366,7 @@ $(function(){
 				<h5 style="display: inline-block;">이미지</h5>
 				<div class="changePhoto">
 					<a> <input type="button" class="my_button" id="newPhoto"
-						value="이미지편집" onclick="moveEditor();"
-						style="margin-left: 28px; margin-top: 8px;">
+						value="이미지편집" style="margin-left: 28px; margin-top: 8px;" >
 						<p class="arrow_box">원하시는 이미지 파일을 편집해서 저장후에 업로드 해주세요!</p>
 					</a>
 				</div>
@@ -443,7 +377,7 @@ $(function(){
 			<div id="write1Content" name ="write1Content"style="float: left;">
 			</div>
 			<!-- 수정을 위한 영역을하나 추가 -->
-			<div id="write2Content" style="float: left;">
+			<!-- <div id="write2Content" style="float: left;">
 			<h5 style="display: inline-block;">추가이미지</h5>
 			<br>
 				<label for="imgInput1" id="test0"
@@ -452,7 +386,7 @@ $(function(){
 					accept="image/gif, image/jpeg, image/png" onChange="b()"
 					style="visibility: hidden;">
 				</label>
-			</div>		
+			</div>		 -->
 			
 			
 			
@@ -490,7 +424,7 @@ $(function(){
     					<input type="radio" name="star-input" id="p10" value="10"><label for="p10">5</label>
   					</span>
   					 <output for="star-input" style="display:none"><b id="reresult" style="display:none">0</b>점</output>
-  				<input type="text" id="starPoint" name="rwGrade" style="width: 100px; height:20px; display:none;" value="" >
+  				<input type="text" id="starPoint" name="rwGrade" style="width: 100px; height:20px; display:none;" value="<%=rw.getRwGrade() %>" >
 			</span>
 		</div>
 		

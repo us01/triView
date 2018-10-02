@@ -254,6 +254,18 @@
    	<description></description>
    	<servlet-class>com.chain.triangleView.review.controller.CkeditorImageUpload</servlet-class>
    </servlet>
+   <servlet>
+   	<servlet-name>updateWrite2Servlet</servlet-name>
+   	<display-name>updateWrite2Servlet</display-name>
+   	<description></description>
+   	<servlet-class>com.chain.triangleView.review.controller.updateWrite2Servlet</servlet-class>
+   </servlet>
+   <servlet>
+   	<servlet-name>pointRefundsServlet</servlet-name>
+   	<display-name>pointRefundsServlet</display-name>
+   	<description></description>
+   	<servlet-class>com.chain.triangleView.member.controller.pointRefundsServlet</servlet-class>
+   </servlet>
    <servlet-mapping>
       <servlet-name>logoutMainReviewSelectService</servlet-name>
       <url-pattern>/logoutMain.rl</url-pattern>
@@ -398,4 +410,13 @@
    	<servlet-name>CkeditorImageUpload</servlet-name>
    	<url-pattern>/ckeditorImageUpload</url-pattern>
    </servlet-mapping>
+   <servlet-mapping>
+   	<servlet-name>updateWrite2Servlet</servlet-name>
+   	<url-pattern>/updateWrite2.bo</url-pattern>
+   </servlet-mapping>
+   <servlet-mapping>
+   	<servlet-name>pointRefundsServlet</servlet-name>
+   	<url-pattern>/pointRefunds.me</url-pattern>
+   </servlet-mapping>
+
    </web-app>

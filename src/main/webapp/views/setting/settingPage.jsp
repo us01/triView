@@ -118,7 +118,7 @@ border-left: 2px solid transparent;
 				<div class="subMenu2" onclick="changePassword();">
 					비밀번호수정
 				</div>
-				<div class="subMenu3">
+				<div class="subMenu3" onclick="pointRefunds();">
 					포인트	
 				</div>
 				<div class="subMenu4">
@@ -153,6 +153,19 @@ function changePassword(){
 	
 	$.ajax({
 		url : "/triangleView/views/setting/passwordChange.jsp",
+		data : "html",
+		success : function(data) {
+			
+			$(".show").html(data);
+			
+		}
+	});
+}
+
+function pointRefunds(){
+	
+	$.ajax({
+		url : "/triangleView/views/setting/pointRefunds.jsp",
 		data : "html",
 		success : function(data) {
 			

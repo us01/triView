@@ -104,7 +104,7 @@ span {
 			<div class="" style="width:300px; display: inline-block;" >
 					<span class="" style="background-color: white; color:black;">핸드폰</span>
 				<div style="text-align: center; display: inline-block;">
-					<input type="text" class="phoneNumber" id="phone" name="phone" value="<%=loginUser.getPhone()%>" placeholder="번호를 입력해주세요" >
+					<input type="text" class="phoneNumber" id="phone" name="phone" value="<%=loginUser.getPhone()%>" placeholder="번호를 입력해주세요" maxlength="11" >
 				</div>
 			</div>
 			
@@ -112,7 +112,7 @@ span {
                <span class="" style="background-color: white; color:black;">나이</span>
             <div style="text-align: center; display: inline-block;">
                <input type="text" class="" id="age" value="<%=loginUser.getPhone()%>"
-               name="age" placeholder="만 나이를 입력해주세요" style="width:150px; margin-top: 20px; margin-left:12px;">
+               name="age" placeholder="만 나이를 입력해주세요" style="width:150px; margin-top: 20px; margin-left:12px;" maxlength="3">
             </div>
          </div>
 

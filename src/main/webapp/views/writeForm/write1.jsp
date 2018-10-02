@@ -304,7 +304,7 @@ div.desc {
 	display: visible;
 }
 
-#imgInput2 {
+#imgInput999 {
 	width: 200px;
 	height: 200px;
 	display: visible;
@@ -391,9 +391,9 @@ $(function(){
 	        alert("제목을 입력하지 않았습니다.")
 	        theForm.title.focus();
 	        return false;
-		} else if(theForm.imgInput2.value==""){
+		} else if(theForm.imgInput999.value==""){
 	        alert("썸네일을 입력하지 않았습니다.")
-	        theForm.imgInput2.focus();
+	        theForm.imgInput999.focus();
 	        return false;
 		} else if(theForm.imgInput1.value==""){
 	        alert("이미지를 입력하지 않았습니다.")
@@ -416,7 +416,20 @@ $(function(){
 	}
 
 	function moveEditor() {
-		location.href = "/triangleView/views/writeForm/forWrite1/editor.jsp"
+
+/* 		var title = document.getElementById('title').value;
+		var companySpon = document.getElementById('companySpon').value;
+		var category = $("#categoryCheck option:selected").val();
+		var hash = $("#hash").val();
+		var intro = $("#introduce").val();
+		var star = ($('input:radio[name=star-input]:checked').val());
+		alert(title);
+		alert(companySpon);
+		alert(category);
+		alert(hash);
+		alert(intro);
+		alert(star); */
+		window.open("/triangleView/views/writeForm/forWrite1/editor.jsp","editor","width=800, height=600,left=250");
 
 	}
 
@@ -446,13 +459,13 @@ $(function(){
 		<div class="input-group" style="display:-webkit-inline-box; text-align: left;">
 			<div id="companySup" style="width:635px;">
 			<h5 style="display:inline-block;">기업후원 리뷰</h5>
-				<input type="checkbox" class="w3-check" name="companySpon" value="1" style="margin-left: 18px;">
+				<input type="checkbox" class="w3-check" name="companySpon" id="companySpon" value="1" style="margin-left: 18px;">
 			</div>
 			
 			<div id="categorySup" >
 			<h5 style="display:inline-block;">카테고리</h5>
 
-			<select name="categoryCheck" class="form-control">
+			<select name="categoryCheck" id="categoryCheck" class="form-control">
 				<option value="1" name="category" selected="selected">자유</option>
 				<option value="2" name="category">IT/가전</option>
 				<option value="3" name="category">음악</option>
@@ -471,7 +484,7 @@ $(function(){
 			<h5 style="display: inline-block;">썸네일</h5><br>
 			<label name = "testGoGo" id="testGoGo" style="background-image: url(/triangleView/img/writeForm/imgplus.png);
 			background-size: 200px; width: 200px; height: 200px; display: inline-block;">
-			<input type="file" id="imgInput2" name="file200" accept="image/gif, image/jpeg, image/png" id="imgInput"
+			<input type="file" id="imgInput999" name="file99" accept="image/gif, image/jpeg, image/png" id="imgInput"
 			onchange="LoadImg(this);" style="visibility: hidden;">
 			</label>
 		</div>

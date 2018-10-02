@@ -54,7 +54,7 @@
 		<div class="containChange">
 			<div>
 				<img class="profileOut" id="image_section"
-					src="/triangleView/img/member/profile.png" />
+					src="<%=request.getContextPath()%>/thumbnail_upload/<%=loginUser.getThumbnail() %>"/>
 			</div>
 			<div class="containPassword">
 				<div>
@@ -92,6 +92,7 @@
 	</form>
 	
 	<script>
+
 		//비밀번호체크
 		$("#userPwdCheck").change(function() {
 			
@@ -105,14 +106,14 @@
 				$("#pwdresult").html("비밀번호가 일치합니다").css("color", "green");
 				$('#updatePass').attr("disabled", false);
 			}
-		})
+		});
 		
 		function youHaveTo(){
 		
 			theForm = document.passwordUpdate;
 			
 			form.action = "<%=request.getContextPath()%>/updatePassword.me";
-					form.submit();
+			form.submit();
 		}
 	</script>
 </body>
