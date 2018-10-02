@@ -14,37 +14,22 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<script src="/triangleView/js/jquery-3.3.1.min.js"></script>
+<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.8.5/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.8.5/css/froala_style.min.css" rel="stylesheet" type="text/css" />
 
-<meta name="viewport"
-	content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0" />
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="/triangleView/views/writeForm/forWrite2/css/froala_editor.css">
-<link rel="stylesheet" href="/triangleView/views/writeForm/forWrite2/css/froala_style.css">
-<link rel="stylesheet" href="/triangleView/views/writeForm/forWrite2/css/plugins/code_view.css">
-<link rel="stylesheet" href="/triangleView/views/writeForm/forWrite2/css/plugins/colors.css">
-<link rel="stylesheet" href="/triangleView/views/writeForm/forWrite2/css/plugins/emoticons.css">
-<link rel="stylesheet" href="/triangleView/views/writeForm/forWrite2/css/plugins/image_manager.css">
-<link rel="stylesheet" href="/triangleView/views/writeForm/forWrite2/css/plugins/image.css">
-<link rel="stylesheet" href="/triangleView/views/writeForm/forWrite2/css/plugins/line_breaker.css">
-<link rel="stylesheet" href="/triangleView/views/writeForm/forWrite2/css/plugins/table.css">
-<link rel="stylesheet" href="/triangleView/views/writeForm/forWrite2/css/plugins/char_counter.css">
-<link rel="stylesheet" href="/triangleView/views/writeForm/forWrite2/css/plugins/video.css">
-<link rel="stylesheet" href="/triangleView/views/writeForm/forWrite2/css/plugins/fullscreen.css">
-<link rel="stylesheet" href="/triangleView/views/writeForm/forWrite2/css/plugins/file.css">
-<link rel="stylesheet" href="/triangleView/views/writeForm/forWrite2/css/themes/red.css">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.css">
-	
-	<!-- jQuery -->
+<link rel="stylesheet" href="/triangleView/css/red.css">
+<!-- jQuery -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-
 <style>
 body {
 	margin: 0px;
-	/* background: #fafafa; */
+
 	font-family: '맑은고딕';
 }
 
@@ -52,9 +37,6 @@ body {
 	width: 1000px;
 	margin: 0 auto;
 	margin-top: 100px;
-	
-	/* text-align: -webkit-center;
-	display: block; */
 }
 
 .writeForm {
@@ -231,14 +213,53 @@ body {
 
 
 </style>
+<script>
+$(function(){
+	var check = <%=rw.getCategoryType()%>;
+
+var categoryCheck = document.getElementById("categoryCheck");
+
+for (var i = 1; i < 10; i++) {
+	var checked11 = $('#categoryCheck option').eq(i).val();
+
+	if (check == checked11) {
+		categoryCheck.options[i].setAttribute("selected", "selected");
+	}
+}
+});
+
+$(function(){
+var coor = <%=rw.getRwSupport()%>;
+console.log(coor);
+if(coor == 1 ){
+	document.getElementById("checkbox").checked = true;
+}else{
+	document.getElementById("checkbox").checked = false;
+}
+
+});
+
+
+$(function(){
+var star = <%=rw.getRwGrade() %>;
+console.log(star);
+for(var i =1; i <= star; i ++){
+	 document.getElementById("p"+i).checked = true;
+	 $("star-input").value = star;
+	 
+}
+$(':radio:not(:checked)').attr('disabled', true);
+
+});
+
+</script>
 </head>
 <body>
 
 <jsp:include page="../main/header/headerNav.jsp" flush="true" />
 
 	<div class="outLine">
-		<form class="writeForm" id="write2Update" name="write2Update"
-			action="" method="post" encType="multipart/form-data">
+		<form class="writeForm" id="write2Update" name="write2Update" action="" method="post" >
 			<div class="container">
 				<h3 style="text-align: center; color: #f8585b;">텍스트 리뷰 수정</h3>
 				<input type="text" value="<%=rwNo%>" style="display:none;">
@@ -248,30 +269,30 @@ body {
 
 			<div class="title" style="display: inline-block">
 				<h5 style="display: inline-block">제목</h5>
-				<input type="text" class="titleIndex" id="title" name="title" value="<%=rw.getRwTitle()%>">
+				<input type="text" class="titleIndex" id="title" name="title" value="<%=rw.getRwTitle()%>" readonly>
 			</div>
 
 			<div class="donation"
 				style="display: -webkit-inline-box; text-align: left;">
 				<div id="companySup" style="width: 635px;">
 					<h5 style="display: inline-block;">기업후원 리뷰</h5>
-					<input type="checkbox" class="w3-check" name="companySpon"
-						value="1" style="margin-left: 18px;">
+					<input type="checkbox" class="w3-check" name="companySpon" id="checkbox"
+						value="1" style="margin-left: 18px;" onclick="return false;">
 				</div>
 
 				<div id="categorySup">
 					<h5 style="display: inline-block;">카테고리</h5>
 
-					<select name="categoryCheck" class="form-control">
-						<option value="1" name="category" selected="selected">자유</option>
-						<option value="2" name="category">IT/가전</option>
-						<option value="3" name="category">음악</option>
-						<option value="4" name="category">뷰티</option>
-						<option value="5" name="category">스포츠</option>
-						<option value="6" name="category">금융</option>
-						<option value="7" name="category">게임</option>
-						<option value="8" name="category">취미</option>
-						<option value="9" name="category">인생</option>
+					<select name="categoryCheck" id = "categoryCheck" class="form-control">
+						<option value="1" name="category" id ="category" disabled="disabled">자유</option>
+						<option value="2" name="category" id ="category" disabled="disabled">IT/가전</option>
+						<option value="3" name="category" id ="category" disabled="disabled">음악</option>
+						<option value="4" name="category" id ="category" disabled="disabled">뷰티</option>
+						<option value="5" name="category" id ="category" disabled="disabled">스포츠</option>
+						<option value="6" name="category" id ="category" disabled="disabled">금융</option>
+						<option value="7" name="category" id ="category" disabled="disabled">게임</option>
+						<option value="8" name="category" id ="category" disabled="disabled">취미</option>
+						<option value="9" name="category" id ="category" disabled="disabled">인생</option>
 					</select>
 				</div>
 			</div>
@@ -281,21 +302,40 @@ body {
 				<h5 style="display: inline-block;">썸네일</h5>
 				<br> <label name="testGoGo" id="testGoGo"
 					style="background-image: url(<%=request.getContextPath()%>/review_upload/<%=thumb.getFileName()%>); background-repeat: no-repeat; background-size: 200px; width: 200px; height: 200px; display: inline-block;">
-					<input type="file" id="imgInput2" name="file200" accept="image/gif, image/jpeg, image/png" id="imgInput"
-					onchange="LoadImg(this);" style="visibility: hidden;">
+					<!-- <input type="file" id="imgInput2" name="file200" accept="image/gif, image/jpeg, image/png" id="imgInput"
+					onchange="LoadImg(this);" style="visibility: hidden;"> -->
 				</label>
 			</div>
 
+<!-- Include external JS libs. -->
+    	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.js"></script>
+    	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/mode/xml/xml.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.8.5/js/froala_editor.pkgd.min.js"></script>
 	
 	<div id="contentWrite2">
 			<h5>게시글 작성</h5>
 				<section id="editor" style="text-align:left; width: 810px; margin-left: 60px; ">
-					<textarea id='edit' name="edit" style="margin-top: 30px; height:500px;">
+					<textarea readonly="readonly" id='edit' name="edit" style="margin-top: 30px; height:500px;">
 					<%=rw.getRwContent() %>
 					</textarea> 
 			</section>
 		</div>
 		<br>
+		
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.js"></script>
+    	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/mode/xml/xml.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.8.5/js/froala_editor.pkgd.min.js"></script>
+ 
+ 		<script> 
+			$('#edit').froalaEditor({	
+	 			  theme : 'red',
+	 			  imageUploadURL:'http://i.froala.com/upload'
+	 			 
+	 		});
+			 
+ 		</script>
 		
 		<div class="hash" style="display: -webkit-inline-box">
 				<h5>해시태그</h5>
@@ -331,7 +371,7 @@ body {
     					<input type="radio" name="star-input" id="p10" value="10"><label for="p10">5</label>
   					</span>
   					 <output for="star-input" style="display:none"><b id="reresult" style="display:none">0</b>점</output>
-  				<input type="text" id="starPoint" name="rwGrade" style="width: 100px; height:20px; display:none;" value="" >
+  				<input type="text" id="starPoint" name="rwGrade" style="width: 100px; height:20px; display:none;" value="<%=rw.getRwGrade() %>" >
 			</span>
 		</div>
 		
@@ -483,33 +523,12 @@ body {
 	function submitAction() {
 		
 		theForm = document.write2Update;
-		if(theForm.title.value==""){
-	        alert("제목을 입력하지 않았습니다.")
-	        theForm.title.focus();
-	        return false;
-		} else if(theForm.imgInput2.value==""){
-	        alert("썸네일을 입력하지 않았습니다.")
-	        theForm.imgInput2.focus();
-	        return false;
-		} else if(theForm.edit.value==""){
-	        alert("글 내용을 입력하지 않았습니다.")
-	        theForm.edit.focus();
-	        return false;
-		} else if(theForm.hash.value==""){
-	        alert("해시태그를 입력하지 않았습니다.")
-	        theForm.hash.focus();
-	        return false;
-		} else if(theForm.introduce.value==""){
-	        alert("한마디를 입력하지 않았습니다.")
-	        theForm.introduce.focus();
-	        return false;
-		} else{
-			var write2Update= document.getElementById("write2Test");
-			<%-- write2Update.action = "<%=request.getContextPath()%>/insertWrite2.bo"; --%>
-			write2Update.submit();
-		}
-		
+		var write2Update= document.getElementById("write2Update");
+		write2Update.action = "<%=request.getContextPath()%>/updateWrite2.bo"; 
+		write2Update.submit();
 	}
+		
+	
 	
 	function goBack(){
 		location.href="/triangleView/loginMain";
@@ -517,60 +536,7 @@ body {
 
 	</script>
 	
-	<script type="text/javascript"
-		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-	<script type="text/javascript"
-		src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.js"></script>
-	<script type="text/javascript"
-		src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/mode/xml/xml.min.js"></script>
-	<script type="text/javascript" src="/triangleView/views/writeForm/forWrite2/js/froala_editor.min.js"></script>
-	<script type="text/javascript" src="/triangleView/views/writeForm/forWrite2/js/plugins/align.min.js"></script>
-	<script type="text/javascript"
-		src="/triangleView/views/writeForm/forWrite2/js/plugins/code_beautifier.min.js"></script>
-	<script type="text/javascript"
-		src="/triangleView/views/writeForm/forWrite2/js/plugins/code_view.min.js"></script>
-	<script type="text/javascript" src="/triangleView/views/writeForm/forWrite2/js/plugins/colors.min.js"></script>
-	<script type="text/javascript"
-		src="/triangleView/views/writeForm/forWrite2/js/plugins/draggable.min.js"></script>
-	<script type="text/javascript"
-		src="/triangleView/views/writeForm/forWrite2/js/plugins/emoticons.min.js"></script>
-	<script type="text/javascript"
-		src="/triangleView/views/writeForm/forWrite2/js/plugins/font_size.min.js"></script>
-	<script type="text/javascript"
-		src="/triangleView/views/writeForm/forWrite2/js/plugins/font_family.min.js"></script>
-	<script type="text/javascript" src="/triangleView/views/writeForm/forWrite2/js/plugins/image.min.js"></script>
-	<script type="text/javascript" src="/triangleView/views/writeForm/forWrite2/js/plugins/file.min.js"></script>
-	<script type="text/javascript"
-		src="/triangleView/views/writeForm/forWrite2/js/plugins/image_manager.min.js"></script>
-	<script type="text/javascript"
-		src="/triangleView/views/writeForm/forWrite2/js/plugins/line_breaker.min.js"></script>
-	<script type="text/javascript" src="/triangleView/views/writeForm/forWrite2/js/plugins/link.min.js"></script>
-	<script type="text/javascript" src="/triangleView/views/writeForm/forWrite2/js/plugins/lists.min.js"></script>
-	<script type="text/javascript"
-		src="/triangleView/views/writeForm/forWrite2/js/plugins/paragraph_format.min.js"></script>
-	<script type="text/javascript"
-		src="/triangleView/views/writeForm/forWrite2/js/plugins/paragraph_style.min.js"></script>
-	<script type="text/javascript" src="/triangleView/views/writeForm/forWrite2/js/plugins/video.min.js"></script>
-	<script type="text/javascript" src="/triangleView/views/writeForm/forWrite2/js/plugins/table.min.js"></script>
-	<script type="text/javascript" src="/triangleView/views/writeForm/forWrite2/js/plugins/url.min.js"></script>
-	<script type="text/javascript"
-		src="/triangleView/views/writeForm/forWrite2/js/plugins/entities.min.js"></script>
-	<script type="text/javascript"
-		src="/triangleView/views/writeForm/forWrite2/js/plugins/char_counter.min.js"></script>
-	<script type="text/javascript"
-		src="/triangleView/views/writeForm/forWrite2/js/plugins/inline_style.min.js"></script>
-	<script type="text/javascript" src="/triangleView/views/writeForm/forWrite2/js/plugins/save.min.js"></script>
-	<script type="text/javascript"
-		src="/triangleView/views/writeForm/forWrite2/js/plugins/fullscreen.min.js"></script>
-	<script type="text/javascript" src="/triangleView/views/writeForm/forWrite2/js/plugins/quote.min.js"></script>
 
-	<script>
-		$(function() {
-			$('#edit').froalaEditor({
-				theme : 'red'
-			})
-		});
-	</script>
 			</form>
 	</div>
 </body>

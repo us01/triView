@@ -13,6 +13,12 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.css">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.8.5/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.8.5/css/froala_style.min.css" rel="stylesheet" type="text/css" />
+
+<link rel="stylesheet" href="/triangleView/css/red.css">
+<!-- jQuery -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <meta charset="UTF-8">
 <title></title>
 <style>
@@ -240,179 +246,14 @@ body {
 height:300px;
 }
 </style>
-</head>
-<script>
-$(function(){
-    
-    $('#hash').focusout(function(){
-       
-       var input = $("#hash");
-       var str = input.val();
-        var res = str.substring(input.val().length-2, input.val().length);
-        var newStr = str.slice(0, -2);
-        
-        if(res == " #"){
-                     
-           input.val(newStr);
-        }
-        input.css('color','#f7323f').css("font-weight","Bold");
-    });
-    
-    $('#hash').focusin(function(){
-       
-       var input = $("#hash");
-       input.css('color','black').css("font-weight","");
-    });
-    
-    $('#hash').keydown(function(e) {
-       
-        var k = e.keyCode;
-        var input = $("#hash");
-        
-        if(input.val() == ""){
-              
-           input.val('#');
-        }
-        if ((90 >= k && k >= 65) // a ~ z
-                || (111 >= k && k >= 106) // keypad operator
-                || (192 >= k && k >= 186) // -,=./;
-                || (222 >= k && k >= 219) // ']\[
-                || k == 59 // FF ;
-                || k == 61 // FF =
-                || k == 173 // FF -
-                ) {
-            e.preventDefault();
-        }else if(k == 16){
-           
-           e.preventDefault();
-        }else if(k == 32){
 
-           var str = input.val();
-           var res = str.substring(input.val().length-1, input.val().length);
-           if(res == "#"){
-              e.preventDefault();                
-           }else{ 
-              e.preventDefault();
-              input.val(input.val()+' #');
-           }
-        }
-    });
- });
-</script>
-<script>
-
-function LoadImg(value) {
-	if (value.files && value.files[0]) {
-		var reader = new FileReader();
-
-		reader.onload = function(e) {
-			$("#testGoGo").css('background', 'transparent url('+e.target.result +') left top no-repeat').css('background-size','300px').css('background-size','contain');
-		}
-
-		reader.readAsDataURL(value.files[0]);
-	}
-}
-</script>
-<script>
-	$(document).ready(function() {
-		var left = 100
-		$('#text_counter').text('작성할 수 있는 글자수: ' + left);
-
-		$('#introduce').keyup(function() {
-
-			left = 100 - $(this).val().length;
-
-			if (left < 0) {
-				$('#text_counter').addClass("overlimit");
-				$('#end').attr("disabled", true);
-			} else {
-				$('#text_counter').removeClass("overlimit");
-				$('#end').attr("disabled", false);
-			}
-
-			$('#text_counter').text('작성할 수 있는 글자수: ' + left);
-		});
-	});
-</script>
-<script>
-	// star rating
-	var starRating = function() {
-		var $star = $(".star-input"), $result = $star.find("output>b");
-		var num2 = "";
-
-		$(document).on("focusin", ".star-input>.input", function() {
-			$(this).addClass("focus");
-		}).on("focusout", ".star-input>.input", function() {
-			var $this = $(this);
-			setTimeout(function() {
-				if ($this.find(":focus").length === 0) {
-					$this.removeClass("focus");
-				}
-			}, 100);
-		}).on("change", ".star-input :radio", function() {
-			$result.text($(this).next().text());
-		}).on("mouseover", ".star-input label", function() {
-			$result.text($(this).text());
-		}).on("mouseleave", ".star-input>.input", function() {
-			var $checked = $star.find(":checked");
-			if ($checked.length === 0) {
-				$result.text("0");
-				num2 = 0;
-				$("#starPoint").val(num2);
-			} else {
-				$result.text($checked.next().text());
-				num2 = ($checked.val());
-				$("#starPoint").val(num2);
-			}
-		});
-
-	};
-	starRating();
-</script>
-<script>
-		
-	function goBack(){
-		location.href="/triangleView/loginMain";
-	}
-	
-	function submitAction() {
-		
-		theForm = document.write2Test;
-		if(theForm.title.value==""){
-	        alert("제목을 입력하지 않았습니다.")
-	        theForm.title.focus();
-	        return false;
-		}else if(theForm.imgInput2.value==""){
-	        alert("썸네일을 입력하지 않았습니다.")
-	        theForm.imgInput2.focus();
-	        return false;
-		} else if(theForm.edit.value==""){
-	        alert("글 내용을 입력하지 않았습니다.")
-	        theForm.edit.focus();
-	        return false;
-		} else if(theForm.hash.value==""){
-	        alert("해시태그를 입력하지 않았습니다.")
-	        theForm.hash.focus();
-	        return false;
-		} else if(theForm.introduce.value==""){
-	        alert("한마디를 입력하지 않았습니다.")
-	        theForm.introduce.focus();
-	        return false;
-		} else{
-			var write2Test= document.getElementById("write2Test");
-	        write2Test.action = "<%=request.getContextPath()%>/insertWrite2.bo";
-	        write2Test.submit();
-		}
-		
-	}
-</script>
 </head>
 <body>
-<%-- 
+
 <jsp:include page="../main/header/headerNav.jsp" flush="true" />
 <br>
 <br>
-<br> --%>
+<br> -
 <div class="everyThing2">
 	<form class="writeForm" id="write2Test" name="write2Test" action="" method="post" encType="multipart/form-data" style="margin: 15px; background:#fff;  border:1px solid black;">
 		<div class="container3">
@@ -471,12 +312,20 @@ function LoadImg(value) {
     	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.js"></script>
     	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/mode/xml/xml.min.js"></script>
-		<textarea id="edit" name="edit" style="height : 600px;"></textarea>
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.8.5/js/froala_editor.pkgd.min.js"></script>
- 
+		
+		
+		<div id="contentWrite2" style="text-align:center; margin-left: 160px;">
+			<h5 style="margin-left: -835px;">게시글 작성</h5>
+				<section id="editor" style="text-align:left; width: 810px; margin-left: -60px; ">
+					<textarea id='edit' name="edit" style="margin-top: 30px; height:500px;">
+					</textarea> 
+			</section>
+		</div>
+ 	<br>
  		<script> 
  			$('#edit').froalaEditor({	
- 
+ 			  theme : 'red',
  			  imageUploadURL:'http://i.froala.com/upload'
  			});
  		</script>
@@ -495,10 +344,10 @@ function LoadImg(value) {
 			<!-- <span id="text_counter"></span> -->
 		</div>
 		<!-- 140자 이상의 소개는 가입불가능 -->
-		<div style="display:-webkit-inline-box; width: 900px; margin-left:106px;">
-			<h5 style="margin-left: -5px;">별점</h5>
+		<div style="display: -webkit-box; margin-left: 90px;">
+			<h5>별점</h5>
 				<span class="star-input">
-  					<span class="input" style="margin-top:12px; margin-left: 120px;">
+  					<span class="input" style="margin-top:12px; margin-left: 92px;">
     					<input type="radio" name="star-input" id="p1" value="1"><label for="p1">0.5</label>
     					<input type="radio" name="star-input" id="p2" value="2"><label for="p2">1</label>
     					<input type="radio" name="star-input" id="p3" value="3"><label for="p3">1.5</label>
@@ -515,21 +364,183 @@ function LoadImg(value) {
 			</span>
 		</div>
 		
+		
 		<br>
 	<hr>
-		
 
-			<div class="container2" style="height: 50px; display: -webkit-inline-box;">
-				<div class="btn-holder" style="    margin-left: 120px;">
-					<button type="submit" class="subButton" id="end" onclick="submitAction();" style="width:350px; height: 35px;"> 
-						게시물 작성
-					</button>
-					<button type="reset" class="subButton" onclick="goBack()"  style="width:350px; height: 35px; margin-left: 100px;">
-						작성취소
-					</button>
+
+			<div class="container2"
+				style="height: 50px; display: -webkit-inline-box;">
+				<div class="btn-holder" style="margin-left: 120px;">
+					<button type="submit" class="subButton" id="end"
+						onclick="submitAction();" style="width: 350px; height: 35px;">
+						게시물 작성</button>
+					<button type="reset" class="subButton" onclick="goBack()"
+						style="width: 350px; height: 35px; margin-left: 100px;">
+						작성취소</button>
 				</div>
 			</div>
-	</form>
+		</form>
 	</div>
+	
+	<script>
+	// star rating
+	var starRating = function() {
+		var $star = $(".star-input"), $result = $star.find("output>b");
+		var num2 = "";
+
+		$(document).on("focusin", ".star-input>.input", function() {
+			$(this).addClass("focus");
+		}).on("focusout", ".star-input>.input", function() {
+			var $this = $(this);
+			setTimeout(function() {
+				if ($this.find(":focus").length === 0) {
+					$this.removeClass("focus");
+				}
+			}, 100);
+		}).on("change", ".star-input :radio", function() {
+			$result.text($(this).next().text());
+		}).on("mouseover", ".star-input label", function() {
+			$result.text($(this).text());
+		}).on("mouseleave", ".star-input>.input", function() {
+			var $checked = $star.find(":checked");
+			if ($checked.length === 0) {
+				$result.text("0");
+				num2 = 0;
+				$("#starPoint").val(num2);
+			} else {
+				$result.text($checked.next().text());
+				num2 = ($checked.val());
+				$("#starPoint").val(num2);
+			}
+		});
+
+	};
+	starRating();
+	
+	$(function(){
+	    
+	    $('#hash').focusout(function(){
+	       
+	       var input = $("#hash");
+	       var str = input.val();
+	        var res = str.substring(input.val().length-2, input.val().length);
+	        var newStr = str.slice(0, -2);
+	        
+	        if(res == " #"){
+	                     
+	           input.val(newStr);
+	        }
+	        input.css('color','#f7323f').css("font-weight","Bold");
+	    });
+	    
+	    $('#hash').focusin(function(){
+	       
+	       var input = $("#hash");
+	       input.css('color','black').css("font-weight","");
+	    });
+	    
+	    $('#hash').keydown(function(e) {
+	       
+	        var k = e.keyCode;
+	        var input = $("#hash");
+	        
+	        if(input.val() == ""){
+	              
+	           input.val('#');
+	        }
+	        if ((90 >= k && k >= 65) // a ~ z
+	                || (111 >= k && k >= 106) // keypad operator
+	                || (192 >= k && k >= 186) // -,=./;
+	                || (222 >= k && k >= 219) // ']\[
+	                || k == 59 // FF ;
+	                || k == 61 // FF =
+	                || k == 173 // FF -
+	                ) {
+	            e.preventDefault();
+	        }else if(k == 16){
+	           
+	           e.preventDefault();
+	        }else if(k == 32){
+
+	           var str = input.val();
+	           var res = str.substring(input.val().length-1, input.val().length);
+	           if(res == "#"){
+	              e.preventDefault();                
+	           }else{ 
+	              e.preventDefault();
+	              input.val(input.val()+' #');
+	           }
+	        }
+	    });
+	 });
+	
+	function LoadImg(value) {
+		if (value.files && value.files[0]) {
+			var reader = new FileReader();
+
+			reader.onload = function(e) {
+				$("#testGoGo").css('background', 'transparent url('+e.target.result +') left top no-repeat').css('background-size','300px').css('background-size','contain');
+			}
+
+			reader.readAsDataURL(value.files[0]);
+		}
+	}
+	
+	$(document).ready(function() {
+		var left = 100
+		$('#text_counter').text('작성할 수 있는 글자수: ' + left);
+
+		$('#introduce').keyup(function() {
+
+			left = 100 - $(this).val().length;
+
+			if (left < 0) {
+				$('#text_counter').addClass("overlimit");
+				$('#end').attr("disabled", true);
+			} else {
+				$('#text_counter').removeClass("overlimit");
+				$('#end').attr("disabled", false);
+			}
+
+			$('#text_counter').text('작성할 수 있는 글자수: ' + left);
+		});
+	});
+	
+	function goBack(){
+		location.href="/triangleView/loginMain";
+	}
+	
+	function submitAction() {
+		
+		theForm = document.write2Test;
+		if(theForm.title.value==""){
+	        alert("제목을 입력하지 않았습니다.")
+	        theForm.title.focus();
+	        return false;
+		}else if(theForm.imgInput2.value==""){
+	        alert("썸네일을 입력하지 않았습니다.")
+	        theForm.imgInput2.focus();
+	        return false;
+		} else if(theForm.edit.value==""){
+	        alert("글 내용을 입력하지 않았습니다.")
+	        theForm.edit.focus();
+	        return false;
+		} else if(theForm.hash.value==""){
+	        alert("해시태그를 입력하지 않았습니다.")
+	        theForm.hash.focus();
+	        return false;
+		} else if(theForm.introduce.value==""){
+	        alert("한마디를 입력하지 않았습니다.")
+	        theForm.introduce.focus();
+	        return false;
+		} else{
+			var write2Test= document.getElementById("write2Test");
+	        write2Test.action = "<%=request.getContextPath()%>/insertWrite2.bo";
+	        write2Test.submit();
+		}
+		
+	}
+</script>
 </body>
 </html>

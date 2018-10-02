@@ -1,38 +1,30 @@
 package com.chain.triangleView.review.controller;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 import java.util.Base64;
-import java.util.Enumeration;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
-
-import com.chain.triangleView.common.MyFileRenamePolicy;
-import com.chain.triangleView.member.member.vo.Attachment;
 import com.chain.triangleView.member.member.vo.Member;
 import com.chain.triangleView.review.review.service.ReviewService;
 import com.chain.triangleView.review.review.vo.Review;
-import com.oreilly.servlet.MultipartRequest;
 
 /**
- * Servlet implementation class updateWrite1Servlet
+ * Servlet implementation class updateWrite2Servlet
  */
-public class updateWrite1Servlet extends HttpServlet {
+public class updateWrite2Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public updateWrite1Servlet() {
+    public updateWrite2Servlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -46,7 +38,7 @@ public class updateWrite1Servlet extends HttpServlet {
 		String rwComment = request.getParameter("introduce");
 		Member loginUser = (Member) (request.getSession().getAttribute("loginUser"));
 		int userNo = loginUser.getUserNo();
-
+		System.out.println("이게 어케 나오나 " + rwHash);
 		String[] hashSplit = rwHash.split("#");
 		String[] resultHashSplit = hashSplit;
 		String categoryHash ="";
@@ -142,6 +134,7 @@ public class updateWrite1Servlet extends HttpServlet {
 			request.getRequestDispatcher("views/errorPage/errorPage.jsp").forward(request, response);
 		}
 	}
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

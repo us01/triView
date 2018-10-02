@@ -306,4 +306,23 @@ public class MemberService {
 		
 		return result;
 	}
+
+	public int refundPoint(Member m, int refundPoint, int myPoint) {
+		Connection con = getConnection();
+		
+		
+		
+		int result = new MemberDao().refundPoint(con,m,refundPoint);
+	
+		int result1 = new MemberDao().refundUpdate(con,m,myPoint);
+	
+		if(result > 0 && result1 > 0){
+			commit(con);
+		}else{
+			rollback(con);
+		}
+		
+		close(con);
+		return result;
+	}
 }

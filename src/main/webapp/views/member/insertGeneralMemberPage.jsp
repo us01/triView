@@ -29,6 +29,7 @@ body {
 	width: 1000px;
 	margin: 0 auto;
 	border:1px solid black;
+	position: relative;
 }
 
 p{
@@ -153,14 +154,13 @@ p{
             <h2 style="text-align:center;"><img src="/triangleView/img/member/reviewer.png" style="width:80px; margin-top: -15px;">일반회원가입</h2>
          </div>
 
-         <div class="profileImage" style="align:center; ">
+         <div class="profileImage" style=" text-align: center;display: inline-block; width: 800px; float: left;">
             <p style="text-align: -webkit-left;">
                <span class="tag" style="margin-left:3px;background-color: white; color: black; margin-top: 57px;">프로필 이미지</span> 
                <input type='file' id="imgInput" name="imgInput" accept="image/gif, image/jpeg, image/png" style="margin-left: 220px; visibility: hidden;" /> 
                <label for="imgInput" class="ico_test1" id="icon_test1">
-               <img id="image_section" src="/triangleView/img/member/profile.png" width="150px" height="150px" alt="이미지 파일이 아닙니다." class="w3-circle"
-               style="    margin-top: 65px;
-    margin-left: 330px;" />
+               <img id="image_section" src="/triangleView/img/member/profile.png" width="150px" height="150px" alt="이미지 파일이 아닙니다." class="w3-circle" 
+                   style="position: absolute; left: 50%; margin-left: 135px;"/>
                </label>
             </p>
          </div>
@@ -234,7 +234,7 @@ p{
             </p>
             <div style="text-align: center;">
                <input type="text" class="w3-input w3-change" id="age" 
-               name="age" placeholder="만 나이를 입력해 주세요" style="width:270px;display:inline-block; margin-left: 6px;" maxlength="2">
+               name="age" placeholder="만 나이를 입력해 주세요" style="width:270px;display:inline-block; margin-left: 6px;" maxlength="3">
             </div>
          </div>
 

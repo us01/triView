@@ -327,16 +327,11 @@ public class ReviewService {
 
 		for(int i =0; i < resultHashSplit.length; i++){
 			String resultHash = resultHashSplit[i];
-			System.out.println("결과해쉬야 : " + resultHash);
 			result2 = new ReviewDao().updateHashtag(con,rw,resultHash);
 		}
-		
 			result3 = new ReviewDao().updateHashtag(con,rw,categoryHashResult);
-		System.out.println("너도 해쉬야: " + categoryHashResult);
-		System.out.println(result);
-		System.out.println(result2);
-		System.out.println(result3);
-		if(result > 0 && result2 >0 && result3 >0){
+
+		if(result > 0){
 			commit(con);
 		}else{
 			rollback(con);

@@ -56,13 +56,8 @@ public class insertWrite1Servlet extends HttpServlet {
 			// 파일 확장자 구하기위해 생성
 			String fileExtend = null;
 
-			// 루트체크
 			String root = request.getSession().getServletContext().getRealPath("/");
-
-			//C:\Users\jihun\git\triangleView\target\m2e-wtp\web-resources\review_upload/
-			//String root = "C:/Users/jihun/git/triangleView/src/main/webapp/img/";
-			// 저장경로설정
-			String savePath = root + "review_upload";
+			String savePath = root + "review_upload/";
 
 			// 파일저장이름 설정
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8",
@@ -127,10 +122,10 @@ public class insertWrite1Servlet extends HttpServlet {
 				companySpon = 1;
 			}
 
-			String[] hashSplit = rwHash.split("#");
 			resultHashList = new ArrayList<String>();
 
 			for(int i=0; i<hashSplit.length; i++) {
+
 
 				if (hashSplit[i] != null) {
 					hashSplit[i] = hashSplit[i].replaceAll("\\p{Z}", "");

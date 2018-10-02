@@ -757,4 +757,54 @@ public class MemberDao {
 		
 		return result;
 	}
+
+	public int refundPoint(Connection con, Member m, int refundPoint) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query = prop.getProperty("refundPoint");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, m.getUserNo());
+			pstmt.setInt(2, refundPoint);
+			
+			result = pstmt.executeUpdate();
+			
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int refundUpdate(Connection con, Member m, int myPoint) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query = prop.getProperty("refundUpdate");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, myPoint);
+			pstmt.setInt(2, m.getUserNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			close(pstmt);
+		}
+		
+		return result;
+	}
 }

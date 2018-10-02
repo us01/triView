@@ -112,11 +112,12 @@ public class insertWrite2Servlet extends HttpServlet {
 			Member loginUser = (Member)(request.getSession().getAttribute("loginUser"));
 			int userNo = loginUser.getUserNo();
 			int rwGrade = 0;
+			System.out.println("ㅇ아아" + multiRequest.getParameter("rwGrade"));
 			if(multiRequest.getParameter("rwGrade") == null){
 				rwGrade = 0;
 			}else{
 				rwGrade = Integer.parseInt(multiRequest.getParameter("rwGrade"));
-				
+				System.out.println("쳌" + rwGrade);
 			}
 			
 			String companySponCheck = multiRequest.getParameter("companySpon");
@@ -200,7 +201,7 @@ public class insertWrite2Servlet extends HttpServlet {
 			rw.setRwComment(rwComment);
 			rw.setRwGrade(rwGrade);
 			rw.setRwSupport(companySpon);
-			System.out.println(rwContent);
+			//System.out.println(rwContent);
 			
 			// 저장한 파일의 이름을 저장할 arrayList생성
 	         ArrayList<String> saveFiles = new ArrayList<String>();
