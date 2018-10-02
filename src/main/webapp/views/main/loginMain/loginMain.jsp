@@ -120,25 +120,32 @@
       }
       
       if(submitCheck != 'N'){
-         $searchData = $('<input>')
-         $searchData.attr('name', 'searchData');
-         $searchData.attr('type', 'hidden');
-         $searchData.val($('#searchHash').val());
          
-         $searchHashVal = $('<input>')
-         $searchHashVal.attr('name', 'searchHash');
-         $searchHashVal.attr('type', 'hidden');
-         $searchHashVal.val($('#searchHash').val());
-         
-         $('#searchForm').append($searchData);
-         $('#searchForm').append($searchHashVal);
-         
-         var formData = $("#searchForm").serialize();
+       
+       if( $('#searchForm').find('input[name=searchData]').val() != null){
+          
+          $('#searchForm').find('input[name=searchData]').val($('#searchHash').val());
+          $('#searchForm').find('input[name=searchData]').val($('#searchHash').val()); 
+       }else{
+          
+           $searchData = $('<input>')
+            $searchData.attr('name', 'searchData');
+            $searchData.attr('type', 'hidden');
+            $searchData.val($('#searchHash').val());
+             
+            $searchHashVal = $('<input>')
+            $searchHashVal.attr('name', 'searchHash');
+            $searchHashVal.attr('type', 'hidden');
+            $searchHashVal.val($('#searchHash').val());
+             
+            $('#searchForm').append($searchData);
+            $('#searchForm').append($searchHashVal);
+       }
 
+        var formData = $("#searchForm").serialize();
          $.ajax({
                   url : '<%= request.getContextPath()%>/reSearchReview.sr',
-                  data : formData
-                  ,
+                  data : formData,
                   type : 'post',
                   success : function(data) {
                       
