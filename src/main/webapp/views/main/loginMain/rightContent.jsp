@@ -199,9 +199,36 @@
 						var $li = $('<li><em>' + (i+1) + '</em>' + data[i] + '</li>');
 						$li.click(function(){
 							
-							var searchHash = $(this).text().substring(1, $(this).text().length);
-							var searchData = searchHash;
-							location.href="<%= request.getContextPath()%>/searchReview.sr?searchHash=" + searchHash +"&searchData=" + searchData;
+							var searchData = $(this).text().substring(1, $(this).text().length);
+							naySearch();
+							
+							function naySearch(){
+								var submitCheck;
+								
+								if($('#sinceTime').val() != '' || $('#sinceTime').val() != ''){
+									if($('#sinceTime').val() != '' && $('#sinceTime').val() != ''){
+										submitCheck = 'Y';
+										if($('#sinceTime').val() > $('#untilTime').val()){
+											submitCheck = 'N';
+										}
+									}else{
+										submitCheck = 'N';
+									}
+								}
+								
+								if(submitCheck != 'N'){
+									$searchData = $('<input>')
+									$searchData.attr('name', 'searchData');
+									$searchData.attr('type', 'hidden');
+									$searchData.val(searchData);
+									$('#searchHash').val(searchData);
+									$('#searchForm').append($searchData);
+									$('#searchForm').attr('action', '<%= request.getContextPath() %>/searchReview.sr').submit();
+								}else{
+									alert('                         기간 검색 조건이 잘 못 됐습니다.\n                                   다시 설정해주세요.');
+								} 
+							}
+							   
 						});
 						
 						$('#hottag').append($li);
