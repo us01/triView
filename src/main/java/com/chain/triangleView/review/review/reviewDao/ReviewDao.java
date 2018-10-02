@@ -187,8 +187,8 @@ public class ReviewDao {
 				
 				review.setNick(rset.getString("nick"));
 				review.setUserId(rset.getString("userid"));
-				review.setLikeCount(rset.getInt("likecount"));
 				review.setCategoryType(rset.getInt("categorytype"));
+				review.setLikeCount(rset.getInt("likecount"));
 				review.setRwContent(rset.getString("rwContent"));
 				review.setThumbnail(rset.getString("filename"));
 				review.setRwTitle(rset.getString("rwtitle"));

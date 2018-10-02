@@ -34,6 +34,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <script src="/triangleView/js/jquery-3.3.1.min.js"></script>
 <link rel="stylesheet" href="/triangleView/css/w3.css">
 <link rel="stylesheet" href="/triangleView/css/reviewForm.css">
@@ -112,10 +113,12 @@
             <% for(int i = 0; i < cardImageList.size(); i++){ %>
                <img class="mySlides" src="<%= request.getContextPath() %>/review_upload/<%= cardImageList.get(i).getFileName() %>" style='width:100%; height:500px;'>
             <% } %>
+           <div class="w3-center w3-container w3-section w3-large w3-text-white w3-display-middle" style="width:100%">
+             <div class="w3-left" onclick="plusDivs(-1)">&#10094;</div>
+             <div class="w3-right" onclick="plusDivs(1)">&#10095;</div>
+           </div>
            <div class="w3-center w3-container w3-section w3-large w3-text-white w3-display-bottommiddle" style="width:100%">
-             <div class="w3-left w3-hover-text-khaki" onclick="plusDivs(-1)">&#10094;</div>
-             <div class="w3-right w3-hover-text-khaki" onclick="plusDivs(1)">&#10095;</div>
-             <% for(int i = 0; i < cardImageList.size(); i++){ %>
+           	<% for(int i = 0; i < cardImageList.size(); i++){ %>
                 <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(<%= i + 1 %>)"></span>
              <% } %>
            </div>

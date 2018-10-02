@@ -73,7 +73,7 @@ public class UserHomeDao {
 		return member;
 	}
 
-	public ArrayList<HomeReview> UserReviewSelect(Connection con, String nick) {
+	public ArrayList<HomeReview> UserReviewSelect(Connection con, String userId) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<HomeReview> reviews = null;
@@ -82,8 +82,76 @@ public class UserHomeDao {
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, nick);
-			pstmt.setString(2, nick);
+			pstmt.setString(1, userId);
+			pstmt.setString(2, userId);
+			
+			rset = pstmt.executeQuery();
+			
+			reviews = new ArrayList<HomeReview>();
+			
+			while(rset.next()){
+				HomeReview r = new HomeReview();
+				
+				r.setNick(rset.getString("nick"));
+				r.setUserNo(rset.getInt("userno"));
+				r.setLikeCount(rset.getInt("likecount"));
+				r.setRwCount(rset.getInt("rwcount"));
+				r.setRwTitle(rset.getString("rwtitle"));
+				r.setThumbnail(rset.getString("filename"));
+				r.setRwContentType(rset.getInt("rwcontenttype"));
+				r.setRwType(rset.getInt("rwtype"));
+				r.setRwNo(rset.getInt("rwno"));
+				
+				reviews.add(r);
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return reviews;
+	}
+
+	public int getReviewCount(Connection con, String userId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int reviewCount = 0;
+		
+		String query  = prop.getProperty("getReviewCount");
+	
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()){
+				reviewCount = rset.getInt("reviewcount");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return reviewCount;
+	}
+
+	public ArrayList<HomeReview> UserReviewSelect(Connection con, String userId, int currentPage, int limit) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<HomeReview> reviews = null;
+		
+		String query = prop.getProperty("UserReviewSelect");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, userId);
+			pstmt.setString(2, userId);
 			
 			rset = pstmt.executeQuery();
 			

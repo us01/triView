@@ -29,7 +29,19 @@ public class MyHomeServlet extends HttpServlet {
 		if(member != null){
 			userHome.put("member", member);
 			
-			ArrayList<HomeReview> reviews = new UserHomeService().UserReviewSelect(((Member)(request.getSession().getAttribute("loginUser"))).getUserId());
+			int currentPage = 1;
+			int limit = 8;
+			int maxPage;
+			int startPage;
+			int endPage;
+			
+			if(request.getParameter("currentPage") != null){
+				currentPage = Integer.parseInt(request.getParameter("currentPage"));
+			}
+			
+			int reviewCount = new UserHomeService().getReviewCount(((Member)(request.getSession().getAttribute("loginUser"))).getUserId());
+					
+			ArrayList<HomeReview> reviews = new UserHomeService().UserReviewSelect(((Member)(request.getSession().getAttribute("loginUser"))).getUserId(), currentPage, limit);
 			
 			userHome.put("reviews", reviews);
 			
