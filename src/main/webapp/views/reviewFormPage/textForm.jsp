@@ -82,8 +82,10 @@
 		<% } %>
 	</div>
 	<div class="review-Form">
-		<div class="contentArea fr-view">
-			<%= form.getRwContent() %>
+		<div class="contentAreaOverflow">
+			<div class="contentArea">
+				<%= form.getRwContent() %>
+			</div>
 		</div>
 		<div class="contentInfoArea">
 			<div>

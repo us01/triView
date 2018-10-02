@@ -21,16 +21,6 @@ public class UserHomeService {
 		return member;
 	}
 
-	public ArrayList<HomeReview> UserReviewSelect(String userId) {
-		Connection con = getConnection();
-		
-		ArrayList<HomeReview> reviews = new UserHomeDao().UserReviewSelect(con, userId);
-		
-		close(con);
-		
-		return reviews;
-	}
-
 	public int getReviewCount(String userId) {
 		Connection con = getConnection();
 		
@@ -41,10 +31,10 @@ public class UserHomeService {
 		return reviewCount;
 	}
 
-	public ArrayList<HomeReview> UserReviewSelect(String userId, int currentPage, int limit) {
+	public ArrayList<HomeReview> userReviewSelect(String userId, int currentPage, int limit) {
 		Connection con = getConnection();
 		
-		ArrayList<HomeReview> reviews = new UserHomeDao().UserReviewSelect(con, userId, currentPage, limit);
+		ArrayList<HomeReview> reviews = new UserHomeDao().userReviewSelect(con, userId, currentPage, limit);
 		
 		close(con);
 		

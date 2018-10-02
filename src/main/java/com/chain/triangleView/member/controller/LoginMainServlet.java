@@ -23,25 +23,29 @@ public class LoginMainServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
-		ArrayList<Review> interestReviewList = new ReviewService().selectInterestReview(userNo);
-		ArrayList<HashMap<String, Object>> noticeList = null;
-		
-		Member followCountMember = new MemberService().followCountSelect(userNo);
-		noticeList = new NoticeService().selectAllNotice();
-		
-		if(interestReviewList != null){
-			request.setAttribute("interestReviewList", interestReviewList);
-			request.setAttribute("followCountMember", followCountMember);
+		if((Member)request.getSession().getAttribute("loginUser") != null){
+			int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
+			ArrayList<Review> interestReviewList = new ReviewService().selectInterestReview(userNo);
+			ArrayList<HashMap<String, Object>> noticeList = null;
 			
-			if(noticeList != null) {
-				request.setAttribute("selectAllNotice", noticeList);	
+			Member followCountMember = new MemberService().followCountSelect(userNo);
+			noticeList = new NoticeService().selectAllNotice();
+			
+			if(interestReviewList != null){
+				request.setAttribute("interestReviewList", interestReviewList);
+				request.setAttribute("followCountMember", followCountMember);
+				
+				if(noticeList != null) {
+					request.setAttribute("selectAllNotice", noticeList);	
+				}
+				
+				request.getRequestDispatcher("/views/main/loginMain/loginMain.jsp").forward(request, response);
+			}else{
+				request.setAttribute("msg", "관심 정보가 조회되지 않았어요");
+				request.getRequestDispatcher("index.jsp").forward(request, response);
 			}
-			
-			request.getRequestDispatcher("/views/main/loginMain/loginMain.jsp").forward(request, response);
 		}else{
-			request.setAttribute("msg", "관심 정보가 조회되지 않았어요");
+			request.setAttribute("msg", "로그인 정보가 조회되지 않았어요"); 
 			request.getRequestDispatcher("index.jsp").forward(request, response);
 		}
 	}
