@@ -110,7 +110,7 @@
       <div class="contentArea">
          <div class="w3-content w3-display-container" style='max-width:800px'>
             <% for(int i = 0; i < cardImageList.size(); i++){ %>
-               <img class="mySlides" src="<%= request.getContextPath() %>review_upload/<%= cardImageList.get(i).getFileName() %>" style='width:100%; height:500px;'>
+               <img class="mySlides" src="<%= request.getContextPath() %>/review_upload/<%= cardImageList.get(i).getFileName() %>" style='width:100%; height:500px;'>
             <% } %>
            <div class="w3-center w3-container w3-section w3-large w3-text-white w3-display-bottommiddle" style="width:100%">
              <div class="w3-left w3-hover-text-khaki" onclick="plusDivs(-1)">&#10094;</div>

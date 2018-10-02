@@ -80,7 +80,7 @@
 			<iframe class="iframeVideo" src="<%= form.getRwContent() %>?rel=0&autoplay=1&mute=1" frameborder="0"></iframe>
 		</div>
 		<div class="contentInfoArea">
-			<div>
+			<div> 
 				<div class="contentinfo-header">
 					<div class="reviewProfileImageArea">
 						<img src="/triangleView/profileImg_upload/<%= form.getThumbnail() %>">
