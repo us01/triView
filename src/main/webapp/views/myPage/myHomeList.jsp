@@ -133,6 +133,12 @@
 		document.getElementById('formArea').style.display = 'none';
 		document.getElementById('formAreaArea').style.display = 'none';
 	}
+	
+	$(window).scroll(function(){
+		if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+			
+		}
+	})
 </script>
 </head>
 <body>

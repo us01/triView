@@ -100,7 +100,7 @@
 		width: 94px;
 		background-color: lightgray;
 		border: none;
-		color: #FDEBEC;
+		color: white;
 		margin-top:3px;
 		padding: 7px;
 		text-align: center;

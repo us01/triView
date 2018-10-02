@@ -25,7 +25,7 @@ public class ReviewWrapper extends HttpServletRequestWrapper{
 		
 		return value;
 	}
-
+	
 	private static String getSha512(String searchHash) {
 		String encSearchHash = null;
 		

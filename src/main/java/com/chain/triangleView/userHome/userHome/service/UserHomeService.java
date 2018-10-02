@@ -21,10 +21,30 @@ public class UserHomeService {
 		return member;
 	}
 
-	public ArrayList<HomeReview> UserReviewSelect(String nick) {
+	public ArrayList<HomeReview> UserReviewSelect(String userId) {
 		Connection con = getConnection();
 		
-		ArrayList<HomeReview> reviews = new UserHomeDao().UserReviewSelect(con, nick);
+		ArrayList<HomeReview> reviews = new UserHomeDao().UserReviewSelect(con, userId);
+		
+		close(con);
+		
+		return reviews;
+	}
+
+	public int getReviewCount(String userId) {
+		Connection con = getConnection();
+		
+		int reviewCount = new UserHomeDao().getReviewCount(con, userId);
+		
+		close(con);
+		
+		return reviewCount;
+	}
+
+	public ArrayList<HomeReview> UserReviewSelect(String userId, int currentPage, int limit) {
+		Connection con = getConnection();
+		
+		ArrayList<HomeReview> reviews = new UserHomeDao().UserReviewSelect(con, userId, currentPage, limit);
 		
 		close(con);
 		
