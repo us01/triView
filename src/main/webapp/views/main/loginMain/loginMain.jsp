@@ -92,8 +92,7 @@
            }
         });
     }
-</script>
-<script>
+   
    $(function(){
       
       $('#searchHash').val('<%= searchData %>');

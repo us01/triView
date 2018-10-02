@@ -73,17 +73,22 @@ public class UserHomeDao {
 		return member;
 	}
 
-	public ArrayList<HomeReview> UserReviewSelect(Connection con, String userId) {
+	public ArrayList<HomeReview> userReviewSelect(Connection con, String userId, int currentPage, int limit) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<HomeReview> reviews = null;
 		
-		String query = prop.getProperty("UserReviewSelect");
+		String query = prop.getProperty("userReviewSelect");
+		
+		int startRow = (currentPage - 1) * limit + 1;
+		int endRow = startRow + limit -1;
 		
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, userId);
 			pstmt.setString(2, userId);
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
 			
 			rset = pstmt.executeQuery();
 			

@@ -26,10 +26,6 @@ public class ReviewWrapper extends HttpServletRequestWrapper{
 		return value;
 	}
 	
-	public static void main(String[] args){
-		System.out.println(getSha512("자유"));
-	}
-	
 	private static String getSha512(String searchHash) {
 		String encSearchHash = null;
 		

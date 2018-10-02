@@ -76,8 +76,10 @@
 		<% } %>
 	</div>
 	<div class="review-Form">
-		<div class="contentArea">
-			<iframe class="iframeVideo" src="<%= form.getRwContent() %>?rel=0&autoplay=1&mute=1" frameborder="0"></iframe>
+		<div class="contentAreaOverflow">
+			<div class="contentArea">
+				<iframe class="iframeVideo" src="<%= form.getRwContent() %>?rel=0&autoplay=1&mute=1" frameborder="0"></iframe>
+			</div>
 		</div>
 		<div class="contentInfoArea">
 			<div> 

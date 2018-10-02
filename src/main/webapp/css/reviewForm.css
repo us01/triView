@@ -8,9 +8,15 @@
 		margin:0 auto;
 	}
 	.contentArea {
+		width:717px;
+		height:517px;
+		background:white;
+		overflow:scroll;
+	}
+	.contentAreaOverflow {
 		width:700px;
 		height:500px;
-		background:white;
+		overflow:hidden;
 	}
 	.contentInfoArea {
 		overflow:hidden;
