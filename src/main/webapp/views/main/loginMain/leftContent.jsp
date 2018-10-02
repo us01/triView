@@ -165,10 +165,11 @@
 	}
 	
 	#writeReviewBtn:hover{
-		cursor : pointer;		
+		cursor : url('cursor_PNG46.png') 4, 12;
 	}
 </style>
 <script>
+
 	function followListBlock(meNo){
 		$.ajax({
 			url : '<%= request.getContextPath()%>/followUserList',
@@ -328,7 +329,7 @@
 				</div>
 			<% } %>
 		</div>
-		<div onclick="uploadView();" style="width:152px; height : 0px;" id="writeReviewBtn">
+		<div onclick="uploadView()" id="writeBtn" style="width:152px; height : 0px;" id="writeReviewBtn">
 			<img src="/triangleView/img/main/writeBtn.png">
 		</div>
 	</div>
@@ -349,5 +350,6 @@
 			});
 		}
 	</script>
+	
 </body>
 </html>

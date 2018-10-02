@@ -97,6 +97,13 @@
 		border:0px;
 		outline:none;
 	}
+	
+	.loginInputArea input[type='password']{
+		width:265px;
+		background:#FAFAFA;
+		border:0px;
+		outline:none;
+	}
 	.memberInfoArea {
 		text-align:center;
 		margin-top:10px;
@@ -197,7 +204,7 @@
 		<form action="<%= request.getContextPath() %>/login.me" method="post">
 			<div class="loginInputArea">
 				<div class="loginIdArea"><input type="text" name="userId" placeholder="아이디"></div>
-				<div class="loginPwdArea"><input type="text" name="userPwd" placeholder="비밀번호"></div>
+				<div class="loginPwdArea"><input type="password" name="userPwd" placeholder="비밀번호"></div>
 				<input class="submitBtn" type="submit" value="로그인">
 			</div>
 		</form>

@@ -187,7 +187,7 @@ public class ReviewService {
 		if(result1 > 0){
 			Review rwNoCheck = new ReviewDao().reviewNoCheck(con, m);	
 			
-			for(int i =1; i < resultHashSplit.length; i++){
+			for(int i =0; i < resultHashSplit.length; i++){
 				String resultHash = resultHashSplit[i];
 				result3 = new ReviewDao().insertHashtag(con,rwNoCheck,resultHash);
 			}
@@ -327,16 +327,11 @@ public class ReviewService {
 
 		for(int i =0; i < resultHashSplit.length; i++){
 			String resultHash = resultHashSplit[i];
-			System.out.println("결과해쉬야 : " + resultHash);
 			result2 = new ReviewDao().updateHashtag(con,rw,resultHash);
 		}
-		
 			result3 = new ReviewDao().updateHashtag(con,rw,categoryHashResult);
-		System.out.println("너도 해쉬야: " + categoryHashResult);
-		System.out.println(result);
-		System.out.println(result2);
-		System.out.println(result3);
-		if(result > 0 && result2 >0 && result3 >0){
+
+		if(result > 0){
 			commit(con);
 		}else{
 			rollback(con);
@@ -433,17 +428,25 @@ public class ReviewService {
 			}
 		}
 		
-		if(text != null){
+		if(text != null && card != null && vedio == null) {
+			
+			query += " AND  RWCONTENTTYPE IN (0, 1) " ;
+		}else if(text != null && vedio != null  && card == null) {
+			
+			query += " AND  RWCONTENTTYPE IN (0, 2) " ;
+		}else if(text == null && vedio != null  && card != null) {
+			
+			query += " AND  RWCONTENTTYPE IN (1, 2) " ;
+		}else if(text != null && vedio != null  && card != null) {
+			
+			query += " AND  RWCONTENTTYPE IN (0, 1, 2) " ;
+		}else if(text != null){
 			
 			query += " AND RWCONTENTTYPE = 0 ";
-		}
-		
-		if(card != null){
+		}else if(card != null){
 	
 			query += " AND  RWCONTENTTYPE = 1 " ;
-		}
-		
-		if(vedio != null){
+		}else if(vedio != null){
 			
 			query += " AND  RWCONTENTTYPE = 2 " ;
 		}
@@ -506,5 +509,44 @@ public class ReviewService {
 		close(con);
 
 		return result;
+	}
+
+	public int findSentiment(String searchReviewData) {
+		
+		Connection con = getConnection();
+		
+		int result = new ReviewDao().findSentiment(con, searchReviewData);
+		
+		close(con);
+		
+		return result;
+	}
+
+	public int[] selectSentiment(String searchReviewData) {
+		
+		Connection con = getConnection();
+		int[] result = {0, 0, 0};
+		result = new ReviewDao().selectSentiment(con, searchReviewData);
+		
+		close(con);
+		
+		return result;
+	}
+
+	public void insertSentiment(String searchReviewData, int[] feel) {
+		
+		Connection con = getConnection();
+		
+		int result = new ReviewDao().insertSentiment(con, searchReviewData, feel);
+		
+		if(result > 0) {
+			
+			commit(con);
+		}else {
+			
+			rollback(con);
+		}
+		
+		close(con);
 	}	
 }

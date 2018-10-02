@@ -33,7 +33,6 @@
 <script src="/triangleView/js/jquery-3.3.1.min.js"></script>
 <link rel="stylesheet" href="/triangleView/css/w3.css">
 <link rel="stylesheet" href="/triangleView/css/reviewForm.css">
-<link href="/triangleView/froala_style.min.css" rel="stylesheet" type="text/css" />
 <script
 	src="https://code.jquery.com/color/jquery.color-2.1.2.js"
 	integrity="sha256-1Cn7TdfHiMcEbTuku97ZRSGt2b3SvZftEIn68UMgHC8="
@@ -46,7 +45,7 @@
 	
 	function modifyMove(rwNo){
 		var URL = "<%=request.getContextPath()%>/write2Select.bo?rwNo=<%= form.getRwNo() %>"
-		alert(rwNo);
+		
 		location.href=URL; 
 		
 	<%-- 	theForm = document.write1Test;

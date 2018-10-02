@@ -56,7 +56,7 @@
          <button id="changePage">돌아가기</button>
          <script>
          	$("#changePage").click(function(){
-         		location.href="../write1.jsp";
+         		window.close();
          	});
          </script>
          <div class="block attributes" id="action_attributes">

@@ -77,7 +77,7 @@
    
    function modifyMove(rwNo){
 			var URL = "<%=request.getContextPath()%>/write1Select.bo?rwNo=<%= form.getRwNo() %>"
-			alert(rwNo);
+			
 			location.href=URL;
    }
    

@@ -29,6 +29,7 @@ body {
 	width: 1000px;
 	margin: 0 auto;
 	border:1px solid black;
+	position: relative;
 }
 
 p{
@@ -159,8 +160,7 @@ p{
                <input type='file' id="imgInput" name="imgInput" accept="image/gif, image/jpeg, image/png" style="margin-left: 220px; visibility: hidden;" /> 
                <label for="imgInput" class="ico_test1" id="icon_test1">
                <img id="image_section" src="/triangleView/img/member/profile.png" width="150px" height="150px" alt="이미지 파일이 아닙니다." class="w3-circle"
-               style="    margin-top: 65px;
-    margin-left: 330px;" />
+               style="position: absolute; left: 50%; margin-left: 135px;" />
                </label>
             </p>
          </div>
