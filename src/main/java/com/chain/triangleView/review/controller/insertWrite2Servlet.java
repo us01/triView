@@ -8,6 +8,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Enumeration;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -17,11 +18,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import org.json.JSONObject;
 
+import com.chain.triangleView.NLP.NLPfiltering;
 import com.chain.triangleView.common.MyFileRenamePolicy;
 import com.chain.triangleView.member.member.vo.Attachment;
 import com.chain.triangleView.member.member.vo.Member;
 import com.chain.triangleView.review.review.service.ReviewService;
 import com.chain.triangleView.review.review.vo.Review;
+import com.google.cloud.language.v1.Token;
 import com.oreilly.servlet.MultipartRequest;
 
 /**
@@ -43,6 +46,8 @@ public class insertWrite2Servlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		List<Token> tokenList = null;
+		ArrayList<String> resultHashList = null;
 		if (ServletFileUpload.isMultipartContent(request)) {
 			int maxSize = 1024 * 1024 * 20; // 20mb가 됨
 
@@ -125,30 +130,51 @@ public class insertWrite2Servlet extends HttpServlet {
 			
 			
 			String[] hashSplit = rwHash.split("#");
-			String[] resultHashSplit = hashSplit;
+			resultHashList = new ArrayList<String>();
 			
-			for (int i = 0; i < hashSplit.length; i++) {
+			for(int i=0; i<hashSplit.length; i++) {
+
 				if (hashSplit[i] != null) {
-					String rmSpace = "";
-					rmSpace = hashSplit[i];
-					rmSpace = rmSpace.replaceAll("\\p{Z}", "");
-					//System.out.print("체크:" + rmSpace);
-					resultHashSplit[i] = rmSpace;
+					hashSplit[i] = hashSplit[i].replaceAll("\\p{Z}", "");
+					tokenList = new NLPfiltering().get_syntax(hashSplit[i]);
+					
 					MessageDigest digest;
 					try {
+						
 						digest = MessageDigest.getInstance("SHA-512");
-						byte[] bytes = resultHashSplit[i].getBytes(Charset.forName("UTF-8"));
+						byte[] bytes = hashSplit[i].getBytes(Charset.forName("UTF-8"));
 						digest.reset();
 						digest.update(bytes);
-						resultHashSplit[i] = Base64.getEncoder().encodeToString(digest.digest());
-						//System.out.println("바꾼거 : " + resultHashSplit[i]);
+						resultHashList.add(Base64.getEncoder().encodeToString(digest.digest()));
+				
 					} catch (NoSuchAlgorithmException e) {
 
 						e.printStackTrace();
 					}
-				} else {
+					
+					for (Token token : tokenList) {
+
+						String value = token.getText().getContent();
+						MessageDigest digest1;
+						try {
+							digest1 = MessageDigest.getInstance("SHA-512");
+							byte[] bytes = value.getBytes(Charset.forName("UTF-8"));
+							digest1.reset();
+							digest1.update(bytes);
+							resultHashList.add(Base64.getEncoder().encodeToString(digest1.digest()));
+						} catch (NoSuchAlgorithmException e) {
+
+							e.printStackTrace();
+						}
+					}
+				}else {
 					hashSplit[i] = "undefined";
 				}
+			}
+			String[] resultHashSplit = new String[resultHashList.size()];
+			for(int i = 0; i<resultHashList.size(); i++) {
+				
+				resultHashSplit[i] = resultHashList.get(i);
 			}
 			
 			//카테고리처리

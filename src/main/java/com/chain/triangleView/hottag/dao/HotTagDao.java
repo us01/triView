@@ -88,7 +88,6 @@ public class HotTagDao {
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, searchData);
-			pstmt.executeQuery();
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -110,8 +109,6 @@ public class HotTagDao {
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, searchData);
-			pstmt.executeQuery();
-
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
