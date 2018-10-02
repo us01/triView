@@ -92,7 +92,7 @@
 </style>
 <script>
 	function insertGeneralMemberPageMove() {
-		document.getElementById('insertMemberTypeArea').style.display = 'none';
+/* 		document.getElementById('insertMemberTypeArea').style.display = 'none';
 		$(".insertMemberTypeArea").css("margin-left", "-275px");
 		$
 				.ajax({
@@ -103,22 +103,12 @@
 						document.getElementById('insertMemberTypeAearArea').style.display = 'block';
 						document.getElementById('insertMemberTypeArea').style.display = 'block';
 					}
-				});
+				}); */
+		location.href="/triangleView/views/member/insertGeneralMemberPage.jsp";
 	}
 
 	function insertCompanyMemberPageMove() {
-		document.getElementById('insertMemberTypeArea').style.display = 'none';
-		$(".insertMemberTypeArea").css("margin-left", "-275px");
-		$
-				.ajax({
-					url : "/triangleView/views/member/insertCompanyMemberPage.jsp",
-					data : "html",
-					success : function(data) {
-						$(".insertMemberTypeArea").html(data);
-						document.getElementById('insertMemberTypeAearArea').style.display = 'block';
-						document.getElementById('insertMemberTypeArea').style.display = 'block';
-					}
-				});
+		location.href="/triangleView/views/member/insertCompanyMemberPage.jsp";
 	}
 </script>
 </head>
