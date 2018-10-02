@@ -42,7 +42,107 @@ public class updateWrite3Servlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		if (ServletFileUpload.isMultipartContent(request)) {
+		String rwHash = request.getParameter("hash");
+		String rwComment = request.getParameter("introduce");
+		Member loginUser = (Member) (request.getSession().getAttribute("loginUser"));
+		int userNo = loginUser.getUserNo();
+		System.out.println("이게 어케 나오나 " + rwHash);
+		String[] hashSplit = rwHash.split("#");
+		String[] resultHashSplit = hashSplit;
+		String categoryHash ="";
+		int categoryType = Integer.parseInt(request.getParameter("catecate"));
+		switch (categoryType) {
+		case 1:
+			categoryHash = "자유";
+			break;
+		case 2:
+			categoryHash = "IT/가전";
+			break;
+		case 3:
+			categoryHash = "음악";
+			break;
+		case 4:
+			categoryHash = "뷰티";
+			break;
+		case 5:
+			categoryHash = "스포츠";
+			break;
+		case 6:
+			categoryHash = "금융";
+			break;
+		case 7:
+			categoryHash = "게임";
+			break;
+		case 8:
+			categoryHash = "취미";
+			break;
+		case 9:
+			categoryHash = "인생";
+			break;
+		default:
+			categoryHash = "오류";
+			break;
+		}
+		
+		
+		for (int i = 0; i < hashSplit.length; i++) {
+			if (hashSplit[i] != null) {
+				String rmSpace = "";
+				rmSpace = hashSplit[i];
+				rmSpace = rmSpace.replaceAll("\\p{Z}", "");
+				resultHashSplit[i] = rmSpace;
+				MessageDigest digest;
+				try {
+					digest = MessageDigest.getInstance("SHA-512");
+					byte[] bytes = resultHashSplit[i].getBytes(Charset.forName("UTF-8"));
+					digest.reset();
+					digest.update(bytes);
+					resultHashSplit[i] = Base64.getEncoder().encodeToString(digest.digest());
+				} catch (NoSuchAlgorithmException e) {
+
+					e.printStackTrace();
+				}
+			} else {
+				hashSplit[i] = "undefined";
+			}
+		}
+		
+		//카테고리처리
+		String categoryHashResult = "";
+		MessageDigest digest;
+		try {
+			digest = MessageDigest.getInstance("SHA-512");
+			byte[] bytes = categoryHash.getBytes(Charset.forName("UTF-8"));
+			digest.reset();
+			digest.update(bytes);
+			categoryHashResult = Base64.getEncoder().encodeToString(digest.digest());
+		} catch (NoSuchAlgorithmException e) {
+			
+			e.printStackTrace();
+		}			
+		
+		int rwNo = Integer.parseInt(request.getParameter("rwNo"));
+		
+		Review rw = new Review();
+		rw.setRwHash(rwHash);
+		rw.setRwComment(rwComment);
+		rw.setRwNo(rwNo);
+		
+		Member m = new Member();
+		m.setUserNo(userNo);
+
+		int result = new ReviewService().updateWrite3(rw,m,resultHashSplit,categoryHashResult);
+
+		if (result > 0) {
+			System.out.println("굿");
+			response.sendRedirect(request.getContextPath() +  "/myHome");
+		} else {
+			System.out.println("다시");
+			request.setAttribute("msg", "글수정 실패~!!!");
+			request.getRequestDispatcher("views/errorPage/errorPage.jsp").forward(request, response);
+		}
+	
+		/*if (ServletFileUpload.isMultipartContent(request)) {
 			int maxSize = 1024 * 1024 * 20; // 20mb가 됨
 
 			// 파일 길이를 위한 object생성
@@ -62,80 +162,14 @@ public class updateWrite3Servlet extends HttpServlet {
 					new MyFileRenamePolicy());
 
 			String rwTitle = multiRequest.getParameter("title");
-			/*int categoryType = Integer.parseInt(multiRequest.getParameter("categoryCheck"));*/
-			//카테고리는 해시에 추가
-			String categoryHash ="";
-			/*switch (categoryType) {
-			case 1:
-				categoryHash = "자유";
-				break;
-			case 2:
-				categoryHash = "IT/가전";
-				break;
-			case 3:
-				categoryHash = "음악";
-				break;
-			case 4:
-				categoryHash = "뷰티";
-				break;
-			case 5:
-				categoryHash = "스포츠";
-				break;
-			case 6:
-				categoryHash = "금융";
-				break;
-			case 7:
-				categoryHash = "게임";
-				break;
-			case 8:
-				categoryHash = "취미";
-				break;
-			case 9:
-				categoryHash = "인생";
-				break;
-			default:
-				categoryHash = "오류";
-				break;
-			}*/
-			//System.out.println("되냐 ? " + categoryHash);
 			
-			/*String data = multiRequest.getParameter("videoUpload");
-			String dataRoot = "";
-			if (!data.contains("embed")) {
-				if (!data.contains("youtu.be")) {
-					if(!data.contains("=")){
-						dataRoot="undefined";
-					}else{
-						String[] cut = data.split("=");
-						dataRoot = "https://www.youtube.com/embed/" + cut[1];	
-					}
-				} else {
-					String[] cut = data.split("be/");
-					dataRoot = "https://www.youtube.com/embed/" + cut[1];
-				}
-			} else {
-				dataRoot = data;
-			}*/
-
+			String categoryHash ="";
+			
 			String rwHash = multiRequest.getParameter("hash");
 			String rwComment = multiRequest.getParameter("introduce");
 			Member loginUser = (Member) (request.getSession().getAttribute("loginUser"));
 			int userNo = loginUser.getUserNo();
-			/*int rwGrade = 0;
-			if(multiRequest.getParameter("rwGrade") == null || multiRequest.getParameter("rwGrade") .equals("")){
-				rwGrade = 0;
-			}else{
-				rwGrade = Integer.parseInt(multiRequest.getParameter("rwGrade"));
-			}*/
-			
-			/*String companySponCheck = multiRequest.getParameter("companySpon");
-			int companySpon = 0;
-			if (companySponCheck == null) {
-				companySpon = 0;
-			} else {
-				companySpon = 1;
-			}
-*/
+
 			String[] hashSplit = rwHash.split("#");
 			String[] resultHashSplit = hashSplit;
 			
@@ -144,7 +178,6 @@ public class updateWrite3Servlet extends HttpServlet {
 					String rmSpace = "";
 					rmSpace = hashSplit[i];
 					rmSpace = rmSpace.replaceAll("\\p{Z}", "");
-					//System.out.print("체크:" + rmSpace);
 					resultHashSplit[i] = rmSpace;
 					MessageDigest digest;
 					try {
@@ -153,7 +186,6 @@ public class updateWrite3Servlet extends HttpServlet {
 						digest.reset();
 						digest.update(bytes);
 						resultHashSplit[i] = Base64.getEncoder().encodeToString(digest.digest());
-						//System.out.println("바꾼거 : " + resultHashSplit[i]);
 					} catch (NoSuchAlgorithmException e) {
 
 						e.printStackTrace();
@@ -162,7 +194,6 @@ public class updateWrite3Servlet extends HttpServlet {
 					hashSplit[i] = "undefined";
 				}
 			}
-			
 			
 			//카테고리처리
 			String categoryHashResult = "";
@@ -178,38 +209,25 @@ public class updateWrite3Servlet extends HttpServlet {
 				e.printStackTrace();
 			}			
 			
-			//System.out.println("넌 되지? : " + categoryHashResult);
 			int rwNo = Integer.parseInt(multiRequest.getParameter("rwNo"));
-			System.out.println("나오니 번호 ? " + rwNo);
 			
 			Review rw = new Review();
-			/*rw.setRwTitle(rwTitle);*/
-			/*rw.setCategoryType(categoryType);*/
 			rw.setRwHash(rwHash);
 			rw.setRwComment(rwComment);
-			/*rw.setRwGrade(rwGrade);*/
-			/*rw.setRwSupport(companySpon);*/
-			/*rw.setRwContent(dataRoot);*/
 			rw.setRwNo(rwNo);
 		
 			
-
-			// 저장한 파일의 이름을 저장할 arrayList생성
 			ArrayList<String> saveFiles = new ArrayList<String>();
-			// 원본 파일의 이름을 저장할 arrayList생성
 			ArrayList<String> originFiles = new ArrayList<String>();
 
-			// 파일의 이름을 반환한다.
 			Enumeration<String> files = multiRequest.getFileNames();
 
-			// 각 파일의 정보를 구해 DB에 저장할 목적의 데이터를 꺼낸다.
 			while (files.hasMoreElements()) {
 				String name = files.nextElement();
 
 				saveFiles.add(multiRequest.getFilesystemName(name));
 				originFiles.add(multiRequest.getOriginalFileName(name));
 
-				// Attachment 객체 생성하여 ArrayList객체 생성
 				ArrayList<Attachment> fileList = new ArrayList<Attachment>();
 
 				for (int i = originFiles.size() - 1; i >= 0; i--) {
@@ -249,13 +267,9 @@ public class updateWrite3Servlet extends HttpServlet {
 					request.getRequestDispatcher("views/errorPage/errorPage.jsp").forward(request, response);
 				}
 			}
-		}
+		}*/
 	}
 	
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);

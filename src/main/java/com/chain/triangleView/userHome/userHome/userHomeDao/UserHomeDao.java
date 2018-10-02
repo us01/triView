@@ -130,7 +130,7 @@ public class UserHomeDao {
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()){
-				reviewCount = rset.getInt("reviewcount");
+				reviewCount = rset.getInt("reviewCount");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
