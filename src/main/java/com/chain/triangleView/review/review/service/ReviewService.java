@@ -435,17 +435,17 @@ public class ReviewService {
 		
 		if(text != null){
 			
-			query += "AND RWCONTENTTYPE = 0 ";
+			query += " AND RWCONTENTTYPE = 0 ";
 		}
 		
 		if(card != null){
 	
-			query += "AND  RWCONTENTTYPE = 1 " ;
+			query += " AND  RWCONTENTTYPE = 1 " ;
 		}
 		
 		if(vedio != null){
 			
-			query += "AND  RWCONTENTTYPE = 2 " ;
+			query += " AND  RWCONTENTTYPE = 2 " ;
 		}
 		
 		//마지막 order by 부분
