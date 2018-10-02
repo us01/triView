@@ -43,8 +43,10 @@
 		$(location).attr('href', subSite);
 	}
 	
-	function modifyMove(){
-		
+	function modifyMove(rwNo){
+		var URL = "<%=request.getContextPath()%>/write3Select.bo?rwNo=<%= form.getRwNo() %>"
+			alert(rwNo);
+			location.href=URL;
 	}
 	
 	function likeThis(rwNo){

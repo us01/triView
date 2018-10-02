@@ -258,7 +258,7 @@ $(function(){
 
  	var imgPath = '<%=request.getContextPath()%>/review_upload/<%=fileList.get(j).getFileName()%>';
 	var $div =$("<label for = 'imgInput1"+i+"' id ='test"+i+"' style='width:250px; height:250px; margin-left:10px; background:url(" + imgPath +") no-repeat; background-size:250px; display: inline-block;'></label>");
-    var $input = $("<input type = 'file' class = 'imgPlus' id = 'imgInput1"+i+"' name = 'file"+i+"' onclick='c()' style='visibility: hidden;'>").change(function() {
+    var $input = $("<input type = 'file' class = 'imgPlus' id = 'imgInput1"+i+"' name = 'file"+i+"' style='visibility: hidden;'>").change(function() {
   		readURL("#imgInput1"+i);
   		
 	});
@@ -269,23 +269,72 @@ $(function(){
 
 });
 
+$(function(){
+    function readURL(input, type) {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+        	<%	for(int j =1; j < fileList.size(); j++ ){%>  
+          if(type == 'imgInput1'+i){
+        	  $("#imgInput1"+i).css('background', 'transparent url('+e.target.result +') left top no-repeat').css('background-size','300px').css('background-size','contain');
+          }
+          <%}%>
+        }
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+    $("#write1Content input").change(function() {
+      var type = $(this).attr('id');
+      readURL(this, type);
+    });
+  });
 
-function c(){
+//썸네일용 
+function LoadImg(value) {
 	if (value.files && value.files[0]) {
 		var reader = new FileReader();
 
 		reader.onload = function(e) {
-			$("#imgInput1"+i).css('background', 'transparent url('+e.target.result +') left top no-repeat').css('background-size','300px').css('background-size','contain');
+			$("#testGoGo").css('background', 'transparent url('+e.target.result +') left top no-repeat').css('background-size','300px').css('background-size','contain');
 			
 		}
 
 		reader.readAsDataURL(value.files[0]);
 	}
-	
-	$("#imgInput1"+i).change(function() {
-		  readURL(this);
-		});
 }
+
+//게시글용
+		var i = 100;
+	function readURL(input) {
+  		var elem = $(input);
+  		if (input.files && input.files[0]) {
+   			var reader = new FileReader();
+    		reader.onload = function(e) {
+    			$("#test"+(i-1)).css('background', 'transparent url('+e.target.result +') left top no-repeat').css('background-size','300px').css('background-size','contain');
+    			
+    		}
+    		reader.readAsDataURL(elem.get(0).files[0]);
+  		}
+	}
+
+	$("input[type='file']").change(function() {
+  		readURL(this);
+  		
+	});
+	
+	
+	 function b() {
+        i=i+1;
+  		var $div =$("<label for = 'imgInput1"+i+"' id ='test"+i+"' style='width:250px; height:250px;background-image:url(/triangleView/img/writeForm/imgplus.png); background-size:250px; display:inline-block;'></label>");
+        var $input = $("<input type = 'file' class = 'imgPlus' id = 'imgInput1"+i+"' name = 'file"+i+"' onChange='b()' style='visibility: hidden;'>").change(function() {
+      		readURL(this);
+      		
+    	});
+
+        $($div).append($input);
+        $("#write2Content").append($div);
+		
+	 }
 
 $(function(){
 		var check = <%=rw.getCategoryType()%>;
@@ -317,66 +366,22 @@ $(function(){
 	console.log(star);
 	for(var i =1; i <= star; i ++){
 		 document.getElementById("p"+i).checked = true;
+		 documetn.getElementById("#starPoint").value = star;
 	}
 
 });
 
-//썸네일용 
-function LoadImg(value) {
-	if (value.files && value.files[0]) {
-		var reader = new FileReader();
 
-		reader.onload = function(e) {
-			$("#testGoGo").css('background', 'transparent url('+e.target.result +') left top no-repeat').css('background-size','300px').css('background-size','contain');
-			
-		}
-
-		reader.readAsDataURL(value.files[0]);
-	}
-}
-
-//게시글용
-function readURL(input) {
-  		var elem = $(input);
-  		if (input.files && input.files[0]) {
-   			var reader = new FileReader();
-    		reader.onload = function(e) {
-    			$("#test"+(i-1)).css('background', 'transparent url('+e.target.result +') left top no-repeat').css('background-size','300px').css('background-size','contain');
-    			
-    		}
-    		reader.readAsDataURL(elem.get(0).files[0]);
-  		}
-	}
-
-	$("input[type='file']").change(function() {
-  		readURL(this);
-  		
-	});
-
-//게시글에 사진들
- function b() {
-    i=<%=fileList.size()%> + 1;
-		var $div =$("<label for = 'imgInput1"+i+"' id ='test"+i+"' style='width:250px; height:250px;background-image:url(/triangleView/img/writeForm/imgplus.png); background-size:250px; display:inline-block;'></label>");
-    var $input = $("<input type = 'file' class = 'imgPlus' id = 'imgInput1"+i+"' name = 'file"+i+"' onChange='b()' style='visibility: hidden;'>").change(function() {
-  		readURL(this);
-  		
-	});
-
-    $($div).append($input);
-    $("#write2Content").append($div);
-	
- }
 </script>
 </head>
 <body>
 	<jsp:include page="../main/header/headerNav.jsp" flush="true" />
 
 	<div class="outLine">
-		<form class="writeForm" id="write1Update" name="write1Update"
-			action="" method="post" encType="multipart/form-data">
+		<form class="writeForm" id="write1Update" name="write1Update" action="" method="post" encType="multipart/form-data">
 			<div class="container">
 				<h3 style="text-align: center; color: #f8585b;">카드형 리뷰 수정</h3>
-				<input type="text" value="<%=rwNo%>" style="display:none;">
+				<input type="text" name="rwNo" value="<%=rwNo%>" style="display:none;">
 			</div>
 			<hr>
 
@@ -435,10 +440,12 @@ function readURL(input) {
 
 
 
-			<div id="write1Content" style="float: left;">
+			<div id="write1Content" name ="write1Content"style="float: left;">
 			</div>
 			<!-- 수정을 위한 영역을하나 추가 -->
 			<div id="write2Content" style="float: left;">
+			<h5 style="display: inline-block;">추가이미지</h5>
+			<br>
 				<label for="imgInput1" id="test0"
 					style="background-image: url(/triangleView/img/writeForm/imgplus.png); background-size: 250px; width: 250px; height: 250px; display: inline-block;">
 					<input type="file" id="imgInput1" name="file0" id="imgInput"
@@ -630,31 +637,9 @@ function readURL(input) {
 		function submitAction() {
 			
 			theForm = document.write1Update;
-			if(theForm.title.value==""){
-		        alert("제목을 입력하지 않았습니다.")
-		        theForm.title.focus();
-		        return false;
-			} else if(theForm.imgInput2.value==""){
-		        alert("썸네일을 입력하지 않았습니다.")
-		        theForm.imgInput2.focus();
-		        return false;
-			} else if(theForm.imgInput1.value==""){
-		        alert("이미지를 입력하지 않았습니다.")
-		        theForm.imgInput1.focus();
-		        return false;
-			} else if(theForm.hash.value==""){
-		        alert("해시태그를 입력하지 않았습니다.")
-		        theForm.hash.focus();
-		        return false;
-			} else if(theForm.introduce.value==""){
-		        alert("한마디를 입력하지 않았습니다.")
-		        theForm.introduce.focus();
-		        return false;
-			} else{
-				var write1Update= document.getElementById("write1Update");
-				<%-- write1Update.action = "<%=request.getContextPath()%>/insertWrite1.bo"; --%>
-				write1Update.submit();
-			}
+			var write1Update= document.getElementById("write1Update");
+			write1Update.action = "<%=request.getContextPath()%>/write1Update.bo";
+			write1Update.submit();
 			
 		}
 		
