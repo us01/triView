@@ -44,6 +44,9 @@ public class sendPassServlet extends HttpServlet {
 			e.printStackTrace();
 		} catch (MessagingException e) {
 			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 		request.setAttribute("result", result);
