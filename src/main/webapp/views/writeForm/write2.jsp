@@ -242,9 +242,7 @@ body {
 	width: 100%;
 }
 
-.fr-element fr-view{
-height:300px;
-}
+
 </style>
 
 </head>

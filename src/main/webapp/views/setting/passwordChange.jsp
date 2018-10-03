@@ -17,13 +17,12 @@
 </script>
 <style>
 .containChange {
-	width: 670px;
-	height: 600px;
-	text-align: left;
-	margin-left: 150px;
-	font-size: 13px;
-	float: right;
-	margin-right: -220px;
+ 	width: 1275px;
+    height: 1000px;
+	text-align: center;
+	float: left;
+	font-size: 1.5em;
+	font-family: '맑은고딕';
 }
 
 .btn-success {
@@ -37,15 +36,15 @@
 }
 
 .profileOut {
-	width: 100px;
-	height: 100px;
-	border-radius: 100px;
-	margin-left: -120px;
-	margin-top: 100px;
+	width: 200px;
+	height: 200px;
+	border-radius: 200px;
+    margin-left: -800px;
+    margin-top: 200px;
 }
 
 .containPassword {
-	margin-top: -120px;
+	    margin-top: -218px;
 }
 </style>
 </head>
@@ -57,33 +56,33 @@
 					src="<%=request.getContextPath()%>/thumbnail_upload/<%=loginUser.getThumbnail() %>"/>
 			</div>
 			<div class="containPassword">
-				<div>
-					<span class="" style="background-color: white; color: black;">이전
+				<div style="    margin-top: 32px;">
+					<span class="" style="background-color: white; color: black; margin-left:-12px;">이전
 						비밀번호</span>
-					<div>
+
 						<input type="password" class="" id="oldPwd" name="oldPwd"
-							placeholder="이전 비밀번호" style="width: 270px;">
-					</div>
+							placeholder="이전 비밀번호" style="width: 300px; height: 35px; margin-left:42px;">
+
 				</div>
-				<div>
-					<span class="" style="background-color: white; color: black;">새
+				<div style="    margin-top: 25px;">
+					<span class="" style="background-color: white; color: black; margin-left:-10px;">새
 						비밀번호</span>
-					<div>
+
 						<input type="password" class="" id="newPwd" name="newPwd"
-							placeholder="새로운 비밀번호" style="width: 270px;">
-					</div>
+							placeholder="새로운 비밀번호" style="width: 300px; height: 35px; margin-left:65px;">
+
 				</div>
-				<div>
-					<span class="" style="background-color: white; color: black;">
+				<div style="    margin-top: 25px;">
+					<span class="" style="background-color: white; color: black; ">
 						새 비밀번호 확인</span>
-					<div>
+
 						<input type="password" class="" id="userPwdCheck"
-							name="newPwdCheck" placeholder="비밀번호 확인" style="width: 270px;">
+							name="newPwdCheck" placeholder="비밀번호 확인" style="width: 300px;     height: 35px;    margin-left: 10px;">
 						<br> <label id="pwdresult"></label>
-					</div>
+
 				</div>
 			</div>
-			<div class="" style="text-align: center; height: 40px; margin-top: 10px; display: inline-block;">
+			<div class="" style="text-align: center; height: 40px; margin-top: 25px; display: inline-block;">
 				<input type="button" class="btn-success" id="updatePass"
 					value="비밀번호 변경" disabled="disabled" onclick="youHaveTo()"></input>
 				<input type="reset" class="btn-success" onclick="end();" value="취소"></input>
@@ -114,6 +113,11 @@
 			
 			form.action = "<%=request.getContextPath()%>/updatePassword.me";
 			form.submit();
+		}
+		
+		function end(){
+			location.href="/triangleView/myHome";
+			
 		}
 	</script>
 </body>

@@ -83,7 +83,8 @@
 	}
 </script>
 <body>
-	<div style="text-align:center; height:300px; width:700px; background-color: white;" id="settingArea" >
+	<div style="text-align:center; height:300px; width:700px; background-color: white;     margin-left: -100px;
+    margin-top: 200px;" id="settingArea" >
 		<div class="buttonFreind">
 			<p style="text-align: center; font-weight: bold; margin: 25px 0 10px; font-size: 18px;">게시글 형태를 선택하세요</p>
 			<button id="write1" class="button button1" onclick="write1PageMove()">
