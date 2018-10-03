@@ -40,11 +40,12 @@ table {
 }
 
 .container {
-	width: 800px;
-	height: 600px;
-	border: 1px solid black;
-	text-align: center;
-	display: inline-block;
+    width: 1400px;
+    height: 1000px;
+    border: 1px solid black;
+    text-align: center;
+    display: inline-block;
+    margin-left: -200px;
 	
 }
 
@@ -52,7 +53,7 @@ table {
 	display: inline-block;
 	border: 1px solid white;
 	width: 120px;
-	height: 600px;
+	height: 1000px;
 	float:left;
 	border: 1px solid black;
 }
@@ -60,8 +61,8 @@ table {
 .show {
 	display: inline-block;
 	border: 1px solid white;
-	width: 670px;
-	height: 600px;
+    width: 1275px;
+    height: 1000px;
 	float:left;
 }
 
@@ -73,9 +74,10 @@ table {
 	background-color: white;
 	display:table;
 	border-left: 2px solid transparent;
-    font-size: 16px;
-	line-height: 20px;
+    font-size: 22px;
+	line-height: 100px;
 	vertical-align:middle;
+	height:100px;
 	/* 	height:50px; */
    /*  display: block; */
    /*  height: 100%; */
@@ -112,20 +114,17 @@ border-left: 2px solid transparent;
 	<div name="outLine" class="outLine" style="margin-top:90px;">
 		<div id="container" class="container">
 			<div class="menu">
-				<div class="subMenu1" onclick="changeProfile()">
+				<div class="subMenu1" onclick="changeProfile();">
 					프로필수정
 				</div>
 				<div class="subMenu2" onclick="changePassword();">
-					비밀번호수정
+					비밀번호
 				</div>
 				<div class="subMenu3" onclick="pointRefunds();">
 					포인트	
 				</div>
 				<div class="subMenu4">
 					파워리뷰어
-				</div>
-				<div class="subMenu5">
-					회원탈퇴
 				</div>
 			</div>
 			
@@ -167,8 +166,7 @@ function pointRefunds(){
 	$.ajax({
 		url : "/triangleView/views/setting/pointRefunds.jsp",
 		data : "html",
-		success : function(data) {
-			
+		success : function(data) {		
 			$(".show").html(data);
 			
 		}

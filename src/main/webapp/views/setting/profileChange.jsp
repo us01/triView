@@ -19,6 +19,7 @@
 	crossorigin="anonymous">
 </script>
 <style>
+
 span {
 	display: inline-block;
 }
@@ -27,10 +28,11 @@ span {
 	display: inline-block;
 } */
 
+
 .containProfile {
 	display: inline-block;
-	width: 670px;
-	height: 600px;
+    width: 1275px;
+    height: 1000px;
 	text-align: left;
 	margin-left: 150px;
 	font-size: 13px;
@@ -43,8 +45,10 @@ span {
 }
 
 .changeForm {
-	width: 400px;
-	height: 400px;
+	width: 1000px;
+	height: 1000px;
+	font-size: 2em;
+	font-family: '맑은고딕';
 }
 
 .imageSpan {
@@ -53,10 +57,10 @@ span {
 }
 
 .profileOut {
-	width: 100px;
-	height: 100px;
-	border-radius: 100px;
-	margin-left: -240px;
+	width: 200px;
+	height: 200px;
+	border-radius: 200px;
+	margin-left: -345px;
 }
 
 .nickName {
@@ -64,7 +68,7 @@ span {
 }
 
 .phoneNumber {
-	width: 150px;
+	width: 500px;
 	margin-top: 20px;
 }
 
@@ -76,6 +80,7 @@ span {
 	text-decoration: none;
 	cursor: pointer;
 	border-radius: 5px;
+	width: 150px;
 }
 </style>
 </head>
@@ -85,7 +90,7 @@ span {
 <form class="changeForm" id="form" name="profileUpdate" action="" method="post" encType="multipart/form-data">
 
 			<input type="hidden" value="<%=loginUser.getUserNo()%>" name="userNo">
-         <div class="profileImage" style="display: inline-block;">
+         <div class="profileImage" style="display: inline-block; width:800px;">
                <span class="imageSpan">프로필 이미지</span> 
                <input type='file' id="imgInput" name="imgInput" accept="image/gif, image/jpeg, image/png" style="visibility: hidden;" /> 
                <label for="imgInput" class="ico_test1" id="icon_test1">
@@ -94,40 +99,40 @@ span {
          </div>
        
 
-         <div class="nickName" id="nickname" style="display: inline-block;">
+         <div class="nickName" id="nickname" style="display: inline-block; width: 800px;">
            	<span class="showNick" style="background-color: white; color:black;">닉네임</span>
-               <input type="text" class="" id="nick" name="nick" style="width:150px;" value="<%=loginUser.getNick()%>"> 
+               <input type="text" class="" id="nick" name="nick" style="width:500px;" value="<%=loginUser.getNick()%>"> 
 			<input type="button" class="btn-success" id="nickCheck" value="중복검사" ></input>
                <br><label id="nickResult"></label>
          </div>
 
-			<div class="" style="width:300px; display: inline-block;" >
+			<div class="" style= "display: inline-block; width: 800px;" >
 					<span class="" style="background-color: white; color:black;">핸드폰</span>
 				<div style="text-align: center; display: inline-block;">
 					<input type="text" class="phoneNumber" id="phone" name="phone" value="<%=loginUser.getPhone()%>" placeholder="번호를 입력해주세요" maxlength="11" >
 				</div>
 			</div>
 			
-         <div class="" style="display: inline-block;">
+         <div class="" style="display: inline-block; width: 800px;">
                <span class="" style="background-color: white; color:black;">나이</span>
             <div style="text-align: center; display: inline-block;">
                <input type="text" class="" id="age" value="<%=loginUser.getPhone()%>"
-               name="age" placeholder="만 나이를 입력해주세요" style="width:150px; margin-top: 20px; margin-left:12px;" maxlength="3">
+               name="age" placeholder="만 나이를 입력해주세요" style="width:500px; margin-top: 20px; margin-left:26px;" maxlength="3">
             </div>
          </div>
 
-             <div class="" style="margin-top: 20px; display: inline-block;">
+             <div class="" style="margin-top: 20px; display: inline-block; width: 800px;">
             <span class="" style="background-color: white; color:black; margin-top: -20px;">주소</span>
             <input type="button" onclick="sample4_execDaumPostcode()" 
                value="우편번호 찾기" class="btn-success" style="width: 120px; margin-left: 12px;">
 
             <input type="text" id="sample4_postcode" placeholder="우편번호" value="<%=loginUser.getPostNo()%>"
-            class="" name="sample4_postcode" style="width:300px;     margin-top: 10px;">
+            class="" name="sample4_postcode" style="width:800px;     margin-top: 10px;">
              
             <input type="text" id="sample4_roadAddress" placeholder="도로명주소" class="" name="sample4_roadAddress" value="<%=address[0]%>"
-            style=" margin-top: 5px;"> 
+            style=" margin-top: 5px; width:800px; "> 
             <input type="text" id="sample4_jibunAddress" placeholder="지번주소" class="" name="sample4_jibunAddress"
-            value="<%=address[1]%>" style="margin-left:7px;"> 
+            value="<%=address[1]%>" style="margin-top:7px; width:800px; "> 
             <br><span id="guide" style="color: #999"></span><br/>
          </div>
 
@@ -146,14 +151,14 @@ span {
             
          </div> -->
 
-         <div class="" style="margin-top:30px; display: inline-block; width:320px;">
+         <div class="" style="margin-top:30px; display: inline-block; width:800px;">
                <span class="" style="background-color: white; color:black;margin-top: -20px; ">자기소개</span>
-            <textarea id="intro" rows="5" style="width: 300px; height:60px; resize: none;" name="intro"><%=loginUser.getIntro()%></textarea>
+            <textarea id="intro" rows="5" style="width: 800px; height:140px; resize: none;" name="intro"><%=loginUser.getIntro()%></textarea>
             <!-- <span id="text_counter"></span> -->
          </div>
          
 
- 			<div class="" style="text-align: center; height: 40px; margin-top: 10px; display: inline-block;">
+ 			<div class="" style="text-align: center; height: 40px; margin-top: 10px; display: inline-block; width: 800px;">
             <input type="button" class="btn-success" id="updateMember" value="제출" disabled="disabled" onclick="youHaveTo()"></input>
 			<input type="reset" class="btn-success" onclick="end();" value="취소"></input>
          </div>
@@ -180,7 +185,6 @@ $("#imgInput").change(function() {
 $("#nickCheck").click(
 		function() {
 			var nick = $("#nick").val();
-		
 			$.ajax({
 
 				url : "/triangleView/nickCheck.do",
@@ -192,14 +196,18 @@ $("#nickCheck").click(
 					var num = data;
 					if (num == 0) {
 
-						$("#nickResult").text("사용가능한 닉네임입니다.").css("color",
-								"green");
+						$("#nickResult").text("사용가능한 닉네임입니다.").css("color","green");
 						$('#updateMember').attr("disabled", false);
 					} else {
-
-						$("#nickResult").text("중복되는 닉네임입니다.").css("color",
-								"red");
-						$('#updateMember').attr("disabled", true);
+						var test = $("#nick").val();
+						var test1 = "<%=loginUser.getNick()%>";
+						if(test == test1){
+							$("#nickResult").text("같은 닉네임을 사용합니다.").css("color","green");
+							$('#updateMember').attr("disabled", false);
+						}else{
+						$("#nickResult").text("중복되는 닉네임입니다.").css("color","red");
+						$('#updateMember').attr("disabled", true);							
+						}
 					}
 				},
 				error : function() {
@@ -345,6 +353,11 @@ function youHaveTo(){
 		form.action = "<%=request.getContextPath() %>/updateMember.me"; 
 		form.submit();
 	}
+}
+
+function end(){
+	location.href="/triangleView/myHome";
+	
 }
 </script>
 </form>

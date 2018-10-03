@@ -8,7 +8,7 @@
 <style>
 	.settingListArea {
 		width:250px;
-		height:191px;
+		height:141px;
 		background:white;
 		margin:0 auto;
 		border-radius:15px;
@@ -36,17 +36,7 @@
 	} 
 </style>
 <script>
-	function modifyPwd(){
-		$.ajax({
-			url:"../setting/modifyPwdPage.jsp",
-			data:"html",
-			success:function(data){	
-				$(".settingArea").html(data);
-				document.getElementById('settingBoardArea').style.display='block';
-				document.getElementById('settingArea').style.display='block';
-			}
-		});
-	}
+
 	function logout(){
 		location.href='<%= request.getContextPath() %>/logout.me';
 	}
@@ -54,18 +44,22 @@
 	function changeProfile(){
 		location.href = '/triangleView/views/setting/settingPage.jsp';
 	}
+	
+	function cancel(){
+		document.getElementById('settingListArea').style.display ='none';
+		document.getElementById('settingBoardArea').style.display='none';
+	}
 </script>
 </head>
 
 
 <body>
 
-	<div class="settingListArea">
+	<div class="settingListArea" id="settingListArea">
 		<ul>
 			<li onclick="changeProfile()"><p>프로필 편집</p></li>
-			<li onclick="modifyPwd()"><p>비밀번호 변경</p></li>
 			<li onclick="logout()"><p>로그아웃</p></li>
-			<li><p>취소</p></li>
+			<li onclick="cancel()"><p>취소</p></li>
 		</ul>
 	</div>
 </body>
