@@ -103,7 +103,7 @@ public class insertWrite1Servlet extends HttpServlet {
 			Member loginUser = (Member) (request.getSession().getAttribute("loginUser"));
 			int userNo = loginUser.getUserNo();
 			int rwGrade = 0;
-			if(multiRequest.getParameter("rwGrade") == null){
+			if(multiRequest.getParameter("rwGrade") == null || multiRequest.getParameter("rwGrade") == ""){
 				rwGrade = 0;
 			}else{
 				rwGrade = Integer.parseInt(multiRequest.getParameter("rwGrade"));

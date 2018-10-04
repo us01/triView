@@ -865,4 +865,28 @@ public class MemberDao {
 		
 		return result;
 	}
+
+	public int updatePoint(Connection con, Review rw) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+	
+		
+		String query = prop.getProperty("updatePoint");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, rw.getRwNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
 }

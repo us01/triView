@@ -278,6 +278,12 @@
    	<description></description>
    	<servlet-class>com.chain.triangleView.member.controller.updatePowerReviewerServlet</servlet-class>
    </servlet>
+   <servlet>
+   	<servlet-name>coorlinkPointServlet</servlet-name>
+   	<display-name>coorlinkPointServlet</display-name>
+   	<description></description>
+   	<servlet-class>com.chain.triangleView.review.controller.coorlinkPointServlet</servlet-class>
+   </servlet>
    <servlet-mapping>
       <servlet-name>logoutMainReviewSelectService</servlet-name>
       <url-pattern>/logoutMain.rl</url-pattern>
@@ -437,6 +443,10 @@
    <servlet-mapping>
    	<servlet-name>updatePowerReviewerServlet</servlet-name>
    	<url-pattern>/updatePowerReviewer.me</url-pattern>
+   </servlet-mapping>
+   <servlet-mapping>
+   	<servlet-name>coorlinkPointServlet</servlet-name>
+   	<url-pattern>/coorlinkPoint.bo</url-pattern>
    </servlet-mapping>
 
    </web-app>

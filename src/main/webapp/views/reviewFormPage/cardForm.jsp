@@ -44,6 +44,8 @@
    crossorigin="anonymous">
 </script>
 <script>
+
+	
    var slideIndex = 1;
    showDivs(slideIndex);
    
@@ -97,6 +99,22 @@
          }
       });
    }
+   
+   function linkMove(subSite){
+		
+		$.ajax({
+			url : '<%= request.getContextPath() %>/coorlinkPoint.bo',
+			type : 'post',
+			data : {
+				rwNo : <%= form.getRwNo() %>,
+				userNo : <%= loginUser.getUserNo() %>
+			},
+			success : function(data){
+		 		/* $(location).attr('href', subSite); */
+				
+			}
+		});
+	}
 </script>
 </head>
 <body>
@@ -199,9 +217,10 @@
          </div>
       </div>
       <div class="subSideArea">
+
          <% if(form.getRwType() != 0){ %>
             <% if(form.getCoorLink() != null){ %>
-               <button onclick="subSiteMove('<%= form.getCoorLink() %>')">관련 링크</button>
+               <a href="http://<%= form.getCoorLink() %>" target="_blank"><button onclick="linkMove('<%= form.getCoorLink() %>')">관련 링크</button></a>
             <% } %>
          <% }else{ %>
             <% if(loginUser != null){ %>
