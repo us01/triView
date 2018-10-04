@@ -27,19 +27,18 @@ public class loadOneReviewForm extends HttpServlet {
 		HashMap<String, Object> reviewForm = new ReviewService().loadOneRevie(rwNo, userNo);
 		
 		if(reviewForm != null){
-			
 			int result = new ReviewService().updateRwCount(rwNo);
+			
 			if(result > 0) {
-				
 				int result2 = new ReviewService().findTodayRwCount(rwNo);
+				
 				if(result2 > 0) {
-					
 					 new ReviewService().updateTodayRwCount(rwNo);
 				}else {
-					
 					 new ReviewService().insertTodayRwCount(rwNo);
 				}
 			}
+			
 			request.setAttribute("reviewForm", reviewForm);
 			
 			if(rwContentType == 0){

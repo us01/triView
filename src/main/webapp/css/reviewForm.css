@@ -180,7 +180,13 @@
 		width:25px;
 		height:25px;
 	}
-	
+	.hashTagArea {
+		color:#003569;
+		font-size:12px;
+		width:283px;
+		padding-left:10px;
+    	padding-top:3px;
+	}
 	.reviewTitleArea {
 		width:232px;
 		text-align:left;
