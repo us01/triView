@@ -40,7 +40,24 @@
 </script>
 <script>
 	function subSiteMove(subSite){
-		$(location).attr('href', subSite);
+
+	    $(location).attr('href', subSite);
+	}
+	
+	function linkMove(subSite){
+		
+		$.ajax({
+			url : '<%= request.getContextPath() %>/coorlinkPoint.bo',
+			type : 'post',
+			data : {
+				rwNo : <%= form.getRwNo() %>,
+				userNo : <%= loginUser.getUserNo() %>
+			},
+			success : function(data){
+		 		/* $(location).attr('href', subSite); */
+				
+			}
+		});
 	}
 	
 	function modifyMove(rwNo){
@@ -76,6 +93,7 @@
 		<% } %>
 	</div>
 	<div class="review-Form">
+	  
 		<div class="contentAreaOverflow">
 			<div class="contentArea">
 				<iframe class="iframeVideo" src="<%= form.getRwContent() %>?rel=0&autoplay=1&mute=1" frameborder="0"></iframe>
@@ -138,9 +156,11 @@
 			</div>
 		</div>
 		<div class="subSideArea">
+
 			<% if(form.getRwType() != 0){ %>
 				<% if(form.getCoorLink() != null){ %>
-					<button onclick="subSiteMove('<%= form.getCoorLink() %>')">관련 링크</button>
+				
+					<a href="http://<%= form.getCoorLink() %>" target="_blank"><button onclick="linkMove('<%= form.getCoorLink() %>')">관련 링크</button></a>
 				<% } %>
 			<% }else{ %>
 				<% if(loginUser != null){ %>

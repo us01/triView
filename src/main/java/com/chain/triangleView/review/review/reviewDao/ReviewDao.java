@@ -113,6 +113,7 @@ public class ReviewDao {
 				form.setRwContentType(rset.getInt("rwcontenttype"));
 				form.setThumbnail(rset.getString("filename"));
 				form.setCoorLink(rset.getString("coorlink"));
+				
 				form.setWriteDate(rset.getString("rwwritedate"));
 				form.setRwTitle(rset.getString("rwtitle"));
 				form.setRwContent(rset.getString("rwcontent"));
@@ -1036,5 +1037,89 @@ public class ReviewDao {
 		}
 		
 		return result;
+	}
+
+	public int insertPointInfo(Connection con, String ip, Review rw) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query = prop.getProperty("insertPointInfo"); 
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, ip);
+			pstmt.setInt(2, rw.getRwNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+	public int checkPointIp(Connection con, String ip, Review rw) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query = prop.getProperty("checkPointIp"); 
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, ip);
+			pstmt.setInt(2, rw.getRwNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public Review findCoorlink(Connection con, Review rw) {
+		Review rwResult = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		
+		String query = prop.getProperty("findCoorlink"); 
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, rw.getRwNo());
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()){
+				rwResult = new Review();
+				if(rset.getString("coorlink") == null){
+					rwResult.setCoorLink("null값입니다.");
+					}else{
+						rwResult.setCoorLink(rset.getString("coorlink"));		
+					}
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			close(pstmt);
+			close(rset);
+		}
+		
+		return rwResult;
 	}
 }
