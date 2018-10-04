@@ -336,6 +336,10 @@
 		document.getElementById('formArea').style.display = 'none';
 		document.getElementById('formAreaArea').style.display = 'none';
 	}
+	
+	function noticeMainList(){
+    	location.href="<%=request.getContextPath() %>/noticeSelect";
+ 	}
 </script>
 </head>
 <body>
@@ -343,7 +347,7 @@
 		<ul class="rightMenu">
 			<li>
 				<div class="companyArea">
-					 <p class="companyTitle">기업공고</p>
+					 <p class="companyTitle" onclick="noticeMainList()">기업공고</p>
 					 <div class="rolling_panel">
 						<ul>
 							<%for(int i=0; i<noticeList.size(); i++){ 

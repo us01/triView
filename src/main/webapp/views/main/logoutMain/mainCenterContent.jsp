@@ -448,7 +448,7 @@
 				%>
 					<div class="recruitmentForm">
 						<div class="recruitmentImageArea">
-							<img src="/triangleView/notice_upload/<%=hmap.get("filename")%>">
+							<img src="<%= request.getContextPath() %>/notice_upload/<%=hmap.get("filename")%>">
 						</div>
 						<div class="recruitmentCategoryArea">
 							<div style="display:inline-block;">

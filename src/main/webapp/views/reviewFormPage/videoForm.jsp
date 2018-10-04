@@ -82,11 +82,17 @@
 			}
 		});
 	}
+	
+	function addAllian(rwNo){
+		var URL = '/triangleView/views/alliance/allianceWriter.jsp?rwNo=' + rwNo;
+			
+		location.href=URL;
+   }
 </script>
 </head>
 <body>
 	<div class="subTopArea"> 
-		<% if(form.getRwSupport != 0){ %>
+		<% if(form.getRwSupport() != 0){ %>
 			<p>기업 후원을 받은 리뷰입니다.</p>
 		<% }else{ %>
 			<p>　</p>
@@ -165,7 +171,7 @@
 			<% }else{ %>
 				<% if(loginUser != null){ %>
 					<% if(loginUser.getUserType() == 1){ %>
-						<button onclick="subSiteMove('<%= form.getRwNo() %>, <%= loginUser.getUserNo() %>')">제휴 걸기</button>
+						<button onclick="addAllian('<%= form.getRwNo() %>')">제휴 걸기</button>
 					<% } %>
 				<% } %>
 			<% } %>
