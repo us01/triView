@@ -39,6 +39,22 @@
 	crossorigin="anonymous">
 </script>
 <script>
+function linkMove(subSite){
+	
+	$.ajax({
+		url : '<%= request.getContextPath() %>/coorlinkPoint.bo',
+		type : 'post',
+		data : {
+			rwNo : <%= form.getRwNo() %>,
+			userNo : <%= loginUser.getUserNo() %>
+		},
+		success : function(data){
+	 		/* $(location).attr('href', subSite); */
+			
+		}
+	});
+}
+
 	function subSiteMove(subSite){
 		$(location).attr('href', subSite);
 	}
@@ -47,12 +63,12 @@
 		var URL = "<%=request.getContextPath()%>/write2Select.bo?rwNo=<%= form.getRwNo() %>"
 		
 		location.href=URL; 
-		
+	}
 	<%-- 	theForm = document.write1Test;
 		var write1Test= document.getElementById("write1Test");
         write1Test.action = "<%=request.getContextPath()%>/write2Select.bo";
         write1Test.submit(); --%>
-	}
+
 	
 	function likeThis(rwNo){
 		$.ajax({
@@ -145,7 +161,7 @@
 		<div class="subSideArea">
 			<% if(form.getRwType() != 0){ %>
 				<% if(form.getCoorLink() != null){ %>
-					<button onclick="subSiteMove('<%= form.getCoorLink() %>')">관련 링크</button>
+					<a href="http://<%= form.getCoorLink() %>" target="_blank"><button onclick="linkMove('<%= form.getCoorLink() %>')">관련 링크</button></a>
 				<% } %>
 			<% }else{ %>
 				<% if(loginUser != null){ %>

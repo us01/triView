@@ -1,5 +1,6 @@
 package com.chain.triangleView.review.review.service;
 
+import com.chain.triangleView.member.member.memberDao.MemberDao;
 import com.chain.triangleView.member.member.vo.Attachment;
 import com.chain.triangleView.member.member.vo.Member;
 import com.chain.triangleView.review.review.reviewDao.ReviewDao;
@@ -548,5 +549,25 @@ public class ReviewService {
 		}
 		
 		close(con);
+	}
+
+	public Review insertPointInfo(String ip, Review rw) {
+		Connection con = getConnection();
+		int result1 = 0;
+		Review rwResult = null;
+		int result = new ReviewDao().checkPointIp(con,ip,rw);
+		if(result > 0 ){
+		
+			rollback(con);
+		}else{
+			result1 = new ReviewDao().insertPointInfo(con,ip,rw);	
+			int result2 = new MemberDao().updatePoint(con,rw);
+			rwResult = new ReviewDao().findCoorlink(con,rw);
+			commit(con);
+		}
+		
+		close(con);
+		
+		return rwResult;
 	}	
 }
