@@ -102,7 +102,14 @@ border-left: 2px solid transparent;
 } */
 
 </style>
-
+<script>
+$(function(){
+	var level = <%=loginUser.getUserLevel()%>;
+	if(level == 1){
+		$('#checking').css('display','none');
+	}
+})
+</script>
 
 
 </head>
@@ -123,7 +130,7 @@ border-left: 2px solid transparent;
 				<div class="subMenu3" onclick="pointRefunds();">
 					포인트	
 				</div>
-				<div class="subMenu4">
+				<div class="subMenu4" id="checking" onclick="powerReviewer();">
 					파워리뷰어
 				</div>
 			</div>
@@ -173,6 +180,18 @@ function pointRefunds(){
 	});
 }
 
+function powerReviewer(){
+	
+	$.ajax({
+		url : "/triangleView/powerReviewer.me",
+		data : "html",
+		success : function(data) {		
+			
+			$(".show").html(data);
+			
+		}
+	});
+}
 
 </script>
 </body>

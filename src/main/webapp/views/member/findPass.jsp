@@ -147,8 +147,7 @@
 			 <label id="pwdresult"></label><br> 
 			 <input type="button" class="btn-success" id="vertifyNum" value="인증" style="display: none; margin-top: -33px;"><br>
 		</div>
-	
-	<br>
+
 	<div id="field3" style="text-align:center; display:none;">
 		<p id="p3" style="width: 350px; height:20px; display:none;"></p>
 	</div>

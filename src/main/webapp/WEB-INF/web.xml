@@ -266,6 +266,18 @@
    	<description></description>
    	<servlet-class>com.chain.triangleView.member.controller.pointRefundsServlet</servlet-class>
    </servlet>
+   <servlet>
+   	<servlet-name>powerReviewerServlet</servlet-name>
+   	<display-name>powerReviewerServlet</display-name>
+   	<description></description>
+   	<servlet-class>com.chain.triangleView.member.controller.powerReviewerServlet</servlet-class>
+   </servlet>
+   <servlet>
+   	<servlet-name>updatePowerReviewerServlet</servlet-name>
+   	<display-name>updatePowerReviewerServlet</display-name>
+   	<description></description>
+   	<servlet-class>com.chain.triangleView.member.controller.updatePowerReviewerServlet</servlet-class>
+   </servlet>
    <servlet-mapping>
       <servlet-name>logoutMainReviewSelectService</servlet-name>
       <url-pattern>/logoutMain.rl</url-pattern>
@@ -417,6 +429,14 @@
    <servlet-mapping>
    	<servlet-name>pointRefundsServlet</servlet-name>
    	<url-pattern>/pointRefunds.me</url-pattern>
+   </servlet-mapping>
+   <servlet-mapping>
+   	<servlet-name>powerReviewerServlet</servlet-name>
+   	<url-pattern>/powerReviewer.me</url-pattern>
+   </servlet-mapping>
+   <servlet-mapping>
+   	<servlet-name>updatePowerReviewerServlet</servlet-name>
+   	<url-pattern>/updatePowerReviewer.me</url-pattern>
    </servlet-mapping>
 
    </web-app>

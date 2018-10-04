@@ -9,17 +9,18 @@ import javax.servlet.http.HttpSession;
 
 import com.chain.triangleView.member.member.service.MemberService;
 import com.chain.triangleView.member.member.vo.Member;
+import com.chain.triangleView.member.member.vo.PowerReviewer;
 
 /**
- * Servlet implementation class pointRefundsServlet
+ * Servlet implementation class powerReviewerServlet
  */
-public class pointRefundsServlet extends HttpServlet {
+public class powerReviewerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public pointRefundsServlet() {
+    public powerReviewerServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,29 +29,30 @@ public class pointRefundsServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		 int userNo = Integer.parseInt(request.getParameter("userNo"));
-		 int refundPoint = Integer.parseInt(request.getParameter("refundPoint"));
-		 int myPoint = Integer.parseInt(request.getParameter("myPoint"));
-	
-		 
-		 Member m = new Member();
-		 m.setUserNo(userNo);
+		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
+		//System.out.println(userNo);
 		
-		 int result = new MemberService().refundPoint(m,refundPoint,myPoint);
-		 
-		 if(result > 0 ){
-			 System.out.println("성공!");
+		Member m = new Member();
+		m.setUserNo(userNo);
+		
+		PowerReviewer pr = new PowerReviewer();
+		pr.setuserNo(userNo);
+		
+		pr = new MemberService().powerReviewer(m);
+		
+		if(pr != null){
 			Member loginUser = new MemberService().loginCheck(((Member)request.getSession().getAttribute("loginUser")).getUserId(), ((Member)request.getSession().getAttribute("loginUser")).getUserPwd());
-				
+			
+			//System.out.println("하나:" + pr.getReviewCount());
+			//System.out.println("둘 : " + pr.getSearchNum());
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", loginUser);
-			request.getRequestDispatcher("views/setting/settingPage.jsp").forward(request, response);
-		 }else{
-			 System.out.println("실패!");
-			 request.setAttribute("msg", "회원정보 변경 실패");
-			 request.getRequestDispatcher("views/errorPage/errorPage.jsp").forward(request, response);
-		 }
-		 
+			request.setAttribute("pr", pr);
+			request.getRequestDispatcher("views/setting/powerReviewer.jsp").forward(request, response);
+		}else{
+			request.setAttribute("msg", "데이터 조회 실패!");
+			request.getRequestDispatcher("views/errorPage/errorPage.jsp").forward(request, response);
+		}
 	}
 
 	/**

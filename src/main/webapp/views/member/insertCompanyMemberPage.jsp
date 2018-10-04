@@ -301,7 +301,7 @@ p{
          </div>
 
          <div class="w3-container" style="text-align: center; height: 80px; margin-top: 20px;">
-            <input type="button" class="subButton" id="newMember" value="일반회원가입" disabled="disabled" onclick="youHaveTo()" style="height:30px;"></input>
+            <input type="button" class="subButton" id="newMember" value="기업회원가입" disabled="disabled" onclick="youHaveTo()" style="height:30px;"></input>
 			<input type="reset" class="subButton" onclick="end();" value="가입취소" style=" height:30px;   margin-left: 20px;"></input>
          </div>
         
