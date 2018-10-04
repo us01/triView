@@ -27,6 +27,10 @@ public class LoginWrapper extends HttpServletRequestWrapper{
 		
 		return value;
 	}
+	
+	public static void main(String[] args){
+		System.out.println(getSha512("123"));
+	}
 
 	private static String getSha512(String pwd) {
 		String encPwd = null;

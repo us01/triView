@@ -431,7 +431,7 @@
 	}
 	
 	function myAdmin(){
-		location.href="/triangleView/views/admin/main/mainpage1.jsp";
+		location.href="/triangleView/views/admin/main/mainpage2.jsp";
 	}
 	
 	function openqna(){
