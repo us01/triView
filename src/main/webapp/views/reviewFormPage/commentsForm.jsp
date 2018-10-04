@@ -9,7 +9,7 @@
 <%
 	Member loginUser = (Member)session.getAttribute("loginUser");
 	HashMap<String, Object> reviewForm = (HashMap<String, Object>)request.getAttribute("reviewForm");
-	
+	Form form  = null;
 	ArrayList<RwComment> rwComment = null;
 	int rwNo = -1;
 	
@@ -19,6 +19,7 @@
 		while(keys.hasNext()){
 			String key = keys.next();
 			if(key.equals("form")){
+				form = (Form)reviewForm.get(key);
 				rwNo = ((Form)reviewForm.get(key)).getRwNo();
 			}else if(key.equals("rwComment")){
 				rwComment = (ArrayList<RwComment>)reviewForm.get(key);
@@ -110,8 +111,10 @@
 </head>
 <body>
 	<div>
-		<% if(rwComment != null){ %>
-			<div class="contentinfo-comment">
+		
+		<div class="contentinfo-comment">
+			<div class="hashTagArea"><%= form.getRwHash() %></div>
+			<% if(rwComment != null){ %>
 				<% for(int i = 0; i < rwComment.size(); i++){ %>
 					<% if(!rwComment.get(i).getParentCommentNo()){ %>
 						<div class="addParentComment">

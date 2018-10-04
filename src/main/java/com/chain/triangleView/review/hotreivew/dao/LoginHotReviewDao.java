@@ -46,6 +46,7 @@ private Properties prop = new Properties();
 				hmap.put("rwno", rset.getInt("rwno"));
 				hmap.put("rwtitle", rset.getString("rwtitle"));
 				hmap.put("nick", rset.getString("nick"));
+				hmap.put("rwcontenttype", rset.getInt("rwcontenttype"));
 				hmap.put("filename", rset.getString("filename"));
 				hmap.put("filePath", "review_upload");
 				

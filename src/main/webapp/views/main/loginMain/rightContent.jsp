@@ -1,6 +1,8 @@
+<%@page import="com.chain.triangleView.member.member.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.chain.triangleView.notice.notice.vo.notice.Notice, java.util.*, java.text.SimpleDateFormat"%>
  <%
+ 	Member loginUser = (Member)session.getAttribute("loginUser");
   ArrayList<HashMap<String, Object>> noticeList = (ArrayList<HashMap<String, Object>>)request.getAttribute("selectAllNotice");
  %>
  
@@ -165,7 +167,14 @@
 	    color:white;
 	    font-weight : bold;
 	}
-	
+	.formArea {
+		display:inline-block;
+		z-index: 300;
+   		position: fixed;
+   		left: 50%;
+   		margin-left:-500px;
+    	top: 80px;
+	}
 	.notice:hover{
 		cursor:pointer;
 	}
@@ -242,21 +251,22 @@
 			url : "/triangleView/loginHotReview",
 			type : "POST",
 			success : function(data) {
-
+				<% if(loginUser != null){ %>
+					var userNo = '<%= loginUser.getUserNo() %>';
+				<% } %>
 				
 				for(var key in data){
-					
-					var $li = $('<li>');
+					<% if(loginUser != null){ %>
+						var $li = $('<li onclick="loadReivewForm(' + data[key].rwno + ', ' + data[key].rwcontenttype + ', ' + userNo + ')">');
+					<% }else{ %>
+						var $li = $('<li onclick="loadReivewForm(' + data[key].rwno + ', ' + data[key].rwcontenttype + ', ' + (-1) + ')">');
+					<% } %>
 					var $img = $('<img src="/triangleView/review_upload/' + data[key].filename + '">');
 					
 					$li.append($img);
 					$li.append('<p class="reviewTitle">' +	data[key].rwtitle + '</p>'); 
 					$li.append('<p class="member_id">@' +  data[key].nick + '</p>');
-					
-					$li.click(function(){
-						
-						alert("클릭");
-					});
+										
 					$('#hotreview').append($li);	
 				}
 			}
@@ -304,6 +314,28 @@
 	        });
 	    }
 	})
+	
+	function loadReivewForm(rwNo, rwContentType, userNo){
+		$.ajax({
+			url : "/triangleView/loadOneReviewForm.rf",
+			type : "GET",
+			data : {
+				rwNo : rwNo,
+				rwContentType : rwContentType,
+				userNo : userNo
+			},
+			success : function(data) {
+				$(".formArea").html(data);
+				document.getElementById('formAreaArea').style.display = 'inline-block';
+				document.getElementById('formArea').style.display = 'inline-block';
+			}
+		});
+	}
+
+	function formDisplayNone() {
+		document.getElementById('formArea').style.display = 'none';
+		document.getElementById('formAreaArea').style.display = 'none';
+	}
 </script>
 </head>
 <body>

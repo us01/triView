@@ -18,6 +18,7 @@ public class Form implements Serializable{
 	private String nick;
 	private int rwNo;
 	private int rwContentType;
+	private int rwSupport;
 	
 	public Form() {
 		super();
@@ -25,7 +26,7 @@ public class Form implements Serializable{
 
 	public Form(String rwContent, String writeDate, String rwComment, String rwTitle, int rwLikeCount, String coorLink,
 			String thumbnail, int likeMe, int rwGrade, int rwType, int rwCount, String rwHash, String nick, int rwNo,
-			int rwContentType) {
+			int rwContentType, int rwSupport) {
 		super();
 		this.rwContent = rwContent;
 		this.writeDate = writeDate;
@@ -42,6 +43,7 @@ public class Form implements Serializable{
 		this.nick = nick;
 		this.rwNo = rwNo;
 		this.rwContentType = rwContentType;
+		this.rwSupport = rwSupport;
 	}
 
 	public String getRwContent() {
@@ -164,13 +166,21 @@ public class Form implements Serializable{
 		this.rwContentType = rwContentType;
 	}
 
+	public int getRwSupport() {
+		return rwSupport;
+	}
+
+	public void setRwSupport(int rwSupport) {
+		this.rwSupport = rwSupport;
+	}
+
 	@Override
 	public String toString() {
 		return "Form [rwContent=" + rwContent + ", writeDate=" + writeDate + ", rwComment=" + rwComment + ", rwTitle="
 				+ rwTitle + ", rwLikeCount=" + rwLikeCount + ", coorLink=" + coorLink + ", thumbnail=" + thumbnail
 				+ ", likeMe=" + likeMe + ", rwGrade=" + rwGrade + ", rwType=" + rwType + ", rwCount=" + rwCount
-				+ ", rwHash=" + rwHash + ", nick=" + nick + ", rwNo=" + rwNo + ", rwContentType=" + rwContentType + "]";
+				+ ", rwHash=" + rwHash + ", nick=" + nick + ", rwNo=" + rwNo + ", rwContentType=" + rwContentType
+				+ ", rwSupport=" + rwSupport + "]";
 	}
-
 	
 }

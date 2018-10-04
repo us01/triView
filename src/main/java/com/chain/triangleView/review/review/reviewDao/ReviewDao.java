@@ -117,6 +117,7 @@ public class ReviewDao {
 				form.setRwTitle(rset.getString("rwtitle"));
 				form.setRwContent(rset.getString("rwcontent"));
 				form.setRwNo(rset.getInt("rwno"));
+				form.setRwSupport(rset.getInt("rwsupport"));
 			}
 
 		} catch (SQLException e) {

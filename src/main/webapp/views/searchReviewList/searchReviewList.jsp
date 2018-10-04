@@ -148,7 +148,6 @@
 	  	text-align: center;
 	  	color: #bdc3c7;
 	}
-	
 	@media all and (max-width:768px){
 		.centerContent { 
 			width:100%; 
@@ -396,8 +395,12 @@
 				</div>
 			</div>
 		</div>
-		<% for(int i = 0; i <= searchReviewList.size()-1; i++){ %>
-			<div class="viewForm">
+		<% for(int i = 0; i < searchReviewList.size(); i++){ %>
+			<% if(i <8){ %>
+				<div class="viewForm" >
+			<% }else{ %>
+				<div class="viewForm" id="viewForm<%= i %>" style="display:none;">
+			<% } %>
 				<% if(loginUser != null){ %>
 					<div class="viewMainImage" onclick="loadReivewForm(<%= searchReviewList.get(i).getRwNo() %>, <%= searchReviewList.get(i).getRwContentType() %>, <%= loginUser.getUserNo() %>)">
 				<% }else{ %>
@@ -435,5 +438,34 @@
 	</div>
 	<div id="formArea" class="formArea"></div>
 	<div id="formAreaArea" class="w3-modal" onclick="formDisplayNone();"></div>
+	<script>
+		var $element = $('.centerContent');
+		var element = $element[0];
+		var doc = element.ownerDocument;
+		var win = doc.defaultView || doc.parentWindow;
+		
+		var startNo = 8;
+		var endNo;
+		
+		
+		$(win).scroll(function(){
+			if ($(window).scrollTop() == ($(document).height() - $(window).height())) {
+				
+				endNo = startNo + 8;
+				
+				setTimeout(function(){
+					jQuery.fn.exists = function(){return this.length>0;}
+					
+					for(var i = startNo; i < endNo && $('#viewForm' + i).exists(); i++){
+						if($('#viewForm' + i) != null){
+							$('#viewForm' + i).css('display', 'inline-block');
+						}
+					}
+					
+					startNo += 8;
+					}, 300);
+			}
+		})
+	</script>
 </body>
 </html>
