@@ -341,7 +341,7 @@ $(function(){
 
 		<div class="input-group" style="display:-webkit-inline-box; text-align: left;">
 			<div id="companySup" style="width:635px;">
-			<h5 style="display:inline-block;">기업후원 리뷰</h5>
+			<h5 style="display:inline-block;     margin-left: 4px;" >기업후원 리뷰</h5>
 				<input type="checkbox" class="w3-check" name="companySpon" value="1" style="margin-left: 18px;">
 			</div>
 			
@@ -404,8 +404,8 @@ $(function(){
 	<br>
 
 
-	<div style="text-align:left; margin-left:90px;">
-	<h5>미리보기</h5>
+	<div style="text-align:center;">
+	<h5 style="text-align:left; margin-left: 90px;">미리보기</h5>
 		<iframe id="video_test" name="video_test" width="424" height="238" src="" frameborder="0"
 		 value="hoo" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 	</div>

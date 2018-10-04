@@ -13,6 +13,7 @@ import java.util.Properties;
 import com.chain.triangleView.member.member.vo.Attachment;
 import com.chain.triangleView.member.member.vo.Member;
 import com.chain.triangleView.member.member.vo.MemberInterestCategory;
+import com.chain.triangleView.member.member.vo.PowerReviewer;
 import com.chain.triangleView.review.review.vo.Review;
 
 import static com.chain.triangleView.common.JDBCTemplate.*;
@@ -804,6 +805,63 @@ public class MemberDao {
 		} finally{
 			close(pstmt);
 		}
+		
+		return result;
+	}
+
+	public PowerReviewer powerReviewer(Connection con, Member m) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		PowerReviewer pr = null;
+		String query = prop.getProperty("powerReviewer");
+	
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, m.getUserNo());
+			
+			rset=pstmt.executeQuery();
+			
+			
+			while(rset.next()){
+				pr = new PowerReviewer();
+				
+				pr.setReviewCount(rset.getString("countrw"));
+				pr.setSearchNum(rset.getString("search"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		return pr;
+	}
+
+	public int updatePowerReviewer(Connection con, int userNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query = prop.getProperty("updatePowerReviewer");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, userNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			close(pstmt);
+		}
+		
 		
 		return result;
 	}

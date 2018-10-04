@@ -188,11 +188,11 @@ $('#checkNum').keypress(function (event) {
 					$("#vertifyNum").css("display","block").css("align","center");
 				}
 			</script>
-		<div class="input-group" id="changeNumberBlock" style="text-align: -webkit-center; display:none;">
+		<div class="input-group" id="changeNumberBlock" style="text-align: -webkit-center; display:none; height: 40px;">
 			<input type="text" name="checkNum" id="checkNum" class="w3-input w3-change" 
 			placeholder="인증번호를 입력해주세요" style="width: 240px; margin-left:-45px; display: none;">
 			 <label id="pwdresult"></label><br> 
-			 <input type="button" class="btn-success" name ="changePosi" id="vertifyNum" value="인증" style="display: none; margin-top: -22px;"><br>
+			 <input type="button" class="btn-success" name ="changePosi" id="vertifyNum" value="인증" style="display: none; margin-top: -20px;"><br>
 		</div>
 	</div>
 	

@@ -11,6 +11,7 @@ import com.chain.triangleView.member.member.memberDao.MemberDao;
 import com.chain.triangleView.member.member.vo.Attachment;
 import com.chain.triangleView.member.member.vo.Member;
 import com.chain.triangleView.member.member.vo.MemberInterestCategory;
+import com.chain.triangleView.member.member.vo.PowerReviewer;
 
 
 public class MemberService {
@@ -323,6 +324,30 @@ public class MemberService {
 		}
 		
 		close(con);
+		return result;
+	}
+
+	public PowerReviewer powerReviewer(Member m) {
+		Connection con = getConnection();
+		PowerReviewer pr = new MemberDao().powerReviewer(con,m);
+		
+		close(con);
+		
+		return pr;
+	}
+
+	public int updatePowerReviewer(int userNo) {
+		Connection con = getConnection();
+		
+		int result = new MemberDao().updatePowerReviewer(con,userNo);
+		
+		if(result > 0){
+			commit(con);
+		}else{
+			rollback(con);
+		}
+		close(con);
+		
 		return result;
 	}
 }

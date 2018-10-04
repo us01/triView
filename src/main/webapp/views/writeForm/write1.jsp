@@ -504,9 +504,6 @@ $(function(){
 			}
 		}
 
-/* 		$("#imgInput").change(function() {
-			readURL(this);
-		}); */
 		</script>
 
 		<div id="imageEdit" style="display: -webkit-box;text-align: left; margin-left: 90px;">
@@ -534,7 +531,9 @@ $(function(){
   		if (input.files && input.files[0]) {
    			var reader = new FileReader();
     		reader.onload = function(e) {
-    			$("#test"+(i-1)).css('background', 'transparent url('+e.target.result +') left top no-repeat').css('background-size','300px').css('background-size','contain');
+    			$("#test"+(i-1)).css('background', 
+    					'transparent url('+e.target.result +') left top no-repeat')
+    					.css('background-size','300px').css('background-size','contain');
     			
     		}
     		reader.readAsDataURL(elem.get(0).files[0]);

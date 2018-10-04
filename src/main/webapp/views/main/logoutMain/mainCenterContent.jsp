@@ -378,6 +378,20 @@
 		document.getElementById('formArea').style.display = 'none';
 		document.getElementById('formAreaArea').style.display = 'none';
 	}
+	
+	function loginGo(){
+		$(".insertMemberTypeArea").css("margin-left", "-150px");
+		$.ajax({
+			url : "/triangleView/views/member/loginOrInsertMemberType.jsp",
+			data : "html",
+			success : function(data) {
+				$(".insertMemberTypeArea").html(data);
+				document.getElementById('insertMemberTypeAearArea').style.display = 'block';
+				document.getElementById('insertMemberTypeArea').style.display = 'block';
+			}
+		});
+		
+	}
 </script>
 </head>
 <body>
@@ -485,7 +499,7 @@
 			<li>
 				<div class="noticeEventArea">
 					<div>
-						<a href=""><img src="/triangleView/img/main/testevent10.png"></a>
+						<a href="#" onclick="loginGo();"><img src="/triangleView/img/main/testevent10.png"></a>
 					</div>
 					<div>
 						<a href=""><img src="/triangleView/img/main/testevent11.png"></a>
