@@ -6,10 +6,10 @@
 <head>
 <meta charset="UTF-8">
 <title>관리자페이지</title>
-<script src="/triangleView/js/sample.js"></script>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
+<!-- <script src="/triangleView/js/sample.js"></script> -->
+<script src="/triangleView/js/jquery-3.3.1.min.js"></script>
+<link rel="stylesheet" href="/triangleView/css/w3.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <style>
 html, body {
 	font-family: 'Open Sans', sans-serif; /*글씨체 묶어서 저장함*/
@@ -38,7 +38,7 @@ a {
 
 #header {
 	float: left;
-	width: 100%;
+	width: 850px;
 	background: #d2452d;
 	position: relative; /*기준이 되는 위치가 자기 자신으로 바뀜*/
 }
@@ -46,20 +46,18 @@ a {
 .mainlogo {
 	/* 위쪽 메뉴바위에 배경*/
 	float: left;
-	background: #a7e387;
-	max-width: 210px;
+	background: #f7323f;
+	max-width: 150px;
 	padding: 10px;
 	min-height: 44px;
-	background: #e5361f;
-	width: 100%;
+	width: 150px;
 	max-height: 44px;
 }
 
 .mainlogo img {
 	max-height: 80px;
 	position: relative;
-	bottom: 10px;
-	left: 20px;
+	left: 10px;
 }
 
 .login-back {
@@ -68,17 +66,17 @@ a {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box; /*박스사이징 설정하면 더이상 박스의 크기를 늘리지 않는다.*/
-	background: #e5361f;
+	background: #f7323f;
 }
 
-.login-back img {
-	width: 39px;
-	height: 41px;
-	border-radius: 50%;
-	float: right;
-	position: relative;
-	top: 13px;
-	right: 50px;
+#category-nav{
+
+    margin-top: 0px;
+    padding-top: 20px;
+    padding-left: 650px;
+    font-weight:bold;
+    color:white;
+
 }
 
 /*사이드바 옆에 들어갈 항목*/
@@ -86,7 +84,7 @@ a {
 	overflow: hidden; /*섹션부분이 값이 html의 범위를 넘어 가면 숨김기능*/
 	font: 12px/20px 돋움;
 	color: #424242;
-	width: 210px;
+	width: 150px;
 	height: 100%;
 	float: left;
 	background: #2A2D33;
@@ -115,14 +113,15 @@ a {
 	margin: 10px 0;
 	text-align: center;
 }
-#list ul #member h2{
 
-margin-top:0px;
+#list ul #member h2 {
+	margin-top: 0px;
 }
+
 #list ul li a {
 	color: #C2C2C2;
 	font-size: .95em;
-	padding: 15px 20px; 
+	padding: 15px 20px;
 	float: left;
 	width: 100%;
 	font-weight: 600;
@@ -131,21 +130,19 @@ margin-top:0px;
 	box-sizing: border-box;
 	text-align: center;
 }
-#list ul p a{
-	padding:0 0 0 0px;
 
+#list ul p a {
+	padding: 0 0 0 0px;
 }
 
- #list ul li h2:hover a {
-  background: #fff; 
+#list ul li h2:hover a {
+	background: #fff;
 	color: #333;
 }
 
 #list ul li :hover a {
-	 
 	color: #333;
-} 
-
+}
 
 #list p {
 	padding: 0 10px;
@@ -169,7 +166,7 @@ margin-top:0px;
 
 #content {
 	float: left;
-	width: calc(100% - 210px);
+	width: 850px;
 	height: 100%;
 	word-wrap: break-word; /*div영역내에서 텍스트가 넘칠경우 알아서 텍스트 정렬변환*/
 	background: #3c59cd;
@@ -195,7 +192,7 @@ margin-top:0px;
 	/*메인페이지 배경*/
 	float: left;
 	background: #E9EEF4;
-	width: 100%;
+	width: 850px;
 	height: calc(100% - 64px);
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
@@ -225,16 +222,15 @@ margin-top:0px;
 	margin: 0;
 	padding-left: 2px;
 }
+
 .search {
 	height: 40px;
-	width: 400px;
 	border: 1px solid #d2452d;;
 	background: #ffffff;
 	display: inline-block;
 	border-radius: 4px;
-	margin-left: 400px;
-	margin-top:80px;
-}
+	
+	}
 
 .search-bar {
 	font-size: 16px;
@@ -249,7 +245,7 @@ margin-top:0px;
 	width: 50px;
 	height: 100%;
 	border: 0px;
-	background: #d2452d;;
+	background: #f7323f;
 	outline: none;
 	float: right;
 	color: #ffffff;
@@ -303,14 +299,13 @@ margin-top:0px;
 	-ms-filter: alpha(opacity = 0) /* IE 8 */;
 }
 
-
 /*테이블생성*/
 .mTable {
 	border-collapse: separate;
 	border-spacing: 1px;
 	text-align: center;
 	line-height: 1.5;
-	margin: 20px 10px;
+	margin: 10px 10px;
 }
 
 .mTable th {
@@ -319,18 +314,39 @@ margin-top:0px;
 	font-weight: bold;
 	vertical-align: top;
 	color: #fff;
-	background: #ce4869;
+	background: #f7323f;
 }
 
 .mTable td {
 	width: 155px;
-	padding: 10px;
-	vertical-align: top;
+	/* padding: 10px; */
+	vertical-align: center;
 	border-bottom: 1px solid #ccc;
 	background: #eee;
 }
 
- 
+.settingArea {
+	z-index: 300;
+	position: absolute;
+	left: 30%;
+	top: 200px;
+}
+.enroll{
+	/* background:red; */
+
+
+}
+
+#buttonArea{
+
+	margin-left:450px;
+
+}
+#pageBtn{
+
+	margin-left:340px;
+
+}
 
 
 
@@ -350,8 +366,8 @@ margin-top:0px;
 <body>
 	<section id="sidebar">
 		<div class="mainlogo">
-			<a href="/triangleView/views/main/admin/main/mainpage2.jsp"><img
-				src="/triangleView/img/admin/blue.png"></a>
+			<a href="/triangleView/views/main/admin/main/mainpage2.jsp#main"><img
+				src="/triangleView/img/admin/mainlogo.png"></a>
 		</div>
 		<div id="list">
 			<ul>
@@ -359,33 +375,32 @@ margin-top:0px;
 				<li id="member"><h2>
 						<a href="#member"> 회원관리</a>
 					</h2>
-					<p><a href="#" onclick="javascript:memberList(); return false;">회원관리목록</a></p>
-					<p><a href="#" onclick="javascript:memberOut(); return false;">회원탈퇴현황</a></p></li>
+					<p><a href="/triangleView/views/admin/member/memberPage1.jsp#member">회원관리목록</a></p>
+					<p><a href="/triangleView/views/admin/member/memberpage2.jsp#member">회원탈퇴현황</a></p>
+					<p><a href="/triangleView/views/admin/member/memberpage3.jsp#member">블랙리스트목록</a></p></li>
 				<li id="company"><h2>
 						<a href="#company">기업회원관리</a>
 					</h2>
-					<p><a href="#" onclick="javascript:companyList(); return false;">기업회원목록</a></p>
-					<p><a href="#" onclick="javascript:companyOut(); return false;">기업탈퇴목록</a></p></li>
+					<p><a href="/triangleView/views/admin/company/companypage1.jsp#company">기업회원목록</a></p>
+					<p><a href="/triangleView/views/admin/company/companypage2.jsp#company">기업탈퇴목록</a></p></li>
 
 				<li id="reviews"><h2>
 						<a href="#reviews"> 게시물관리</a>
 					</h2>
-					<p>게시물삭제</p>
-					<p>게시물삭제목록</p></li>
+					<p><a href="/triangleView/views/admin/review/reviewspage1.jsp#reviews">게시물삭제</a></p>
+					<p><a href="/triangleView/views/admin/review/reviewspage2.jsp#reviews">게시물삭제목록</a></p></li>
 				<li id="payment"><h2>
 						<a href="#payment"> 결제관리</a>
 					</h2>
-					<p>구매내역</p>
-					<p>수익내역</p>
+					<p><a href="/triangleView/views/admin/payment/paymentpage1.jsp#payment">구매내역</a></p>
+					<p><a href="/triangleView/views/admin/payment/paymentpage2.jsp#payment">수익내역</a></p>
 				<li>
 				<li id="point"><h2>
 						<a href="#point"> 포인트관리</a>
 					</h2>
-					<p>기업회원목록</p>
-					<p>기업탈퇴목록</p></li>
-				<li id="monitor"><h2>
-						<a href="#monitor">리뷰모니터링</a>
-					</h2></li>
+					<p><a href="/triangleView/views/admin/point/pointpage1.jsp#payment">환급내역</a></p>
+					<p><a href="/triangleView/views/admin/point/pointpage2.jsp#payment">지급내역</a></p></li>
+				
 
 			</ul>
 		</div>
@@ -398,62 +413,62 @@ margin-top:0px;
 	<section id="content">
 
 		<div class="login-back">
-			<img src="/triangleView/img/admin/mainlogin.png">
-			
-		</div>
+		
+		<div id="category-nav">
+			기업회원관리 > 기업탈퇴목록
+		</div></div>
 		<div class="content">
-			<div class="content-header"></div>
+		
 			
-		<h1 align="center">*기업탈퇴목록*</h1>
-			
-			<div style="position:absolute; top:36.5%; left:24%; margin-left:100px;" >
+		<h3 align="center">*기업탈퇴목록*</h3>
+			<div style="margin-left:130px; margin-top:20px;">
+			<div style="float:left;">
 			
 			<div class="select-box select-script">
 				<label for="selectbox">검색목록</label> <select id="select-box"
 					title="선택 구분">
-					<option selected="selected">검색목록</option>
-					<option>기업명</option>
-					<option>등록번호</option>
-					<option>상품코드</option>
-					<option>서비스코드</option>
-					<option>가입일</option>
-					<option>대표자번호</option>
-					<option>제휴수</option>
-					<option>등록수</option>
+					<option value="selectAll" selected="selected">검색목록</option>
+					<option value="userNo">회원번호</option>
+					<option value="userid">아이디</option>
+					<option value="comName">기업명</option>
+					<option value="pName">상품명</option>
+					<option value="noCode">공고코드</option>
+					<option value="phone">대표자번호</option>
+					<option value="withdraw_date">탈퇴일</option>
+					<option value="notice_date">작성일</option>
 
 					</select>
 					</div>
 			</div>
 			
-			<div class="search">
-						<input type="text" placeholder="검색어 입력" class="search-bar">
-						<button class="search-btn">검색</button>
-					</div>
+			<div class="search"><input type="text" placeholder="검색어 입력" id="searchWord"class="search-bar">
+			<button id="searchMemberBtn"class="search-btn">검색</button></div>
+			</div>
 			
-			
-			<table class="mTable">
+			<table class="mTable" id="searchTable">
 				<thead>
 					<tr>
-						<th>기업</th>
-						<th>등록번호</th>
-						<th>상품코드</th>
-						<th>서비스코드</th>
-						<th>가입일</th>
+						<th>회원번호</th>
+						<th>아이디</th>
+						<th>기업명</th>
+						<th>상품명</th>
+						<th>공고코드</th>
 						<th>대표자번호</th>
-						<th>제휴수</th>
-						<th>등록수</th>
+						<th>탈퇴일</th>
+						<th>작성일</th>
+						
 					</tr>
 				</thead>
-				<tbody>
+				<tbody id="tb">
 					<tr>
-						<td>배달의민족</td>
-						<td>#2102032</td>
-						<td>0951346</td>
-						<td>kch4361@naver.com</td>
-						<td>2019-09-09</td>
-						<td>010-9512-1346</td>
-						<td>34</td>
-						<td>12</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
 
 
 					</tr>
@@ -461,13 +476,236 @@ margin-top:0px;
 				</tbody>
 
 			</table>
-		</div>
+			
+			<div id="pageBtn">
+				<button><<</button>
+				<button><</button>
+				<button>1</button>
+				<button>></button>
+				<button>>></button>				
+				</div>
 			
 			
-			
-				
-
 		</div>
 	</section>
+	<script>
+	$(function(){
+		$("#searchMemberBtn").click(function(){
+			var option= $("#select-box option:selected").val();
+			var searchWord = $('#searchWord').val();
+			
+			$.ajax({
+				url:"/triangleView/companyWithdraw",
+				type:'post',
+				data:{
+					option:option,
+					searchWord:searchWord
+				},
+				success:function(data){
+					$table = $("#searchTable");
+					console.log(data);
+					$tbody=$("#tb");
+					$tbody.remove();  
+					
+					
+				   if(data != null){
+					
+				
+					for(var i=0 ; i<data.company.length; i++){
+						
+					
+						
+					
+						var $tr = $("<tr>");
+						var $td1 = $("<td>");
+						$td1.text(data.company[i].userNo);
+						var $td2 = $("<td>");
+						$td2.text(data.company[i].userId);
+						var $td3 = $("<td>");
+						$td3.text(data.company[i].ComName);
+						var $td4 = $("<td>");
+						$td4.text(data.company[i].pName);
+						var $td5 = $("<td>");
+						$td5.text(data.company[i].noCode);
+						var $td6 = $("<td>");
+						$td6.text(data.company[i].phone);
+						var $td7 = $("<td>");
+						$td7.text(data.company[i].withdraw_date);
+						var $td8 =$("<td>");
+						$td8.text(data.company[i].notice_date);
+						
+						
+						$tr.append($td1);
+						$tr.append($td2); 
+						$tr.append($td3); 
+						$tr.append($td4); 
+						$tr.append($td5); 
+						$tr.append($td6); 
+						$tr.append($td7);
+						$tr.append($td8);
+						$table.append($tr);
+		
+					 } 
+					
+					console.log(data.pi.maxPage);
+					console.log(data.option);
+					console.log(data.searchWord);
+					$("#pageBtn").empty();
+					
+					
+		               
+		               if(data.pi.maxPage!=0){
+		               $Btn1 = $("<button class='btn' onclick = a(1,'"+data.option+"')>");
+		               $Btn1.append("<<");
+		               $("#pageBtn").append($Btn1);
+		               if(data.pi.currentPage <= 1){ 
+		                  $Btn2  = $("<button class='btn' disabled>");    
+		               }else{
+		                  $Btn2  = $("<button class='btn' onclick = a("+(data.pi.currentPage - 1)+",'"+data.option+"')>");
+		               }
+		               }
+		               $Btn2.append("<");
+		               $("#pageBtn").append($Btn2);
+		               for(var p = data.pi.startPage; p <= data.pi.endPage; p++){ 
+		                  if(p == data.pi.currentPage){
+		                     $page = $("<button class='btn' disabled>");
+		                   }else{
+		                      $page = $("<button class='btn' onclick=a("+p+",'"+data.option+"')>");
+		                  } 
+		                  $page.append(p);
+		                  $("#pageBtn").append($page);
+		               }          
+		               
+		               if(data.pi.currentPage >= data.pi.maxPage){ 
+		                  $Btn3 = $("<button class='btn' disabled>");
+		               }else{ 
+		                  $Btn3 = $("<button class='btn' onclick=a("+(data.pi.currentPage + 1)+",'"+data.option +"')>");
+		               } 
+		               $Btn3.append(">");
+		               $("#pageBtn").append($Btn3);
+		               $Btn4 = $("<button class='btn' onclick=a("+data.pi.maxPage+",'"+data.option+"')>");
+		               $Btn4.append(">>");
+		               $("#pageBtn").append($Btn4);
+		               
+					
+					
+					
+					
+					
+					}
+					}
+				});
+			});
+		});
+	
+	</script>
+	
+	<script>
+	function a(cp,option){
+		  var option = option+"";
+			 /*  var searchWord=searchWord+""; */
+		      $.ajax({
+				url:"/triangleView/companyWithdraw",
+				type:'post',
+				data:{
+					option:option,
+					/* searchWord:searchWord */
+				},
+				success:function(data){
+					$table = $("#searchTable");
+					console.log(data);
+					$tbody=$("#tb");
+					$tbody.remove();  
+					
+					
+				   if(data != null){
+					
+				for(var i=0; data.company.length;i++){
+					
+				
+						
+					
+						var $tr = $("<tr>");
+						var $td1 = $("<td>");
+						$td1.text(data.company[i].userNo);
+						var $td2 = $("<td>");
+						$td2.text(data.company[i].userId);
+						var $td3 = $("<td>");
+						$td3.text(data.company[i].ComName);
+						var $td4 = $("<td>");
+						$td4.text(data.company[i].pName);
+						var $td5 = $("<td>");
+						$td5.text(data.company[i].noCode);
+						var $td6 = $("<td>");
+						$td6.text(data.company[i].phone);
+						var $td7 = $("<td>");
+						$td7.text(data.company[i].withdraw_date);
+						var $td8 =$("<td>");
+						$td8.text(data.company[i].notice_date);
+						
+						
+						$tr.append($td1);
+						$tr.append($td2); 
+						$tr.append($td3); 
+						$tr.append($td4); 
+						$tr.append($td5); 
+						$tr.append($td6); 
+						$tr.append($td7);
+						$tr.append($td8);
+						$table.append($tr);
+		
+					 } 
+		
+					  console.log(data.pi.maxPage);
+						console.log(data.option);
+						console.log(data.searchWord);
+						$("#pageBtn").empty();
+						
+						
+			               
+			               if(data.pi.maxPage!=0){
+			               $Btn1 = $("<button class='btn' onclick = a(1,'"+data.option+"')>");
+			               $Btn1.append("<<");
+			               $("#pageBtn").append($Btn1);
+			               if(data.pi.currentPage <= 1){ 
+			                  $Btn2  = $("<button class='btn' disabled>");    
+			               }else{
+			                  $Btn2  = $("<button class='btn' onclick = a("+(data.pi.currentPage - 1)+",'"+data.option+"')>");
+			               }
+			               }
+			               $Btn2.append("<");
+			               $("#pageBtn").append($Btn2);
+			               for(var p = data.pi.startPage; p <= data.pi.endPage; p++){ 
+			                  if(p == data.pi.currentPage){
+			                     $page = $("<button class='btn' disabled>");
+			                   }else{
+			                      $page = $("<button class='btn' onclick=a("+p+",'"+data.option+"')>");
+			                  } 
+			                  $page.append(p);
+			                  $("#pageBtn").append($page);
+			               }          
+			               
+			               if(data.pi.currentPage >= data.pi.maxPage){ 
+			                  $Btn3 = $("<button class='btn' disabled>");
+			               }else{ 
+			                  $Btn3 = $("<button class='btn' onclick=a("+(data.pi.currentPage + 1)+",'"+data.option +"')>");
+			               } 
+			               $Btn3.append(">");
+			               $("#pageBtn").append($Btn3);
+			               $Btn4 = $("<button class='btn' onclick=a("+data.pi.maxPage+",'"+data.option+"')>");
+			               $Btn4.append(">>");
+			               $("#pageBtn").append($Btn4);
+	               
+	         }      
+				}
+	      
+	     	});
+	}
+		   
+	</script>
+	
+	
+	
+	
 </body>
 </html>
