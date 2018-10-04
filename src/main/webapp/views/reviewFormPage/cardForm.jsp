@@ -119,7 +119,7 @@
 </head>
 <body>
    <div class="subTopArea"> 
-      <% if(form.getRwType() != 0){ %>
+      <% if(form.getRwSupport() != 0){ %>
          <p>기업 후원을 받은 리뷰입니다.</p>
       <% }else{ %>
          <p>　</p>
@@ -217,7 +217,6 @@
          </div>
       </div>
       <div class="subSideArea">
-
          <% if(form.getRwType() != 0){ %>
             <% if(form.getCoorLink() != null){ %>
                <a href="http://<%= form.getCoorLink() %>" target="_blank"><button onclick="linkMove('<%= form.getCoorLink() %>')">관련 링크</button></a>

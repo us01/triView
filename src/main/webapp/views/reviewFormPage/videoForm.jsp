@@ -86,7 +86,7 @@
 </head>
 <body>
 	<div class="subTopArea"> 
-		<% if(form.getRwType() != 0){ %>
+		<% if(form.getRwSupport != 0){ %>
 			<p>기업 후원을 받은 리뷰입니다.</p>
 		<% }else{ %>
 			<p>　</p>
