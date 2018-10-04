@@ -73,7 +73,7 @@ public class MemberDao {
 				loginUser.setAddress(rset.getString("address"));
 				loginUser.setPoint(rset.getInt("point"));
 				loginUser.setPostNo(rset.getInt("postNo"));
-				loginUser.setPhone(rset.getString("phone"));
+				loginUser.setPhone(rset.getString("copphone"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

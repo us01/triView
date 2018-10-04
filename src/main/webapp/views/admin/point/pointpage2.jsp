@@ -7,14 +7,10 @@
 <meta charset="UTF-8">
 <title>관리자페이지</title>
 <script src="/triangleView/js/sample.js"></script>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
-	
-	
-
+<script src="/triangleView/js/jquery-3.3.1.min.js"></script>
+<link rel="stylesheet" href="/triangleView/css/w3.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
 <style>
 html, body {
 	font-family: 'Open Sans', sans-serif; /*글씨체 묶어서 저장함*/
@@ -43,7 +39,7 @@ a {
 
 #header {
 	float: left;
-	width: 100%;
+	width: 850px;
 	background: #d2452d;
 	position: relative; /*기준이 되는 위치가 자기 자신으로 바뀜*/
 }
@@ -51,20 +47,18 @@ a {
 .mainlogo {
 	/* 위쪽 메뉴바위에 배경*/
 	float: left;
-	background: #a7e387;
-	max-width: 210px;
+	background: #f7323f;
+	max-width: 150px;
 	padding: 10px;
 	min-height: 44px;
-	background: #e5361f;
-	width: 100%;
+	width: 150px;
 	max-height: 44px;
 }
 
 .mainlogo img {
 	max-height: 80px;
 	position: relative;
-	bottom: 10px;
-	left: 20px;
+	left: 10px;
 }
 
 .login-back {
@@ -73,17 +67,17 @@ a {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box; /*박스사이징 설정하면 더이상 박스의 크기를 늘리지 않는다.*/
-	background: #e5361f;
+	background: #f7323f;
 }
 
-.login-back img {
-	width: 39px;
-	height: 41px;
-	border-radius: 50%;
-	float: right;
-	position: relative;
-	top: 13px;
-	right: 50px;
+#category-nav{
+
+    margin-top: 0px;
+    padding-top: 20px;
+    padding-left: 650px;
+    font-weight:bold;
+    color:white;
+
 }
 
 /*사이드바 옆에 들어갈 항목*/
@@ -91,7 +85,7 @@ a {
 	overflow: hidden; /*섹션부분이 값이 html의 범위를 넘어 가면 숨김기능*/
 	font: 12px/20px 돋움;
 	color: #424242;
-	width: 210px;
+	width: 150px;
 	height: 100%;
 	float: left;
 	background: #2A2D33;
@@ -120,14 +114,15 @@ a {
 	margin: 10px 0;
 	text-align: center;
 }
-#list ul #member h2{
 
-margin-top:0px;
+#list ul #member h2 {
+	margin-top: 0px;
 }
+
 #list ul li a {
 	color: #C2C2C2;
 	font-size: .95em;
-	padding: 15px 20px; 
+	padding: 15px 20px;
 	float: left;
 	width: 100%;
 	font-weight: 600;
@@ -136,21 +131,19 @@ margin-top:0px;
 	box-sizing: border-box;
 	text-align: center;
 }
-#list ul p a{
-	padding:0 0 0 0px;
 
+#list ul p a {
+	padding: 0 0 0 0px;
 }
 
- #list ul li h2:hover a {
-  background: #fff; 
+#list ul li h2:hover a {
+	background: #fff;
 	color: #333;
 }
 
 #list ul li :hover a {
-	 
 	color: #333;
-} 
-
+}
 
 #list p {
 	padding: 0 10px;
@@ -174,7 +167,7 @@ margin-top:0px;
 
 #content {
 	float: left;
-	width: calc(100% - 210px);
+	width: 850px;
 	height: 100%;
 	word-wrap: break-word; /*div영역내에서 텍스트가 넘칠경우 알아서 텍스트 정렬변환*/
 	background: #3c59cd;
@@ -200,7 +193,7 @@ margin-top:0px;
 	/*메인페이지 배경*/
 	float: left;
 	background: #E9EEF4;
-	width: 100%;
+	width: 850px;
 	height: calc(100% - 64px);
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
@@ -230,16 +223,15 @@ margin-top:0px;
 	margin: 0;
 	padding-left: 2px;
 }
+
 .search {
 	height: 40px;
-	width: 400px;
 	border: 1px solid #d2452d;;
 	background: #ffffff;
 	display: inline-block;
 	border-radius: 4px;
-	margin-left: 400px;
-	margin-top:30px;
-}
+	
+	}
 
 .search-bar {
 	font-size: 16px;
@@ -254,7 +246,7 @@ margin-top:0px;
 	width: 50px;
 	height: 100%;
 	border: 0px;
-	background: #d2452d;;
+	background: #f7323f;
 	outline: none;
 	float: right;
 	color: #ffffff;
@@ -265,105 +257,112 @@ margin-top:0px;
 	margin-right: 200px;
 	display: inline-block;
 }
+#chart1{
 
-.select-script {
-	position: relative;
-	width: 200px;
-	height: 40px;
-	line-height: 40px;
-	border: 1px solid #606976;
-	border-radius: 4px;
-	text-transform: uppercase;
-	background: #fff;
-}
+	background:white;
 
-.select-script label {
-	position: absolute;
-	width: 90%;
-	font-size: .86em;
-	color: #606976;
-	top: 0;
-	left: 0;
-	padding: 0 5%;
 }
+#chart2{
 
-.select-script label:after {
-	content: '▼';
-	width: 40px;
-	height: 40px;
-	position: absolute;
-	top: 100;
-	right: 0;
-	font-size: .76em;
-	color: #fff;
-	text-align: center;
-	background: #606976;
+	background:white;
 }
+#chart3{
 
-.select-script select {
-	width: 100%;
-	height: 40px;
-	opacity: 0;
-	filter: alpha(opacity = 0);
-	-ms-filter: alpha(opacity = 0) /* IE 8 */;
+	background:white;
 }
-/*테이블생성*/
-.mTable {
-	border-collapse: separate;
-	border-spacing: 1px;
-	text-align: center;
-	line-height: 1.5;
-	margin: 20px 10px;
-}
+#chart4{
 
-.mTable th {
-	width: 155px;
-	padding: 10px;
-	font-weight: bold;
-	vertical-align: top;
-	color: #fff;
-	background: #ce4869;
+	background:white;
 }
+#chartTop p{
 
-.mTable td {
-	width: 155px;
-	padding: 10px;
-	vertical-align: top;
-	border-bottom: 1px solid #ccc;
-	background: #eee;
-}
-
-.date{
+	text-align:center;
+	width:300px;
+	margin:0px;
+	height:40px;
+	font-size:30px;
 	
-	margin-left:280px;
+	
+
+
+}
+#chartTop{
+background:blue;
+	width:300px;
+	hight:100px;
+}
+
+#firstChar{
+	margin-left:20px;
+	margin-top:20px;
+	display:none;
+	float:left;
+
+
+}
+#secondChar{
+	margin-left:340px;
+	margin-top:20px;
+	display:none;
+	position:absolute;
+	float:left;
+	margin-left:30px;
+
+}
+#thirdChar{
+
+	margin-left:20px;
 	margin-top:100px;
+	display:none;
+	float:left;
 
 
 }
-.date>fromDt{
+#fourthChar{
 
-	width:100px;
+	margin-left:340px;
+	margin-top:100px;
+	display:none;
+	position:absolute;
+	float:left;
+	margin-left:30px;
+
+
+
+}
+
+
+
+
+#wrap{
+
+	position:absolute;
+	height:50%; 
+	margin-left:100px;
+	margin-top:0px;
+	
 	
 
+}
+#wrap2{
 
-
-
-
+	position:absolute;
+	height:50%;
+	margin-left:100px;
+	margin-top:170px;
+	
+	
 
 }
- .date>toDt{
- 
- 	width:100px;
- 	
- 
- 
- 
- 
- }
- 
- 	
- 
- 
+
+
+
+
+
+
+
+
+
  
  
 
@@ -371,61 +370,13 @@ margin-top:0px;
 
 
 </style>
-<script type="text/javascript">
-			$(document).ready(function(){
-
-				var select = $('.select-script select');
-				select.change(function(){
-					var select_name = $(this).children('option:selected').text();
-					$(this).siblings("label").text(select_name);
-				});
-
-			});
-		</script>
-
-
-<script language="javascript" type="text/javascript">
-$(document).ready(function() {
-
-//******************************************************************************
-// 상세검색 달력 스크립트
-//******************************************************************************
-var clareCalendar = {
-monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
-dayNamesMin: ['일','월','화','수','목','금','토'],
-weekHeader: 'Wk',
-dateFormat: 'yymmdd', //형식(20120303)
-autoSize: false, //오토리사이즈(body등 상위태그의 설정에 따른다)
-changeMonth: true, //월변경가능
-changeYear: true, //년변경가능
-showMonthAfterYear: true, //년 뒤에 월 표시
-//buttonImageOnly: true, //이미지표시
-buttonText: '달력선택', //버튼 텍스트 표시
-//buttonImage: 'res/img/comn/calendar.gif', //이미지주소
-showOn: "both", //엘리먼트와 이미지 동시 사용(both,button)
-yearRange: '1990:2020' //1990년부터 2020년까지
-};
-$("#fromDt").datepicker(clareCalendar);
-$("#toDt").datepicker(clareCalendar);
-$("img.ui-datepicker-trigger").attr("style","margin-left:5px; vertical-align:middle; cursor:pointer;"); //이미지버튼 style적용
-$("#ui-datepicker-div").hide(); //자동으로 생성되는 div객체 숨김 
-});
-
-</script>
-
-
-
- 
-
-
-
-
 </head>
 <body>
-	<section id="sidebar">
+	
+			<section id="sidebar">
 		<div class="mainlogo">
-		<a href="/triangleView/views/main/admin/main/mainpage2.jsp"><img
-				src="/triangleView/img/admin/blue.png"></a>
+		<a href="/triangleView/views/main/admin/main/mainpage2.jsp#main"><img
+				src="/triangleView/img/admin/mainlogo.png"></a>
 		</div>
 		<div id="list">
 			<ul>
@@ -433,120 +384,227 @@ $("#ui-datepicker-div").hide(); //자동으로 생성되는 div객체 숨김
 				<li id="member"><h2>
 						<a href="#member"> 회원관리</a>
 					</h2>
-					<p><a href="#" onclick="javascript:memberList(); return false;">회원관리목록</a></p>
-					<p><a href="#" onclick="javascript:memberOut(); return false;">회원탈퇴현황</a></p></li>
+					<p><a href="/triangleView/views/admin/member/memberPage1.jsp#member">회원관리목록</a></p>
+					<p><a href="/triangleView/views/admin/member/memberpage2.jsp#member">회원탈퇴현황</a></p>
+					<p><a href="/triangleView/views/admin/member/memberpage3.jsp#member">블랙리스트목록</a></p></li>
 				<li id="company"><h2>
 						<a href="#company">기업회원관리</a>
 					</h2>
-					<p><a href="#" onclick="javascript:companyList(); return false;">기업회원목록</a></p>
-					<p><a href="#" onclick="javascript:companyOut(); return false;">기업탈퇴목록</a></p></li>
+					<p><a href="/triangleView/views/admin/company/companypage1.jsp#company">기업회원목록</a></p>
+					<p><a href="/triangleView/views/admin/company/companypage2.jsp#company">기업탈퇴목록</a></p></li>
 
 				<li id="reviews"><h2>
 						<a href="#reviews"> 게시물관리</a>
 					</h2>
-					<p><a href="#" onclick="javascript:reviewsOut(); return false;">게시물삭제</a></p>
-					<p><a href="#" onclick="javascript:reviewsList(); return false;">게시물삭제목록</a></p></li>
+					<p><a href="/triangleView/views/admin/review/reviewspage1.jsp#reviews">게시물삭제</a></p>
+					<p><a href="/triangleView/views/admin/review/reviewspage2.jsp#reviews">게시물삭제목록</a></p></li>
 				<li id="payment"><h2>
 						<a href="#payment"> 결제관리</a>
 					</h2>
-					<p><a href="#" onclick="javascript:sell(); return false;">구매내역</a></p>
-					<p><a href="#" onclick="javascript:margin(); return false;">수익내역</a></p>
+					<p><a href="/triangleView/views/admin/payment/paymentpage1.jsp#payment">구매내역</a></p>
+					<p id="Start"><a href="/triangleView/views/admin/payment/paymentpage2.jsp#payment">수익내역</a></p>
 				<li>
 				<li id="point"><h2>
 						<a href="#point"> 포인트관리</a>
 					</h2>
-					<p><a href="#" onclick="javascript:exchange(); return false;">환급내역</a></p>
-					<p><a href="#" onclick="javascript:pay(); return false;">지급내역</a></p></li>
-				<li id="monitor"><h2>
-						<a href="#monitor">리뷰모니터링</a>
-					</h2></li>
+					<p><a href="/triangleView/views/admin/point/pointpage1.jsp#point">환급내역</a></p>
+					<p id="payBackChart"><a href="/triangleView/views/admin/point/pointpage2.jsp#point">지급내역</a></p></li>
+				
 
 			</ul>
 		</div>
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-	</section>
+</section>
 
 	<section id="content">
 
 		<div class="login-back">
-			<img src="/triangleView/img/admin/login.png">
-			
+			<div id="category-nav">
+			포인트관리 > 지급내역
 		</div>
+		</div>
+		
 		<div class="content">
-			<h1 align="center">*환급내역*</h1>
-			<div class="date">
-			<input name="fromDt" type="text" id="fromDt" size="8" maxlength="8" title="시작일자" style="width:150px"> ~ 
-			<input name="toDt" type="text" id="toDt" size="8" maxlength="8" title="종료일자" style="width:150px">
-			</div>
-			<div style="position:absolute; top:40.5%; left:24%; margin-left:100px;" >
-			
-			<div class="select-box select-script">
-				<label for="selectbox">검색목록</label> <select id="select-box"
-					title="선택 구분">
-					<option selected="selected">검색목록</option>
-					<option>아이디</option>
-					<option>이름</option>
-					<option>보유포인트</option>
-					<option>차감포인트</option>
-					<option>환급액</option>
-					<option>누적액</option>
-					
-					
-
-					</select>
-					</div>
-			</div>
-			
-				
-				
-					<div class="search">
-						<input type="text" placeholder="검색어 입력" class="search-bar">
-						<button class="search-btn">검색</button>
-					</div>
-					
-
-
-
-			<table class="mTable">
-				<thead>
-					<tr>
-						<th>아이디</th>
-						<th>이름</th>
-						<th>보유포인트</th>
-						<th>차감포인트</th>
-						<th>환급액</th>
-						<th>누적액</th>
-						
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>#$@we2220</td>
-						<td>오뚜기</td>
-						<td>#445050</td>
-						<td>오뚜기밥</td>
-						<td>9900원</td>
-						<td>카드</td>
-						
-
-
-					</tr>
-
-				</tbody>
-
-			</table>
-
+		<h3 align="center">*지출내역*</h3>
+		
+		<div id="wrap">
+		<div id="firstChar">
+		<div id="chartTop"><p>2018 월간 환급율</p></div>
+		<div style="display:inline-block" id="chart1"><canvas id="myChart" width="300" height="200"></canvas></div>
 		</div>
+		
+		
+		<div id="secondChar">
+		<div id="chartTop"><p> 9월 일간 환급율</p></div>
+		<div style="display:inline-block" id="chart2"><canvas id="myChart2" width="300" height="200"></canvas></div>
+		</div>
+		</div>
+		
+		
+		
+		
+		
+		
+		</div>
+
+	
 	</section>
+				
+	
+		
+	<script>
+	
+	 
+		$(document).ready(function(){ 
+			 
+			$("#payBackChart").click(function(){
+				document.getElementById('secondChar').style.display='inline-block';
+			$.ajax({
+				
+				url:"/triangleView/paybackChart2",
+				type:"get",
+				success:function(data){
+					
+				console.log(data);
+					
+					var payBackDate=[];
+					var requestPay=[];
+					
+					for(var i in data){
+						
+						payBackDate.push(data[i].payBackDate+"일");
+						requestPay.push(data[i].requestPay);
+						
+						
+					}
+					var chartdata={
+							
+					
+							
+						labels:payBackDate,
+						datasets:[{
+							
+							label:'금액',
+							data:requestPay,
+							 backgroundColor: [
+								 'rgba(153, 102, 255, 0.2)'
+				                ],
+				                borderColor: [
+				                	'rgba(153, 102, 255, 1)'
+				                    
+				                ],
+				                borderWidth:1				
+							
+							
+						}] ,options: {
+					        scales: {
+					            yAxes: [{
+					                stacked: true
+					                
+					                
+					            }]
+					        }
+					    }
+					}
+				
+						
+							
+							
+					
+					var ctx=$("#myChart2");
+					var bargraph =new Chart(ctx,{
+						type:'line',
+						data:chartdata
+						
+					});
+					
+				}
+					
+						
+				
+		
+			});		
+				
+			});
+		 }); 
+	
+	</script>
+
+	
+	 <script>
+	$(document).ready(function(){ 
+		 
+		$("#payBackChart").click(function(){
+			document.getElementById('firstChar').style.display='inline-block';
+		$.ajax({
+			
+			url:"/triangleView/paybackChart1",
+			type:"get",
+			success:function(data){
+				
+			console.log(data);
+				
+				var payBackDate=[];
+				var requestPay=[];
+				
+				for(var i in data){
+					
+					payBackDate.push(data[i].payBackDate+"월");
+					requestPay.push(data[i].requestPay);
+					
+					
+				}
+				var chartdata={
+						
+				
+						
+					labels:payBackDate,
+					datasets:[{
+						
+						label:'금액',
+						data:requestPay,
+						 backgroundColor: [
+							 'rgba(75, 192, 192, 0.2)'
+			                ],
+			                borderColor: [
+			                	 'rgba(75, 192, 192, 1)'
+			                    
+			                ],
+			                borderWidth:1				
+						
+						
+					}] ,options: {
+				        scales: {
+				            yAxes: [{
+				                stacked: true
+				                
+				                
+				            }]
+				        }
+				    }
+				}
+			
+					
+						
+						
+				
+				var ctx=$("#myChart");
+				var bargraph =new Chart(ctx,{
+					type:'line',
+					data:chartdata
+					
+				});
+				
+			}
+				
+					
+			
+	
+		});		
+			
+		});
+	 }); 
+
+</script>
+	
 </body>
 </html>

@@ -1,11 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
+    
+
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>관리자페이지</title>
 <script src="/triangleView/js/sample.js"></script>
+<script src="/triangleView/js/jquery-3.3.1.min.js"></script>
+<link rel="stylesheet" href="/triangleView/css/w3.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
@@ -37,7 +42,7 @@ a {
 
 #header {
 	float: left;
-	width: 100%;
+	width: 850px;
 	background: #d2452d;
 	position: relative; /*기준이 되는 위치가 자기 자신으로 바뀜*/
 }
@@ -45,20 +50,18 @@ a {
 .mainlogo {
 	/* 위쪽 메뉴바위에 배경*/
 	float: left;
-	background: #a7e387;
-	max-width: 210px;
+	background: #f7323f;
+	max-width: 150px;
 	padding: 10px;
 	min-height: 44px;
-	background: #e5361f;
-	width: 100%;
+	width: 150px;
 	max-height: 44px;
 }
 
 .mainlogo img {
 	max-height: 80px;
 	position: relative;
-	bottom: 10px;
-	left: 20px;
+	left: 10px;
 }
 
 .login-back {
@@ -67,17 +70,17 @@ a {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box; /*박스사이징 설정하면 더이상 박스의 크기를 늘리지 않는다.*/
-	background: #e5361f;
+	background: #f7323f;
 }
 
-.login-back img {
-	width: 39px;
-	height: 41px;
-	border-radius: 50%;
-	float: right;
-	position: relative;
-	top: 13px;
-	right: 50px;
+#category-nav{
+
+    margin-top: 0px;
+    padding-top: 20px;
+    padding-left: 650px;
+    font-weight:bold;
+    color:white;
+
 }
 
 /*사이드바 옆에 들어갈 항목*/
@@ -85,7 +88,7 @@ a {
 	overflow: hidden; /*섹션부분이 값이 html의 범위를 넘어 가면 숨김기능*/
 	font: 12px/20px 돋움;
 	color: #424242;
-	width: 210px;
+	width: 150px;
 	height: 100%;
 	float: left;
 	background: #2A2D33;
@@ -167,7 +170,7 @@ a {
 
 #content {
 	float: left;
-	width: calc(100% - 210px);
+	width: 850px;
 	height: 100%;
 	word-wrap: break-word; /*div영역내에서 텍스트가 넘칠경우 알아서 텍스트 정렬변환*/
 	background: #3c59cd;
@@ -193,7 +196,7 @@ a {
 	/*메인페이지 배경*/
 	float: left;
 	background: #E9EEF4;
-	width: 100%;
+	width: 850px;
 	height: calc(100% - 64px);
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
@@ -226,14 +229,12 @@ a {
 
 .search {
 	height: 40px;
-	width: 400px;
 	border: 1px solid #d2452d;;
 	background: #ffffff;
 	display: inline-block;
 	border-radius: 4px;
-	margin-left: 400px;
-	margin-top:80px;
-}
+	
+	}
 
 .search-bar {
 	font-size: 16px;
@@ -248,7 +249,7 @@ a {
 	width: 50px;
 	height: 100%;
 	border: 0px;
-	background: #d2452d;;
+	background: #f7323f;
 	outline: none;
 	float: right;
 	color: #ffffff;
@@ -302,15 +303,13 @@ a {
 	-ms-filter: alpha(opacity = 0) /* IE 8 */;
 }
 
-
-/*테이블생성*/ 
-
+/*테이블생성*/
 .mTable {
 	border-collapse: separate;
 	border-spacing: 1px;
 	text-align: center;
 	line-height: 1.5;
-	margin: 20px 10px;
+	margin: 10px 10px;
 }
 
 .mTable th {
@@ -319,16 +318,43 @@ a {
 	font-weight: bold;
 	vertical-align: top;
 	color: #fff;
-	background: #ce4869;
+	background: #f7323f;
 }
 
 .mTable td {
 	width: 155px;
-	padding: 10px;
-	vertical-align: top;
+	/* padding: 10px; */
+	vertical-align: center;
 	border-bottom: 1px solid #ccc;
-	background: #eee;
+	background: white;
 }
+
+.settingArea {
+	z-index: 300;
+	position: absolute;
+	left: 30%;
+	top: 200px;
+}
+.enroll{
+	/* background:red; */
+
+
+}
+
+#buttonArea{
+
+	margin-left:450px;
+
+}
+#pageBtn{
+
+	margin-left:340px;
+
+}
+
+
+
+
 </style>
 <script type="text/javascript">
 			$(document).ready(function(){
@@ -347,8 +373,8 @@ a {
 <body>
 	<section id="sidebar">
 		<div class="mainlogo">
-			<a href="/triangleView/views/main/admin/main/mainpage2.jsp"><img
-				src="/triangleView/img/admin/blue.png"></a>
+			<a href="/triangleView/views/admin/main/mainpage2.jsp#main"><img
+				src="/triangleView/img/admin/mainlogo.png"></a>
 		</div>
 		<div id="list">
 			<ul>
@@ -356,40 +382,36 @@ a {
 				<li id="member"><h2>
 						<a href="#member"> 회원관리</a>
 					</h2>
-					<p>
-						<a href="#" onclick="javascript:memberList(); return false;">회원관리목록</a>
-					</p>
-					<p>
-						<a href="#" onclick="javascript:memberOut(); return false;">회원탈퇴현황</a>
-					</p></li>
+					<p><a href="/triangleView/views/admin/member/memberPage1.jsp#member">회원관리목록</a></p>
+					<p><a href="/triangleView/views/admin/member/memberpage2.jsp#member">회원탈퇴현황</a></p>
+					<p><a href="/triangleView/views/admin/member/memberpage3.jsp#member">블랙리스트목록</a></p></li>
 				<li id="company"><h2>
 						<a href="#company">기업회원관리</a>
 					</h2>
-					<p>기업회원목록</p>
-					<p>기업탈퇴목록</p></li>
+					<p><a href="/triangleView/views/admin/company/companypage1.jsp#company">기업회원목록</a></p>
+					<p><a href="/triangleView/views/admin/company/companypage2.jsp#company">기업탈퇴목록</a></p></li>
 
 				<li id="reviews"><h2>
 						<a href="#reviews"> 게시물관리</a>
 					</h2>
-					<p>게시물삭제</p>
-					<p>게시물삭제목록</p></li>
+					<p><a href="/triangleView/views/admin/review/reviewspage1.jsp#reviews">게시물삭제</a></p>
+					<p><a href="/triangleView/views/admin/review/reviewspage2.jsp#reviews">게시물삭제목록</a></p></li>
 				<li id="payment"><h2>
 						<a href="#payment"> 결제관리</a>
 					</h2>
-					<p>구매내역</p>
-					<p>수익내역</p>
+					<p><a href="/triangleView/views/admin/payment/paymentpage1.jsp#payment">구매내역</a></p>
+					<p><a href="/triangleView/views/admin/payment/paymentpage2.jsp#payment">수익내역</a></p>
 				<li>
 				<li id="point"><h2>
 						<a href="#point"> 포인트관리</a>
 					</h2>
-					<p>기업회원목록</p>
-					<p>기업탈퇴목록</p></li>
-				<li id="monitor"><h2>
-						<a href="#monitor">리뷰모니터링</a>
-					</h2></li>
+					<p><a href="/triangleView/views/admin/point/pointpage1.jsp#payment">환급내역</a></p>
+					<p><a href="/triangleView/views/admin/point/pointpage2.jsp#payment">지급내역</a></p></li>
+				
 
 			</ul>
 		</div>
+
 
 
 
@@ -409,74 +431,413 @@ a {
 	<section id="content">
 
 		<div class="login-back">
-			<img src="/triangleView/img/admin/login.png">
-		</div>
+		<div id="category-nav">
+			회원관리 > 회원관리목록
+		</div></div>
 
 		<div class="content">
 
+			<h3 align="center">*회원관리현황*</h3>
+			<div style="margin-left:130px; margin-top:20px;">
+			<div style="float:left;">
 
-			<div class="content-header"></div>
-			
-			<h1 align="center">*회원관리현황*</h1>
-			<div style="position:absolute; top:36.5%; left:24%; margin-left:100px;" >
-			
-			<div class="select-box select-script">
-				<label for="selectbox">검색목록</label> <select id="select-box"
-					title="선택 구분">
-					<option selected="selected">검색목록</option>
-					<option>이름</option>
-					<option>아이디</option>
-					<option>이메일</option>
-					<option>연락처</option>
-					<option>나이</option>
-					<option>성별</option>
-					<option>등급</option>
-					<option>등록일</option>
+				<div class="select-box select-script">
+					<label for="selectbox">검색목록</label> <select id="select-box"
+						title="선택 구분">
+						<option value="searchAll" selected="selected">검색목록</option>
+						<option value="name">닉네임</option>
+						<option value="id">아이디</option>
+						<option value="userNo">유저번호</option>
+						<option value="phone">연락처</option>
+						<option value="age">나이</option>
+						<option value="gender">성별</option>
+						<option value="enrolldate">등록일</option>
 
 					</select>
-					</div>
+				</div>
 			</div>
-			
-					<div class="search">
-						<input type="text" placeholder="검색어 입력" class="search-bar">
-						<button class="search-btn">검색</button>
-					</div>
 
 
+				<div class="search">
+				<input type="text" placeholder="검색어 입력" id="searchWord" class="search-bar">
+				<button id="searchMemberBtn" class="search-btn">검색</button></div>
+				</div>
 
-			<table class="mTable">
-				<thead>
-					<tr>
+
+			<table class="mTable" id="searchTable">
+			<thead>
+						<tr>
+						<th>행번호</th>
+						<th>유저번호</th>
 						<th>아이디</th>
-						<th>이름</th>
-						<th>전화번호</th>
-						<th>이메일</th>
 						<th>나이</th>
 						<th>성별</th>
+						<th>닉네임</th>
 						<th>등록일</th>
-						<th>등급</th>
-					</tr>
+						<th>전화번호</th>
+						<th>블랙리스트등록</th>
+						</tr>
 				</thead>
-				<tbody>
+				<tbody id="tb">
 					<tr>
-						<td>kch4361</td>
-						<td>김창희</td>
-						<td>010-9512-1346</td>
-						<td>kch4361@naver.com</td>
-						<td>31</td>
-						<td>남자</td>
-						<td>2019-09-09</td>
-						<td>파워리뷰어</td>
-
-
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
 					</tr>
-
 				</tbody>
-
-			</table>
+				</table>
+				
+				<div id="pageBtn">
+				<button><<</button>
+				<button><</button>
+				<button>1</button>
+				<button>></button>
+				<button>>></button>				
+				</div>
+				
+			
+				
 		</div>
+	
+		</section>
 
 
-	</section>
+
+	<script>
+	
+	
+	$(document).ready(function(){
+		$("#searchMemberBtn").click(function(){
+			var option= $("#select-box option:selected").val();
+			var searchWord = $('#searchWord').val();
+
+
+			$.ajax({
+				url:"/triangleView/searchMember",
+				type:'post',
+				data:{
+
+
+				option:option,
+				searchWord:searchWord
+
+			},
+				success:function(data){
+				$table = $("#searchTable");
+				console.log(data);
+				$tbody=$("#tb");
+				$div=$("#pageBtn");
+				$div.empty();
+				$tbody.empty();  
+				var count=1;
+
+				if(data != null){
+
+					
+						
+					
+						for(var i = 0; i < data.member.length; i++){
+							console.log(data.member[i].userNo);
+
+
+
+							var $tr = $("<tr>");
+							var $td0=$("<td>");
+							$td0.text(count++);				
+							var $td1 = $("<td>");
+							$td1.text(data.member[i].userNo);
+							var $td2 = $("<td>");
+							$td2.text(data.member[i].userId);
+							var $td3 = $("<td>");
+							$td3.text(data.member[i].age);
+							var $td4 = $("<td>");
+							$td4.text(data.member[i].gender);
+							var $td5 = $("<td>");
+							$td5.text(data.member[i].nick);
+							var $td6 = $("<td>");
+							$td6.text(data.member[i].enroll_date);
+							var $td7 = $("<td>");
+							$td7.text(data.member[i].phone);
+							var $td8 =$("<td>");
+							var $button1=$("<button>");
+							
+						
+
+							//등록버튼
+							$button1.text("등록"); 
+							 	$button1.attr("id",data.member[i].userNo); 
+							$button1.attr("value","등록");
+							/* $button1.attr("class","enroll") */
+							$button1.attr("onclick", "enrollBlackBtn(this);");
+							
+							$tr.append($td0);
+							$tr.append($td1);
+							$tr.append($td2); 
+							$tr.append($td3); 
+							$tr.append($td4); 
+							$tr.append($td5); 
+							$tr.append($td6); 
+							$tr.append($td7); 
+							$td8.append($button1).trigger("create");
+							$tr.append($td8);
+							/* $tr.append($td9); */
+							$table.append($tr);
+						}
+					
+					
+					console.log(data.pi.maxPage);
+					console.log(data.option);
+					console.log(data.searchWord);
+					$("#pageBtn").empty();
+					
+					
+		               
+		               if(data.pi.maxPage!=0){
+		               $Btn1 = $("<button class='btn' onclick = a(1,'"+data.option+"','"+searchWord+"')>");
+		               $Btn1.append("<<");
+		               $("#pageBtn").append($Btn1);
+		               if(data.pi.currentPage <= 1){ 
+		                  $Btn2  = $("<button class='btn' disabled>");    
+		               }else{
+		                  $Btn2  = $("<button class='btn' onclick = a("+(data.pi.currentPage - 1)+",'"+data.option+"','"+searchWord+"')>");
+		               }
+		               }
+		               $Btn2.append("<");
+		               $("#pageBtn").append($Btn2);
+		               for(var p = data.pi.startPage; p <= data.pi.endPage; p++){ 
+		                  if(p == data.pi.currentPage){
+		                     $page = $("<button class='btn' disabled>");
+		                   }else{
+		                      $page = $("<button class='btn' onclick=a("+p+",'"+data.option+"','"+searchWord+"')>");
+		                  } 
+		                  $page.append(p);
+		                  $("#pageBtn").append($page);
+		               }          
+		               
+		               if(data.pi.currentPage >= data.pi.maxPage){ 
+		                  $Btn3 = $("<button class='btn' disabled>");
+		               }else{ 
+		                  $Btn3 = $("<button class='btn' onclick=a("+(data.pi.currentPage + 1)+",'"+data.option +"','"+searchWord+"')>");
+		               } 
+		               $Btn3.append(">");
+		               $("#pageBtn").append($Btn3);
+		               $Btn4 = $("<button class='btn' onclick=a("+data.pi.maxPage+",'"+data.option+"','"+searchWord+"')>");
+		               $Btn4.append(">>");
+		               $("#pageBtn").append($Btn4);
+		               
+		               
+				} 
+			
+				}
+			}); 
+		});
+	});
+
+	</script>
+	
+	<script>
+   function a(cp,option,searchWord){
+
+	  
+	  var option = option+"";
+	  var searchWord=searchWord+"";
+       $.ajax({
+    	 url:"/triangleView/searchMember",
+         data : {currentPage:cp,
+        	 	option:option,
+        	 	searchWord:searchWord
+         
+               },
+         type : "get",
+         success : function(data) {
+        	
+        	 $table = $("#searchTable");
+				console.log(data);
+				$tbody=$("#tb");
+				$div=$("#pageBtn");
+				$div.empty();
+				$tbody.empty(); 
+				var count =1;
+				
+				
+					
+				
+               for (var i = 0; i < data.member.length; i++) {
+            	   
+            	   var $tr = $("<tr>");
+            	   var $td0 = $("<td>");
+            	   $td0.text(count++);
+					var $td1 = $("<td>");
+					$td1.text(data.member[i].userNo);
+					var $td2 = $("<td>");
+					$td2.text(data.member[i].userId);
+					var $td3 = $("<td>");
+					$td3.text(data.member[i].age);
+					var $td4 = $("<td>");
+					$td4.text(data.member[i].gender);
+					var $td5 = $("<td>");
+					$td5.text(data.member[i].nick);
+					var $td6 = $("<td>");
+					$td6.text(data.member[i].enroll_date);
+					var $td7 = $("<td>");
+					$td7.text(data.member[i].phone);
+					var $td8 =$("<td>");
+					var $button1=$("<button>");
+					
+					
+					//등록버튼
+					$button1.text("등록"); 
+					 $button1.attr("id",data.member[i].userNo); 
+					$button1.attr("value","등록");
+					/* $button1.attr("class","enroll") */
+					$button1.attr("onclick", "enrollBlackBtn(this);");
+					
+					
+					$tr.append($td0);
+					$tr.append($td1);
+					$tr.append($td2); 
+					$tr.append($td3); 
+					$tr.append($td4); 
+					$tr.append($td5); 
+					$tr.append($td6); 
+					$tr.append($td7); 
+					$td8.append($button1).trigger("create");
+					$tr.append($td8);
+					/* $tr.append($td9); */
+					$table.append($tr);
+			
+                  
+            	   
+            	   
+               }
+               
+              	
+              		
+              	
+               $("#pageBtn>*").empty();
+               
+               if(data.pi.maxPage!=0){
+               $Btn1 = $("<button class='btn' onclick = a(1,"+data.option+",'"+searchWord+"')>");
+               $Btn1.append("<<");
+               $("#pageBtn").append($Btn1);
+               if(data.pi.currentPage <= 1){ 
+                  $Btn2  = $("<button class='btn' disabled>");    
+               }else{
+                  $Btn2  = $("<button class='btn' onclick = a("+(data.pi.currentPage - 1)+",'"+data.option+"','"+searchWord+"')>");
+               }
+               $Btn2.append("<");
+               $("#pageBtn").append($Btn2);
+               for(var p = data.pi.startPage; p <= data.pi.endPage; p++){ 
+                  if(p == data.pi.currentPage){
+                     $page = $("<button class='btn' disabled>");
+                   }else{
+                      $page = $("<button class='btn'onclick=a("+p+",'"+data.option+"','"+searchWord+"')>");
+                  } 
+                  $page.append(p);
+                  $("#pageBtn").append($page);
+               }          
+               
+               if(data.pi.currentPage >= data.pi.maxPage){ 
+                  $Btn3 = $("<button class='btn' disabled>");
+               }else{ 
+                  $Btn3 = $("<button class='btn' onclick=a("+(data.pi.currentPage + 1)+",'"+data.option +"','"+searchWord+"')>");
+               } 
+               $Btn3.append(">");
+               $("#pageBtn").append($Btn3);
+               $Btn4 = $("<button class='btn' onclick=a("+data.pi.maxPage+",'"+data.option+"','"+searchWord+"')>");
+               $Btn4.append(">>");
+               $("#pageBtn").append($Btn4);
+               
+                           
+               
+               
+               
+               
+               
+         }
+         }
+       });
+   }
+   
+   </script>
+
+
+	<div id="settingArea" class="settingArea"></div>
+	<div id="settingBoardArea" class="w3-modal"onclick="displayNoneCancle();"></div>
+
+
+
+	<script>
+	
+	function enrollBlackBtn(userInfo){
+		
+		var userNo = $(userInfo).attr("id");
+		
+		
+		$.ajax({
+			url:"/triangleView/views/admin/member/blackPage.jsp",
+			data:{
+				
+				userNo:userNo
+			},
+			type:"post",
+			success:function(data){	
+				$(".settingArea").html(data);
+				
+				document.getElementById('settingBoardArea').style.display='block';
+				document.getElementById('settingArea').style.display='block';
+			
+				
+			}
+			
+			
+			}); 
+		
+	}
+	
+	
+	</script>
+	
+	
+	<script>
+	
+		
+	function displayNoneCancle(){
+		
+			
+		document.getElementById('settingArea').style.display='none';
+		document.getElementById('settingBoardArea').style.display='none';
+	}
+	
+	
+		
+	function displayNoneEnroll(){
+		
+		
+		document.getElementById('settingArea').style.display='none';
+		document.getElementById('settingBoardArea').style.display='none';
+		
+	}
+	
+	function okBtn(userInfo){
+		
+		$("#"+userInfo).css("background","red");
+
+		document.getElementById('settingArea').style.display='none';
+		document.getElementById('settingBoardArea').style.display='none';
+	}
+</script>
+
+
+
+
+
+
 </body>
 </html>
