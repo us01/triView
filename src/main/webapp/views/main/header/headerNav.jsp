@@ -427,7 +427,7 @@
 	}
 	
 	function myComp(){
-		location.href="/triangleView/views/myPage/myHome.jsp";
+		location.href="<%=request.getContextPath()%>/noticeList";
 	}
 	
 	function myAdmin(){

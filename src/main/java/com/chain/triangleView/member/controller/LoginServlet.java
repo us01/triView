@@ -31,7 +31,9 @@ public class LoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userId = request.getParameter("userId");
 		String userPwd = request.getParameter("userPwd");
-	
+		
+		System.out.println("userId : " + userId);
+		System.out.println("userPwd : " + userPwd);
 		Member loginUser = new MemberService().loginCheck(userId, userPwd);
 		
 		ArrayList<HashMap<String, Object>> noticeList = null;
@@ -53,6 +55,7 @@ public class LoginServlet extends HttpServlet {
 			
 			request.getRequestDispatcher("/views/main/loginMain/loginMain.jsp").forward(request, response);
 		}else{
+			System.out.println("로그인 멤모 조회 실패");
 			request.setAttribute("msg", "로그인 정보가 조회되지 않았어요"); 
 			request.getRequestDispatcher("index.jsp").forward(request, response);
 		}

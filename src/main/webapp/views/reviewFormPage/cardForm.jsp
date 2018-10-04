@@ -77,6 +77,12 @@
       $(location).attr('href', subSite);
    }
    
+   function addAllian(rwNo){
+		var URL = '/triangleView/views/alliance/allianceWriter.jsp?rwNo=' + rwNo;
+			
+		location.href=URL;
+   }
+   
    function modifyMove(rwNo){
 			var URL = "<%=request.getContextPath()%>/write1Select.bo?rwNo=<%= form.getRwNo() %>"
 			
@@ -224,7 +230,7 @@
          <% }else{ %>
             <% if(loginUser != null){ %>
                <% if(loginUser.getUserType() == 1){ %>
-                  <button onclick="subSiteMove('<%= form.getRwNo() %>, <%= loginUser.getUserNo() %>')">제휴 걸기</button>
+                  <button onclick="addAllian('<%= form.getRwNo() %>')">제휴 걸기</button>
                <% } %>
             <% } %>
          <% } %>

@@ -86,6 +86,12 @@ function linkMove(subSite){
 			}
 		});
 	}
+	
+	function addAllian(rwNo){
+		var URL = '/triangleView/views/alliance/allianceWriter.jsp?rwNo=' + rwNo;
+			
+		location.href=URL;
+   }
 </script>
 </head>
 <body>
@@ -166,7 +172,7 @@ function linkMove(subSite){
 			<% }else{ %>
 				<% if(loginUser != null){ %>
 					<% if(loginUser.getUserType() == 1){ %>
-						<button onclick="subSiteMove('<%= form.getRwNo() %>, <%= loginUser.getUserNo() %>')">제휴 걸기</button>
+						<button onclick="addAllian('<%= form.getRwNo() %>')">제휴 걸기</button>
 					<% } %>
 				<% } %>
 			<% } %>

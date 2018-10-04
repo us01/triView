@@ -759,7 +759,9 @@ public class ReviewDao {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		String query = prop.getProperty("findTodayRwCount");
-
+		
+		System.out.println("투데이카운트가 있는지 : " + rwNo);
+		
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, rwNo);
