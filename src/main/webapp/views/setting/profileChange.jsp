@@ -94,7 +94,7 @@ span {
                <span class="imageSpan">프로필 이미지</span> 
                <input type='file' id="imgInput" name="imgInput" accept="image/gif, image/jpeg, image/png" style="visibility: hidden;" /> 
                <label for="imgInput" class="ico_test1" id="icon_test1">
-               <img class="profileOut" id="image_section" src="<%=request.getContextPath()%>/thumbnail_upload/<%=loginUser.getThumbnail() %>"  />
+               <img class="profileOut" id="image_section" src="<%=request.getContextPath()%>/profileImg_upload/<%=loginUser.getThumbnail() %>"  />
                </label>
          </div>
        

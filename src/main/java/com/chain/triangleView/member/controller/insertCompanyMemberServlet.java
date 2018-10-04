@@ -193,6 +193,9 @@ public class insertCompanyMemberServlet extends HttpServlet {
 							//받아온 카테고리 value값을 스플릿하기
 							String cateNum[] = categories.split(",");
 							//체크한 번호를 객체에 담아줌
+							for(int i =0; i < cateNum.length; i++){
+								System.out.println("몇 번 : " + cateNum[i]);
+							}
 							if(cateNum != null){
 								userNoCheck.setCateNum(cateNum);	
 								int result2 = new MemberService().insertCategory1(userNoCheck);

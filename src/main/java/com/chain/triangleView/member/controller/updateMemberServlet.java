@@ -50,7 +50,7 @@ public class updateMemberServlet extends HttpServlet {
 	         // System.out.println(root);
 	         
 	         //저장경로설정
-	         String savePath = root + "thumbnail_upload/";
+	         String savePath = root + "profileImg_upload/";
 
 	         //파일저장이름 설정
 	         MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8",

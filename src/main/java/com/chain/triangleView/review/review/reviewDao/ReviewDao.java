@@ -530,7 +530,7 @@ public class ReviewDao {
 
 		try {
 			pstmt = con.prepareStatement(query);
-			System.out.println(resultHash);
+			
 			pstmt.setString(1, resultHash);
 			pstmt.setInt(2, rwNoCheck.getRwNo());
 
@@ -562,6 +562,7 @@ public class ReviewDao {
 				rwResult = new Review();
 
 				rwResult.setRwNo(rset.getInt("rwNo"));
+				
 			}
 
 
